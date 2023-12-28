@@ -15,7 +15,7 @@ class _NavigationState extends State<Navigation> {
       padding: EdgeInsets.only(top: 10),
       width: double.infinity,
       height: 60,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30), topRight: Radius.circular(30)),
           color: Colors.white),

@@ -7,7 +7,7 @@ class AppFonts {
     fontSize: 48,
     fontWeight: FontWeight.w700, // heading 1
     color: AppColor.fontColorPrimary,
-    height: 50,
+    // height: 0,
   );
 
   static TextStyle heading2 = TextStyle(
@@ -15,7 +15,7 @@ class AppFonts {
     fontSize: 40,
     fontWeight: FontWeight.w600, // heading 2
     color: AppColor.fontColorPrimary,
-    height: 40,
+    // height: 0,
   );
 
   static TextStyle heading3 = TextStyle(
@@ -23,7 +23,7 @@ class AppFonts {
     fontSize: 36,
     fontWeight: FontWeight.w600, // heading 3
     color: AppColor.fontColorPrimary,
-    height: 40,
+    // height: 0,
   );
 
   static TextStyle largeMediumText = TextStyle(
@@ -31,7 +31,7 @@ class AppFonts {
     fontSize: 24,
     fontWeight: FontWeight.w500, // large medium
     color: AppColor.fontColorPrimary,
-    height: 30,
+    // height: 0,
   );
 
   static TextStyle largeMediumTextWhite = TextStyle(
@@ -39,15 +39,23 @@ class AppFonts {
     fontSize: 24,
     fontWeight: FontWeight.w500, // large medium white
     color: AppColor.fontColorSecondary,
-    height: 30,
+    // height: 0,
   );
 
   static TextStyle normalRegularText = TextStyle(
     fontFamily: "LeagueSpartan",
     fontSize: 20,
-    fontWeight: FontWeight.w400, // normal regular
+    fontWeight: FontWeight.w500, // normal regular
     color: AppColor.fontColorPrimary,
-    height: 20,
+    // height: 0,
+  );
+
+  static TextStyle normalRegularTextWhite = TextStyle(
+    fontFamily: "LeagueSpartan",
+    fontSize: 20,
+    fontWeight: FontWeight.w500, // normal regular
+    color: AppColor.fontColorSecondary,
+    // height: 0,
   );
 
   static TextStyle smallRegularText = TextStyle(
@@ -55,22 +63,22 @@ class AppFonts {
     fontSize: 16,
     fontWeight: FontWeight.w500, // small regular
     color: AppColor.fontColorPrimary,
-    height: 18,
+    // height: 0,
   );
 
   static TextStyle smallLightText = TextStyle(
     fontFamily: "LeagueSpartan",
-    fontSize: 12,
-    fontWeight: FontWeight.w300, // small light gray
+    fontSize: 16,
+    fontWeight: FontWeight.w400, // small light gray
     color: AppColor.fontColorPrimary,
-    height: 12,
+    // height: 0,
   );
 
   static TextStyle smallLightTextWhite = TextStyle(
     fontFamily: "LeagueSpartan",
-    fontSize: 12,
-    fontWeight: FontWeight.w300, // small light white
+    fontSize: 16,
+    fontWeight: FontWeight.w400, // small light white
     color: AppColor.fontColorSecondary,
-    height: 12,
+    // height: 0,
   );
 }
