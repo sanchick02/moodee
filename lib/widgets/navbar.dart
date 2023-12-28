@@ -14,7 +14,7 @@ class _NavigationState extends State<Navigation> {
     return Container(
       width: double.infinity,
       height: 60,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30), topRight: Radius.circular(30)),
           color: Colors.white),

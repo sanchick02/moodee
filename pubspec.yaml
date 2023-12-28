@@ -61,17 +61,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - lib/assets/images/event1.jpg
-    - lib/assets/images/event2.png
-    - lib/assets/images/event3.jpg
-    - lib/assets/images/Logo.png
-    - lib/assets/images/moodtracker.png
-    - lib/assets/icons/bell.png
-    - lib/assets/icons/chat.png
-    - lib/assets/icons/forum.png
-    - lib/assets/icons/home.png
-    - lib/assets/icons/profile.png
-    -
+    - lib/assets/images/
+    - lib/assets/icons/
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
@@ -87,6 +78,14 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: LeagueSpartan
+      fonts:
+        - asset: lib/assets/fonts/LeagueSpartan-Bold.ttf
+        - asset: lib/assets/fonts/LeagueSpartan-Light.ttf
+        - asset: lib/assets/fonts/LeagueSpartan-Medium.ttf
+        - asset: lib/assets/fonts/LeagueSpartan-Regular.ttf
+
   # fonts:
   #   - family: Schyler
   #     fonts:

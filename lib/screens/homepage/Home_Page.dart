@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:moodee/navbar.dart';
+import 'package:moodee/presets/colors.dart';
+import 'package:moodee/widgets/navbar.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/widgets.dart';
 
@@ -10,7 +11,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFE5E7F2),
+        backgroundColor: AppColor.backgroundColor,
         body: Stack(children: [
           SingleChildScrollView(
             padding: EdgeInsets.only(top: 50, right: 20, left: 20, bottom: 0),
