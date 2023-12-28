@@ -71,7 +71,24 @@ flutter:
     - lib/assets/icons/forum.png
     - lib/assets/icons/home.png
     - lib/assets/icons/profile.png
-    -
+    - lib/assets/images/therapist1.png
+    - lib/assets/images/therapist2.png
+    - lib/assets/images/story5.jpg
+    - lib/assets/images/meshGrad1.png
+    - lib/assets/images/med8.jpg
+    - lib/assets/icons/Rating.png
+    - lib/assets/icons/arrow_next_gray_small.png
+    - lib/assets/images/meshGrad1.png
+    - lib/assets/icons/Location.png
+    - lib/assets/images/therapist3.png
+    - lib/assets/images/music1.jpeg
+    - lib/assets/images/music2.jpg
+    - lib/assets/icons/play_music.png
+    - lib/assets/images/65.png
+    - lib/assets/images/66.png
+    - lib/assets/images/67.png
+    - lib/assets/images/68.png
+    - lib/assets/images/bot.png
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

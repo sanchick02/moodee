@@ -11,6 +11,7 @@ class _NavigationState extends State<Navigation> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.only(top: 10),
       width: double.infinity,
       height: 60,
       decoration: BoxDecoration(
@@ -20,27 +21,69 @@ class _NavigationState extends State<Navigation> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Image.asset(
-            "lib/assets/icons/home.png",
-            height: 30,
-            width: 30,
+          Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Image.asset(
+                  "lib/assets/images/65.png",
+                  height: 30,
+                  width: 30,
+                ),
+                Spacer(),
+                Text("Home")
+              ],
+            ),
           ),
-          Image.asset(
-            "lib/assets/icons/chat.png",
-            height: 30,
-            width: 30,
+          Container(
+            child: Column(
+              children: [
+                Image.asset(
+                  "lib/assets/images/68.png",
+                  height: 27,
+                  width: 27,
+                ),
+                Spacer(),
+                Text("Chat")
+              ],
+            ),
           ),
-          Icon(Icons.abc),
-          Image.asset(
-            "lib/assets/icons/forum.png",
-            height: 30,
-            width: 30,
+          Container(
+            child: Column(
+              children: [
+                Image.asset(
+                  "lib/assets/images/bot.png",
+                  height: 30,
+                  width: 30,
+                ),
+                Text("Bazoot")
+              ],
+            ),
           ),
-          Image.asset(
-            "lib/assets/icons/profile.png",
-            height: 30,
-            width: 30,
-          )
+          Container(
+            child: Column(
+              children: [
+                Image.asset(
+                  "lib/assets/images/66.png",
+                  height: 30,
+                  width: 30,
+                ),
+                Text("Forum")
+              ],
+            ),
+          ),
+          Container(
+            child: Column(
+              children: [
+                Image.asset(
+                  "lib/assets/images/67.png",
+                  height: 30,
+                  width: 30,
+                ),
+                Text("Profile")
+              ],
+            ),
+          ),
         ],
       ),
     );
