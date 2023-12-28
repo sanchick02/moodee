@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:moodee/presets/colors.dart';
-import 'package:moodee/widgets/navbar.dart';
+import 'package:moodee/navbar.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/widgets.dart';
 
