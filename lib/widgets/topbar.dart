@@ -6,6 +6,7 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
+import 'package:moodee/widgets/back_button_top.dart';
 
 class TopBar extends StatelessWidget {
   final String title;
@@ -35,13 +36,7 @@ class TopBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            IconButton(
-              icon: Image.asset(
-                "lib/assets/icons/arrow_back_gray_small.png",
-                width: 50,
-              ),
-              onPressed: onBackButtonPressed,
-            ),
+            BackButtonTop(onBackButtonPressed: onBackButtonPressed),
             Padding(
               padding: padding,
               child: Column(
@@ -67,3 +62,5 @@ class TopBar extends StatelessWidget {
     );
   }
 }
+
+

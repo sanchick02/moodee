@@ -5,28 +5,28 @@ class AppShadow {
   static BoxShadow innerShadow1 = BoxShadow(
     offset: const Offset(-4, -4),
     blurRadius: 10,
-    color: Colors.black.withOpacity(0.8),
+    color: Colors.black.withOpacity(0.6),
     inset: true,
   );
 
   static BoxShadow innerShadow2 = BoxShadow(
-    offset: const Offset(-4, -4),
+    offset: const Offset(4, 4),
     blurRadius: 10,
     color: Colors.black.withOpacity(0.6),
     inset: true,
   );
 
   static BoxShadow innerShadow3 = BoxShadow(
-    offset: const Offset(-4, -4),
+    offset: const Offset(-2, -2),
     blurRadius: 10,
     color: Colors.black.withOpacity(0.4),
     inset: true,
   );
 
   static BoxShadow innerShadow4 = BoxShadow(
-    offset: const Offset(4, 4),
-    blurRadius: 20,
-    color: Colors.black.withOpacity(0.3),
+    offset: const Offset(2, 2),
+    blurRadius: 10,
+    color: Colors.black.withOpacity(0.4),
     inset: true,
   );
 }

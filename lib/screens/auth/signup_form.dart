@@ -98,7 +98,9 @@ class _SignUpFormState extends State<SignUpForm> {
           text: "Sign Up Now",
           backgroundColor: AppColor.btnColorPrimary,
           height: 50,
+          width: double.infinity,
           fontStyle: AppFonts.normalRegularTextWhite,
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           press: () {
             setState(() {
               navigateNextPage(context, AuthScreen());

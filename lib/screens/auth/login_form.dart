@@ -1,11 +1,8 @@
-import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
-import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:flutter/material.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
-import 'package:moodee/presets/shadow.dart';
-import 'package:moodee/screens/questions/question_screen.dart';
-import 'package:moodee/screens/questions/questions.dart';
+import 'package:moodee/screens/therapist/therapist_screen.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/formfield.dart';
 
@@ -51,13 +48,19 @@ class _LoginFormState extends State<LoginForm> {
           text: "Login Now",
           backgroundColor: AppColor.btnColorPrimary,
           height: 50,
+          width: double.infinity,
           fontStyle: AppFonts.normalRegularTextWhite,
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           press: () {
             navigateNextPage(
               context,
-              QuestionsScreen(
-                questions: questionsList,
-              ),
+              // const QuestionsScreen(
+              //   questions: questionsList,
+              // ),
+              // TherapyScreen(
+              //   mediaItem: meditationList[0],
+              // ),
+              const TherapistScreen(),
             );
           },
         ),
