@@ -6,6 +6,8 @@ import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
 import 'package:moodee/screens/therapist/popup_therapist.dart';
+import 'package:moodee/screens/therapist/therapist_screen.dart';
+import 'package:moodee/screens/therapist_detail.dart';
 
 class TherapistCard extends StatelessWidget {
   TherapistCard({
@@ -49,7 +51,19 @@ class TherapistCard extends StatelessWidget {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {
-                            return const PopUpTherapist(); // Your custom popup content
+                            // to to therapist_detail.dart based on the index
+                            for (int i = 0; i < therapistList.length; i++) {
+                              if (i == index) {
+                                return TherapistDetailScreen(
+                                  index: i,
+                                  therapistList: therapistList,
+                                );
+                              }
+                            }
+                            return TherapistDetailScreen(
+                              index: 0,
+                              therapistList: therapistList,
+                            );
                           },
                         );
                       }, // open pop up
@@ -134,7 +148,8 @@ class AvailabilityButton extends StatefulWidget {
   final bool isSelected;
   final VoidCallback onPressed;
 
-  const AvailabilityButton({super.key, 
+  const AvailabilityButton({
+    super.key,
     required this.time,
     required this.isSelected,
     required this.onPressed,
