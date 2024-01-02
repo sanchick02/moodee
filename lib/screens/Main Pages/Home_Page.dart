@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/navbar.dart';
 import 'package:moodee/presets/fonts.dart';
-import 'package:moodee/widgets.dart';
+import 'package:moodee/widgets/Home_Chat_widget.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -168,12 +168,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 30,
                 ),
                 Container(
-                  height: 180,
-                  width: 370,
-                  decoration: BoxDecoration(
+                    height: 180,
+                    width: 370,
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
-                      color: Color(0xFF8E83FF)),
-                ),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Image.asset(
+                        "lib/assets/images/Carousel.jpg",
+                        fit: BoxFit.cover,
+                      ),
+                    )),
                 SizedBox(
                   height: 30,
                 ),
@@ -416,10 +422,6 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Navigation(),
-          )
         ]));
   }
 }
