@@ -377,3 +377,127 @@ class MusicWidget extends StatelessWidget {
     ;
   }
 }
+
+class Chat extends StatelessWidget {
+  final String Photo;
+  final String Name;
+  final String Role;
+  final String Desc;
+
+  // Parameter to hold the image path
+  const Chat({
+    required this.Photo,
+    required this.Name,
+    required this.Desc,
+    required this.Role,
+
+    // Require imagePath when creating the widget
+    Key? key,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 70,
+          width: 350,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                height: 70,
+                width: 70,
+                decoration: BoxDecoration(
+                    shape: BoxShape.circle, color: Color(0xFFE5E7F2)),
+                child: Image.asset(
+                  Photo,
+                  height: 65,
+                  width: 65,
+                ),
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    Name,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                  ),
+                  Text(Role),
+                  Text(Desc),
+                ],
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Container(
+          width: 350,
+          height: 1,
+          color: Colors.black.withOpacity(0.3),
+        )
+      ],
+    );
+  }
+}
+
+class NotificationWidget extends StatelessWidget {
+  final String Time;
+  final String Event;
+
+  final String Desc;
+
+  // Parameter to hold the image path
+  const NotificationWidget({
+    required this.Time,
+    required this.Event,
+    required this.Desc,
+
+    // Require imagePath when creating the widget
+    Key? key,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(top: 15, left: 17, right: 17),
+      height: 100,
+      width: 400,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(30),
+        color: Colors.white,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                Event,
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+              ),
+              Text(
+                Time,
+                style: TextStyle(fontSize: 10),
+              )
+            ],
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            Desc,
+            style: TextStyle(fontSize: 11),
+          )
+        ],
+      ),
+    );
+  }
+}
