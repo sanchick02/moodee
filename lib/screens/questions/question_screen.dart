@@ -4,7 +4,6 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/Home_Page.dart';
 import 'package:moodee/screens/mood_tracker_screen.dart';
-import 'package:moodee/screens/Main%20Pages/Home_Page.dart';
 import 'package:moodee/widgets/button.dart';
 
 
