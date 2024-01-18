@@ -7,8 +7,8 @@ import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/screens/auth/auth.dart';
 import 'package:moodee/screens/auth/login_form.dart';
 import 'package:moodee/widgets/button.dart';
-import 'package:moodee/widgets/formfield.dart';
-import 'package:moodee/widgets/gender_toggle.dart';
+import 'package:moodee/widgets/auth_widgets/formfield.dart';
+import 'package:moodee/widgets/auth_widgets/gender_toggle.dart';
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -98,7 +98,9 @@ class _SignUpFormState extends State<SignUpForm> {
           text: "Sign Up Now",
           backgroundColor: AppColor.btnColorPrimary,
           height: 50,
+          width: double.infinity,
           fontStyle: AppFonts.normalRegularTextWhite,
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           press: () {
             setState(() {
               navigateNextPage(context, AuthScreen());

@@ -12,18 +12,21 @@ class DefaultButton extends StatelessWidget {
     required this.backgroundColor,
     required this.height,
     required this.fontStyle,
+    required this.width, required this.padding,
   });
 
   final Color backgroundColor;
   final TextStyle fontStyle;
   final double height;
   final String text;
+  final double width;
   final VoidCallback press; // shorthand for void Function()
+  final EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
+      width: width,
       height: height,
       child: Stack(
         children: [
@@ -40,6 +43,7 @@ class DefaultButton extends StatelessWidget {
             child: TextButton(
               onPressed: press,
               style: ButtonStyle(
+                padding: MaterialStatePropertyAll(padding),
                 backgroundColor:
                     const MaterialStatePropertyAll(Colors.transparent),
                 shape: MaterialStateProperty.all(

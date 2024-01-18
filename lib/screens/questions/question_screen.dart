@@ -65,7 +65,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                             text: Text(currentQuestion['button1']).data!,
                             backgroundColor: AppColor.btnColorSecondary,
                             height: 40,
+                            width: double.infinity,
                             fontStyle: AppFonts.normalRegularText,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 8),
                             press: () {
                               _handleButtonPress(currentQuestion['button1']);
                             },
@@ -76,7 +79,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                             text: Text(currentQuestion['button2']).data!,
                             backgroundColor: AppColor.btnColorSecondary,
                             height: 40,
+                            width: double.infinity,
                             fontStyle: AppFonts.normalRegularText,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 8),
                             press: () {
                               _handleButtonPress(currentQuestion['button2']);
                             },
@@ -87,7 +93,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                             text: Text(currentQuestion['button3']).data!,
                             backgroundColor: AppColor.btnColorSecondary,
                             height: 40,
+                            width: double.infinity,
                             fontStyle: AppFonts.normalRegularText,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 8),
                             press: () {
                               _handleButtonPress(currentQuestion['button3']);
                             },
@@ -98,7 +107,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                             text: Text(currentQuestion['button4']).data!,
                             backgroundColor: AppColor.btnColorSecondary,
                             height: 40,
+                            width: double.infinity,
                             fontStyle: AppFonts.normalRegularText,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 8),
                             press: () {
                               _handleButtonPress(currentQuestion['button4']);
                             },
@@ -113,7 +125,10 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                 text: Text(currentQuestion['button5']).data!,
                                 backgroundColor: AppColor.btnColorSecondary,
                                 height: 40,
+                                width: double.infinity,
                                 fontStyle: AppFonts.normalRegularText,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 8),
                                 press: () {
                                   _handleButtonPress(
                                       currentQuestion['button5']);
@@ -131,10 +146,20 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                 text: Text(currentQuestion['button5']).data!,
                                 backgroundColor: AppColor.btnColorSecondary,
                                 height: 40,
+                                width: double.infinity,
                                 fontStyle: AppFonts.normalRegularText,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 8),
                                 press: () {
-                                  _handleButtonPress(
-                                      currentQuestion['button5']);
+                                  // _handleButtonPress(
+                                  //   currentQuestion['button5'],
+                                  // );
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return MoodTrackerScreen();
+                                    },
+                                  );
                                 },
                               ),
                               Padding(
