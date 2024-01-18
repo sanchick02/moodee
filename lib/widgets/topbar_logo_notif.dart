@@ -7,21 +7,24 @@ class TopBarLogoNotif extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Image.asset(
-          "lib/assets/images/Logo.png",
-          width: 100,
-        ),
-        const Spacer(),
-        IconButton(
-          onPressed: () {},
-          icon: Image.asset(
-            "lib/assets/icons/bell.png",
-            width: 30,
+    return Padding(
+      padding: const EdgeInsets.only(left: 15, right: 15),
+      child: Row(
+        children: [
+          Image.asset(
+            "lib/assets/images/Logo.png",
+            width: 100,
           ),
-        ),
-      ],
+          const Spacer(),
+          IconButton(
+            onPressed: () {},
+            icon: Image.asset(
+              "lib/assets/icons/bell.png",
+              width: 30,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -23,7 +23,14 @@ class AppFonts {
     fontSize: 36,
     fontWeight: FontWeight.w600, // heading 3
     color: AppColor.fontColorPrimary,
-    // height: 0,
+  );
+
+  static TextStyle heading3Height = TextStyle(
+    fontFamily: "LeagueSpartan",
+    fontSize: 36,
+    fontWeight: FontWeight.w500, // heading 3
+    color: AppColor.fontColorPrimary,
+    height: 1,
   );
 
   static TextStyle largeMediumText = TextStyle(
@@ -31,8 +38,16 @@ class AppFonts {
     fontSize: 24,
     fontWeight: FontWeight.w500, // large medium
     color: AppColor.fontColorPrimary,
-    // height: 0,
   );
+
+  // static TextStyle largeMediumTextHeight = TextStyle(
+  //   fontFamily: "LeagueSpartan",
+  //   fontSize: 24,
+  //   fontWeight: FontWeight.w500, // large medium
+  //   color: AppColor.fontColorPrimary,
+  //   height: -1
+
+  // );
 
   static TextStyle largeMediumTextWhite = TextStyle(
     fontFamily: "LeagueSpartan",
@@ -47,7 +62,14 @@ class AppFonts {
     fontSize: 20,
     fontWeight: FontWeight.w500, // normal regular
     color: AppColor.fontColorPrimary,
-    // height: 0,
+  );
+
+  static TextStyle normalRegularTextHeight = TextStyle(
+    fontFamily: "LeagueSpartan",
+    fontSize: 20,
+    fontWeight: FontWeight.w500, // normal regular
+    color: AppColor.fontColorPrimary,
+    height: 1,
   );
 
   static TextStyle normalRegularTextWhite = TextStyle(

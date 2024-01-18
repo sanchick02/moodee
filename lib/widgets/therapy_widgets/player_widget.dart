@@ -4,7 +4,7 @@ import 'package:moodee/models/therapy_items_model.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/styles.dart';
-import 'package:moodee/widgets/progress_indicator.dart';
+import 'package:moodee/widgets/therapy_widgets/progress_indicator.dart';
 import 'package:moodee/widgets/rounded_button.dart';
 
 class PlayerWidget<T extends MediaItem> extends StatefulWidget {

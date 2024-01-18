@@ -1,9 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:moodee/data/therapy_lists.dart';
 import 'package:moodee/models/media_item_model.dart';
 import 'package:moodee/models/therapy_items_model.dart';
-import 'package:moodee/widgets/therapy_card.dart';
+import 'package:moodee/widgets/therapy_widgets/therapy_card.dart';
 
 class TherapyFiltered extends StatelessWidget {
   const TherapyFiltered({
@@ -28,10 +27,20 @@ class TherapyFiltered extends StatelessWidget {
     final rowWidgets = <Widget>[];
     for (int i = 0; i < mediaList.length; i += 2) {
       final card1 = i < mediaList.length
-          ? TherapyCard(mediaList[i], mediaItem: mediaList[i])
+          ? TherapyCard(
+              mediaList[i],
+              mediaItem: mediaList[i],
+              margin: const EdgeInsets.only(left: 15),
+            )
           : Container();
       final card2 = (i + 1) < mediaList.length
-          ? TherapyCard(mediaList[i + 1], mediaItem: mediaList[i + 1])
+          ? TherapyCard(
+              mediaList[i + 1],
+              mediaItem: mediaList[i + 1],
+              margin: const EdgeInsets.only(
+                right: 15,
+              ),
+            )
           : Container();
 
       final row = Row(

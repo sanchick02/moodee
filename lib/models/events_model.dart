@@ -7,6 +7,8 @@ class Event {
   final String day;
   final String time;
   final String image;
+  final List<String> eventHighlights;
+  final List<String> eventImages;
 
   Event(
       {required this.name,
@@ -16,5 +18,7 @@ class Event {
       required this.day,
       required this.time,
       required this.image,
-      required this.month});
+      required this.month,
+      required this.eventHighlights,
+      required this.eventImages});
 }

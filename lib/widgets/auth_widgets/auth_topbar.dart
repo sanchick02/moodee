@@ -32,7 +32,7 @@ class TopBar extends StatelessWidget {
             AppShadow.innerShadow2,
           ]),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.only(left: 15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -62,5 +62,3 @@ class TopBar extends StatelessWidget {
     );
   }
 }
-
-

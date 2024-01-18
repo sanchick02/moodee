@@ -4,8 +4,8 @@ import 'package:moodee/models/media_item_model.dart';
 import 'package:moodee/models/therapy_items_model.dart';
 
 import 'package:moodee/widgets/back_button_top.dart';
-import 'package:moodee/widgets/player_logo_and_title.dart';
-import 'package:moodee/widgets/player_widget.dart';
+import 'package:moodee/widgets/therapy_widgets/player_logo_and_title.dart';
+import 'package:moodee/widgets/therapy_widgets/player_widget.dart';
 
 class TherapyPlayerScreen extends StatelessWidget {
   const TherapyPlayerScreen({

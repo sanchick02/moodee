@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:moodee/data/questions.dart';
+import 'package:moodee/data/therapy_lists.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
+import 'package:moodee/screens/events/event_screen.dart';
+import 'package:moodee/screens/mood_tracker_screen.dart';
+import 'package:moodee/screens/profile/profile_screen.dart';
+import 'package:moodee/screens/questions/question_screen.dart';
 import 'package:moodee/screens/therapist/therapist_screen.dart';
+import 'package:moodee/screens/therapy/therapy_screen.dart';
 import 'package:moodee/widgets/button.dart';
-import 'package:moodee/widgets/formfield.dart';
+import 'package:moodee/widgets/auth_widgets/formfield.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -60,7 +67,9 @@ class _LoginFormState extends State<LoginForm> {
               // TherapyScreen(
               //   mediaItem: meditationList[0],
               // ),
-              const TherapistScreen(),
+              // const TherapistScreen(),
+              // EventScreen(),
+              MoodTrackerScreen(),
             );
           },
         ),

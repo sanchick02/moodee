@@ -3,6 +3,7 @@ import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/Home_Page.dart';
+import 'package:moodee/screens/mood_tracker_screen.dart';
 import 'package:moodee/widgets/button.dart';
 
 class QuestionsScreen extends StatefulWidget {
@@ -149,8 +150,15 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 12, vertical: 8),
                                 press: () {
-                                  _handleButtonPress(
-                                      currentQuestion['button5']);
+                                  // _handleButtonPress(
+                                  //   currentQuestion['button5'],
+                                  // );
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return MoodTrackerScreen();
+                                    },
+                                  );
                                 },
                               ),
                               Padding(

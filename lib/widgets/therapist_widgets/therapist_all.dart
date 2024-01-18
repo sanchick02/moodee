@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moodee/data/therapists.dart';
-import 'package:moodee/widgets/therapist_card.dart';
+import 'package:moodee/widgets/therapist_widgets/therapist_card.dart';
 
 class TherapistAll extends StatelessWidget {
   const TherapistAll({

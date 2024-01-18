@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:moodee/data/therapy_lists.dart';
 import 'package:moodee/models/media_item_model.dart';
+import 'package:moodee/screens/community/community_screen.dart';
+import 'package:moodee/screens/events/event_screen.dart';
+import 'package:moodee/screens/profile/profile_screen.dart';
+import 'package:moodee/screens/therapist/therapist_screen.dart';
 import 'package:moodee/screens/therapy/therapy_player_screen.dart';
 import 'package:moodee/Home_Page.dart';
+import 'package:moodee/screens/therapy/therapy_screen.dart';
 
 // to be reused as a navigator for switching pages
 
@@ -21,22 +27,34 @@ void navigateToPlayer(BuildContext context, MediaItem mediaItem) {
   );
 }
 
-navbarNavigation(BuildContext context, int index) {
-  switch (index) {
-    case 0:
-      navigateNextPage(context, const HomeScreen());
-      break;
-    case 1:
-      navigateNextPage(context, const HomeScreen());
-      break;
-    case 2:
-      navigateNextPage(context, const HomeScreen());
-      break;
-    case 3:
-      navigateNextPage(context, const HomeScreen());
-      break;
-    case 4:
-      navigateNextPage(context, const HomeScreen());
-      break;
+navbarNavigation(BuildContext context, int currentIndex, int selectedIndex) {
+  if (currentIndex != selectedIndex) {
+    switch (selectedIndex) {
+      case 0:
+        navigateNextPage(context, const CommunityScreen());
+        break;
+      case 1:
+        navigateNextPage(context, const EventScreen());
+        break;
+      case 2:
+        navigateNextPage(context, const TherapistScreen());
+        break;
+      case 3:
+        navigateNextPage(
+            context,
+            // TherapyScreen(
+            //   mediaItem: meditationList[0],
+            // ),
+            CommunityScreen());
+        break;
+      case 4:
+        navigateNextPage(context, const ProfileScreen());
+        break;
+      // Add more cases for other screens as needed
+
+      default:
+        // Handle other cases if needed
+        break;
+    }
   }
 }

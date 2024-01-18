@@ -10,7 +10,7 @@ class DividerLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Divider(
-      thickness: 1,
+      thickness: 0.8,
       color: AppColor.fontColorPrimary,
     );
   }
