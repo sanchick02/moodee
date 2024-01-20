@@ -25,7 +25,7 @@ class EventScreen extends StatelessWidget {
           child: Column(
             children: [
               TopBarLogoNotif(),
-              ScreenTitle(title: "Events (Testing)"),
+              ScreenTitle(title: "Events Nearby"),
               SizedBox(height: 15),
               EventsAll(),
             ],

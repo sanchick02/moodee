@@ -97,48 +97,18 @@ class _TherapyScreenState extends State<TherapyScreen> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          TherapyCard(
-                            meditationList[0],
-                            mediaItem: meditationList[0],
-                            margin: const EdgeInsets.only(left: 15),
+                        children: List.generate(
+                          meditationList.length,
+                          (index) => TherapyCard(
+                            meditationList[index],
+                            mediaItem: meditationList[index],
+                            margin: EdgeInsets.only(
+                              left: 15,
+                              right:
+                                  index == meditationList.length - 1 ? 15 : 0,
+                            ),
                           ),
-                          TherapyCard(
-                            meditationList[1],
-                            mediaItem: meditationList[1],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            meditationList[2],
-                            mediaItem: meditationList[2],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            meditationList[3],
-                            mediaItem: meditationList[3],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            meditationList[4],
-                            mediaItem: meditationList[4],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            meditationList[5],
-                            mediaItem: meditationList[5],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            meditationList[6],
-                            mediaItem: meditationList[6],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            meditationList[7],
-                            mediaItem: meditationList[7],
-                            margin: const EdgeInsets.only(left: 15, right: 15),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 30),
@@ -160,48 +130,17 @@ class _TherapyScreenState extends State<TherapyScreen> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          TherapyCard(
-                            musicList[0],
-                            mediaItem: musicList[0],
-                            margin: const EdgeInsets.only(left: 15),
+                        children: List.generate(
+                          musicList.length,
+                          (index) => TherapyCard(
+                            musicList[index],
+                            mediaItem: musicList[index],
+                            margin: EdgeInsets.only(
+                              left: 15,
+                              right: index == musicList.length - 1 ? 15 : 0,
+                            ),
                           ),
-                          TherapyCard(
-                            musicList[1],
-                            mediaItem: musicList[1],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            musicList[2],
-                            mediaItem: musicList[2],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            musicList[3],
-                            mediaItem: musicList[3],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            musicList[4],
-                            mediaItem: musicList[4],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            musicList[5],
-                            mediaItem: musicList[5],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            musicList[6],
-                            mediaItem: musicList[6],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            musicList[7],
-                            mediaItem: musicList[7],
-                            margin: const EdgeInsets.only(left: 15, right: 15),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 30),
@@ -223,48 +162,17 @@ class _TherapyScreenState extends State<TherapyScreen> {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          TherapyCard(
-                            storyList[0],
-                            mediaItem: storyList[0],
-                            margin: const EdgeInsets.only(left: 15),
+                        children: List.generate(
+                          storyList.length,
+                          (index) => TherapyCard(
+                            storyList[index],
+                            mediaItem: storyList[index],
+                            margin: EdgeInsets.only(
+                              left: 15,
+                              right: index == storyList.length - 1 ? 15 : 0,
+                            ),
                           ),
-                          TherapyCard(
-                            storyList[1],
-                            mediaItem: storyList[1],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            storyList[2],
-                            mediaItem: storyList[2],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            storyList[3],
-                            mediaItem: storyList[3],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            storyList[4],
-                            mediaItem: storyList[4],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            storyList[5],
-                            mediaItem: storyList[5],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            storyList[6],
-                            mediaItem: storyList[6],
-                            margin: const EdgeInsets.only(left: 15),
-                          ),
-                          TherapyCard(
-                            storyList[7],
-                            mediaItem: storyList[7],
-                            margin: const EdgeInsets.only(left: 15, right: 15),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 30),

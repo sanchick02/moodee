@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
-import 'package:moodee/Home_Page.dart';
+import 'package:moodee/screens/home_screen.dart';
 import 'package:moodee/screens/mood_tracker_screen.dart';
 import 'package:moodee/widgets/button.dart';
-
 
 class QuestionsScreen extends StatefulWidget {
   final List<Map<String, dynamic>> questions;

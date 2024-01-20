@@ -12,10 +12,18 @@ class TherapistAll extends StatelessWidget {
     final rowWidgets = <Widget>[];
     for (int i = 0; i < therapistList.length; i += 2) {
       final card1 = i < therapistList.length
-          ? TherapistCard(therapistList: therapistList, index: i)
+          ? TherapistCard(
+              therapistList: therapistList,
+              index: i,
+              margin: const EdgeInsets.only(left: 15),
+            )
           : Container();
       final card2 = (i + 1) < therapistList.length
-          ? TherapistCard(index: i + 1, therapistList: therapistList)
+          ? TherapistCard(
+              index: i + 1,
+              therapistList: therapistList,
+              margin: const EdgeInsets.only(right: 15),
+            )
           : Container();
 
       final row = Row(

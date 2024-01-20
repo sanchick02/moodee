@@ -118,4 +118,12 @@ class AppFonts {
     color: AppColor.fontColorSecondary,
     // height: 0,
   );
+
+  static TextStyle extraSmallRegularText = TextStyle(
+    fontFamily: "LeagueSpartan",
+    fontSize: 13,
+    fontWeight: FontWeight.w400, // small light gray
+    color: AppColor.fontColorPrimary,
+    // height: 0,
+  );
 }

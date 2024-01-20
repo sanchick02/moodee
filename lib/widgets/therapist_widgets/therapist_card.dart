@@ -13,20 +13,22 @@ class TherapistCard extends StatelessWidget {
     super.key,
     required this.therapistList,
     required this.index,
+    required this.margin,
   });
 
   List<Therapist> therapistList;
   final int index;
+  final EdgeInsets margin;
 
   @override
   Widget build(BuildContext context) {
-    bool isEvenIndex = index % 2 == 0;
-    bool isOddIndex = !isEvenIndex;
+    // bool isEvenIndex = index % 2 == 0;
+    // bool isOddIndex = !isEvenIndex;
 
-    EdgeInsets cardMargin = EdgeInsets.only(
-      left: isEvenIndex ? 15.0 : 0.0,
-      right: isOddIndex ? 15.0 : 0.0,
-    );
+    // EdgeInsets cardMargin = EdgeInsets.only(
+    //   left: isEvenIndex ? 15.0 : 0.0,
+    //   right: isOddIndex ? 15.0 : 0.0,
+    // );
 
     return GestureDetector(
       onTap: () {
@@ -40,7 +42,7 @@ class TherapistCard extends StatelessWidget {
         );
       },
       child: Container(
-        margin: cardMargin,
+        margin: margin,
         child: Stack(
           children: [
             Container(

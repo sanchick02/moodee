@@ -39,6 +39,7 @@ dependencies:
   riverpod: ^2.4.9
   bulleted_list: ^0.0.1+0.1a
   rive: ^0.12.4
+  table_calendar: ^3.0.9
 
 dev_dependencies:
   flutter_test:

@@ -14,10 +14,20 @@ class EventsAll extends StatelessWidget {
     final rowWidgets = <Widget>[];
     for (int i = 0; i < eventList.length; i += 2) {
       final card1 = i < eventList.length
-          ? EventCard(eventList: eventList, index: i)
+          ? EventCard(
+              eventList: eventList,
+              index: i,
+              margin: const EdgeInsets.only(left: 15),
+            )
           : Container();
       final card2 = (i + 1) < eventList.length
-          ? EventCard(index: i + 1, eventList: eventList)
+          ? EventCard(
+              index: i + 1,
+              eventList: eventList,
+              margin: const EdgeInsets.only(
+                right: 15,
+              ),
+            )
           : Container();
 
       final row = Row(
