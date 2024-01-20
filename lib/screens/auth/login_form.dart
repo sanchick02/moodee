@@ -4,6 +4,7 @@ import 'package:moodee/data/therapy_lists.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
+import 'package:moodee/screens/home_screen.dart';
 import 'package:moodee/screens/events/event_screen.dart';
 import 'package:moodee/screens/mood_tracker_screen.dart';
 import 'package:moodee/screens/profile/profile_screen.dart';
@@ -68,8 +69,8 @@ class _LoginFormState extends State<LoginForm> {
               //   mediaItem: meditationList[0],
               // ),
               // const TherapistScreen(),
-              // EventScreen(),
-              MoodTrackerScreen(),
+              HomeScreen(),
+              // MoodTrackerScreen(),
             );
           },
         ),

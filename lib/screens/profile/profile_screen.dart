@@ -5,9 +5,11 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
+import 'package:moodee/screens/profile/calendar_screen.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/divider_line.dart';
 import 'package:moodee/widgets/nav_bar.dart';
+import 'package:moodee/widgets/profile_widgets/calendar_widget.dart';
 import 'package:moodee/widgets/profile_widgets/daily_mood_checkin.dart';
 import 'package:moodee/widgets/auth_widgets/toggle_switch_auth.dart';
 import 'package:moodee/widgets/toggle_switch.dart';
@@ -177,6 +179,12 @@ class ProfileScreen extends StatelessWidget {
                               ),
                             ],
                           ),
+                        ),
+                        const SizedBox(height: 10),
+                        GestureDetector(
+                          onTap: () =>
+                              navigateNextPage(context, CalendarScreen()),
+                          child: CustomCalendar(),
                         ),
                         const SizedBox(height: 10),
                         Container(

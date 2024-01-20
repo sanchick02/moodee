@@ -12,22 +12,15 @@ class EventCard extends StatelessWidget {
     super.key,
     required this.eventList,
     required this.index,
+    required this.margin,
   });
 
   List<Event> eventList;
   final int index;
+  final EdgeInsets margin;
 
   @override
   Widget build(BuildContext context) {
-    // Determine if the index is even or odd
-    bool isEvenIndex = index % 2 == 0;
-    bool isOddIndex = !isEvenIndex;
-
-    // Set left and right margins based on the index
-    EdgeInsets cardMargin = EdgeInsets.only(
-      left: isEvenIndex ? 15.0 : 0.0,
-      right: isOddIndex ? 15.0 : 0.0,
-    );
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
@@ -41,7 +34,7 @@ class EventCard extends StatelessWidget {
         );
       },
       child: Container(
-        margin: cardMargin,
+        margin: margin,
         child: Stack(
           children: [
             Container(
@@ -57,35 +50,56 @@ class EventCard extends StatelessWidget {
               ),
               child: Padding(
                 padding: const EdgeInsets.only(
-                  bottom: 5,
-                  left: 20,
+                  bottom: 3,
                 ),
                 child: Column(
                   children: [
                     const Spacer(),
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Text("View More"),
-                        IconButton(
-                          onPressed: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => EventDetailsScreen(
-                                  index: index,
-                                  eventList: eventList,
-                                  eventImage: '',
-                                ),
+                        SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                eventList[index].month,
+                                style: AppFonts.smallLightText,
                               ),
-                            );
-                          }, // open pop up
-                          icon: Image.asset(
-                            "lib/assets/icons/arrow_next_gray_small.png",
-                            width: 25,
+                              Text(
+                                eventList[index].date,
+                                style: AppFonts.extraSmallLightText,
+                              ),
+                            ],
                           ),
                         ),
+                        Container(
+                          height: 35,
+                          width: 1,
+                          color: AppColor.fontColorPrimary,
+                        ),
+                        Container(
+                          height: 50,
+                          width: 120,
+                          padding: EdgeInsets.only(left: 10, top: 5),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                eventList[index].day,
+                                style: AppFonts.smallLightText,
+                              ),
+                              Text(
+                                eventList[index].time,
+                                style: AppFonts.extraSmallLightText,
+                              )
+                            ],
+                          ),
+                        )
                       ],
-                    ),
+                    )
                   ],
                 ),
               ),
@@ -160,6 +174,34 @@ class EventCard extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+            Container(
+              width: 180,
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        "lib/assets/icons/Location.png",
+                        height: 15,
+                        width: 15,
+                      ),
+                      Text(
+                        eventList[index].location,
+                        style: AppFonts.extraSmallRegularText,
+                      )
+                    ],
+                  ),
+                  Image.asset(
+                    "lib/assets/icons/bell.png",
+                    height: 20,
+                    width: 20,
+                  )
+                ],
+              ),
             ),
           ],
         ),

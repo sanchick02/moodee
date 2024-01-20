@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:moodee/page_navigator.dart';
+import 'package:moodee/screens/notifications_screen.dart';
 
 class TopBarLogoNotif extends StatelessWidget {
   const TopBarLogoNotif({
@@ -17,7 +19,9 @@ class TopBarLogoNotif extends StatelessWidget {
           ),
           const Spacer(),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              navigateNextPage(context, const NotificationsScreen());
+            },
             icon: Image.asset(
               "lib/assets/icons/bell.png",
               width: 30,
