@@ -51,9 +51,8 @@ class _NavigationState extends State<Navigation> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColor.fontColorSecondary,
-
-       body: _isLoading ? SplashScreen() : pages[currentIndex],
+      backgroundColor: AppColor.backgroundColor,
+      body: _isLoading ? SplashScreen() : pages[currentIndex],
       bottomNavigationBar: Stack(
         children: [
           Container(
