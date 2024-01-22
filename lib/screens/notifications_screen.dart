@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
-import 'package:moodee/widgets/nav_bar.dart';
+import 'package:moodee/nav_bar.dart';
 import 'package:moodee/widgets/notifications_widgets/notification_widget.dart';
 
 class NotificationsScreen extends StatefulWidget {

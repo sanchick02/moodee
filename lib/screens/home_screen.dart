@@ -12,7 +12,7 @@ import 'package:moodee/widgets/event_widgets/event_card.dart';
 import 'package:moodee/widgets/homepage_widgets/mood_tracker_button.dart';
 import 'package:moodee/widgets/homepage_widgets/progress_box.dart';
 import 'package:moodee/widgets/homepage_widgets/see_all_button_homepage.dart';
-import 'package:moodee/widgets/nav_bar.dart';
+import 'package:moodee/nav_bar.dart';
 import 'package:moodee/widgets/therapist_widgets/therapist_card.dart';
 import 'package:moodee/widgets/therapy_widgets/therapy_card.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';

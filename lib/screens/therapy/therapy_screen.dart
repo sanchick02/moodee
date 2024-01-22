@@ -6,7 +6,7 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/screens/therapy/therapy_filtered.dart';
 import 'package:moodee/widgets/button.dart';
-import 'package:moodee/widgets/nav_bar.dart';
+import 'package:moodee/nav_bar.dart';
 import 'package:moodee/widgets/screen_title.dart';
 import 'package:moodee/widgets/therapy_widgets/therapy_card.dart';
 

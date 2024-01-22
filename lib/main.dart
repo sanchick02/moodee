@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:moodee/auth_widget_tree.dart';
+import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/auth/auth.dart';
 import 'package:moodee/screens/home_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'package:moodee/screens/splash_screen.dart';
 import 'firebase_options.dart';
 
@@ -19,19 +22,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: StreamBuilder(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (ctx, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const SplashScreen();
-            }
-            if (snapshot.hasData == true) {
-              return const HomeScreen();
-            }
-
-            return const SplashScreen();
-          }),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: UserProvider(),
+        ),
+      ],
+      child: const MaterialApp(
+        home: AuthWidgetTree(),
+      ),
     );
   }
 }

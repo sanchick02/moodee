@@ -7,7 +7,7 @@ import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/widgets/community_widgets/community_buttons.dart';
 import 'package:moodee/widgets/community_widgets/forum_channel_card.dart';
 import 'package:moodee/widgets/community_widgets/forum_moodeeBoard_card.dart';
-import 'package:moodee/widgets/nav_bar.dart';
+import 'package:moodee/nav_bar.dart';
 import 'package:moodee/widgets/screen_title.dart';
 
 import 'package:moodee/widgets/topbar_logo_notif.dart';

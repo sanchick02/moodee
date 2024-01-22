@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/fonts.dart';
-import 'package:moodee/widgets/nav_bar.dart';
+import 'package:moodee/nav_bar.dart';
 import 'package:moodee/widgets/prev_chat_widgets/chat_preview.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
 
