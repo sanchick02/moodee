@@ -40,6 +40,9 @@ dependencies:
   bulleted_list: ^0.0.1+0.1a
   rive: ^0.12.4
   table_calendar: ^3.0.9
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.16.0
+  cloud_firestore: ^4.14.0
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/page_navigator.dart';
@@ -6,6 +7,7 @@ import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
 import 'package:moodee/screens/profile/calendar_screen.dart';
+import 'package:moodee/screens/splash_screen.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/divider_line.dart';
 import 'package:moodee/widgets/nav_bar.dart';
@@ -15,8 +17,18 @@ import 'package:moodee/widgets/auth_widgets/toggle_switch_auth.dart';
 import 'package:moodee/widgets/toggle_switch.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
+
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  void _signOut() async {
+    FirebaseAuth.instance.signOut();
+    navigateNextPage(context, const SplashScreen());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,8 +127,10 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             const SizedBox(width: 15),
                             DefaultButton(
-                              text: "Delete Profile",
-                              press: () {},
+                              text: "Sign Out",
+                              press: () {
+                                _signOut();
+                              },
                               backgroundColor: AppColor.btnColorPrimary,
                               height: 25,
                               fontStyle: AppFonts.extraSmallLightTextWhite,

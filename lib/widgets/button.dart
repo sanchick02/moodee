@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-import 'package:moodee/presets/colors.dart';
-import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 
-class DefaultButton extends StatelessWidget {
+class DefaultButton extends StatefulWidget {
   const DefaultButton({
     super.key,
     required this.text,
@@ -12,7 +10,8 @@ class DefaultButton extends StatelessWidget {
     required this.backgroundColor,
     required this.height,
     required this.fontStyle,
-    required this.width, required this.padding,
+    required this.width,
+    required this.padding,
   });
 
   final Color backgroundColor;
@@ -24,15 +23,20 @@ class DefaultButton extends StatelessWidget {
   final EdgeInsets padding;
 
   @override
+  State<DefaultButton> createState() => _DefaultButtonState();
+}
+
+class _DefaultButtonState extends State<DefaultButton> {
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: width,
-      height: height,
+      width: widget.width,
+      height: widget.height,
       child: Stack(
         children: [
           Container(
             decoration: BoxDecoration(
-              color: backgroundColor,
+              color: widget.backgroundColor,
               boxShadow: [
                 AppShadow.innerShadow2,
               ],
@@ -41,9 +45,9 @@ class DefaultButton extends StatelessWidget {
           ),
           Positioned.fill(
             child: TextButton(
-              onPressed: press,
+              onPressed: widget.press,
               style: ButtonStyle(
-                padding: MaterialStatePropertyAll(padding),
+                padding: MaterialStatePropertyAll(widget.padding),
                 backgroundColor:
                     const MaterialStatePropertyAll(Colors.transparent),
                 shape: MaterialStateProperty.all(
@@ -53,8 +57,8 @@ class DefaultButton extends StatelessWidget {
                 ),
               ),
               child: Text(
-                text,
-                style: fontStyle,
+                widget.text,
+                style: widget.fontStyle,
               ),
             ),
           ),

@@ -1,16 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:moodee/data/questions.dart';
-import 'package:moodee/data/therapy_lists.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/screens/home_screen.dart';
-import 'package:moodee/screens/events/event_screen.dart';
-import 'package:moodee/screens/mood_tracker_screen.dart';
-import 'package:moodee/screens/profile/profile_screen.dart';
-import 'package:moodee/screens/questions/question_screen.dart';
-import 'package:moodee/screens/therapist/therapist_screen.dart';
-import 'package:moodee/screens/therapy/therapy_screen.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/auth_widgets/formfield.dart';
 
@@ -22,17 +15,47 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  void _login() async {
+    String email = _emailController.text;
+    String password = _passwordController.text;
+
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+            email: email,
+            password: password,
+          )
+          .then(
+            (value) => navigateNextPage(
+              context,
+              const HomeScreen(),
+            ),
+          );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print("No user found for that email.");
+      } else if (e.code == 'wrong-password') {
+        print("Wrong password provided for that user.");
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const CustomFormField(
+        CustomFormField(
+          controller: _emailController,
           label: "Email",
           keyboardType: TextInputType.emailAddress,
           obscureText: false,
           width: double.infinity,
         ),
-        const CustomFormField(
+        CustomFormField(
+          controller: _passwordController,
           label: "Password",
           keyboardType: TextInputType.visiblePassword,
           obscureText: true,
@@ -60,18 +83,7 @@ class _LoginFormState extends State<LoginForm> {
           fontStyle: AppFonts.normalRegularTextWhite,
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           press: () {
-            navigateNextPage(
-              context,
-              // const QuestionsScreen(
-              //   questions: questionsList,
-              // ),
-              // TherapyScreen(
-              //   mediaItem: meditationList[0],
-              // ),
-              // const TherapistScreen(),
-              HomeScreen(),
-              // MoodTrackerScreen(),
-            );
+            _login();
           },
         ),
         Row(
