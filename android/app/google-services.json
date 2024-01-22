@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "691334736801",
+    "project_id": "moodeeclaudia",
+    "storage_bucket": "moodeeclaudia.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:691334736801:android:d12de5680851463a4439e0",
+        "android_client_info": {
+          "package_name": "com.example.moodee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnhfAIA4bIYCHwuRXXqnmn2pet3vroRUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

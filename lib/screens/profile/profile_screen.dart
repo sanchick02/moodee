@@ -9,15 +9,15 @@ import 'package:moodee/screens/profile/calendar_screen.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/divider_line.dart';
 import 'package:moodee/widgets/nav_bar.dart';
-import 'package:moodee/widgets/profile_widgets/calendar_widget.dart';
 import 'package:moodee/widgets/profile_widgets/daily_mood_checkin.dart';
-import 'package:moodee/widgets/auth_widgets/toggle_switch_auth.dart';
 import 'package:moodee/widgets/toggle_switch.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  ProfileScreen({super.key});
 
+  final DateTime? _selectedDay = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,12 +44,8 @@ class ProfileScreen extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: AppColor.fontColorSecondary,
                           boxShadow: [
-                            BoxShadow(
-                              offset: const Offset(0, -10),
-                              blurRadius: 10,
-                              color: Colors.black.withOpacity(0.4),
-                              inset: true,
-                            )
+                            AppShadow.innerShadow3,
+                            AppShadow.innerShadow4
                           ],
                         ),
                       ),
@@ -129,7 +125,7 @@ class ProfileScreen extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.all(15),
                           width: double.infinity,
-                          constraints: BoxConstraints(minHeight: 50),
+                          constraints: const BoxConstraints(minHeight: 50),
                           decoration: BoxDecoration(
                             color: AppColor.fontColorSecondary,
                             borderRadius: AppStyles.borderRadiusAll,
@@ -184,12 +180,12 @@ class ProfileScreen extends StatelessWidget {
                         GestureDetector(
                           onTap: () =>
                               navigateNextPage(context, CalendarScreen()),
-                          child: CustomCalendar(),
+                          child: _buildCustomCalendar(),
                         ),
                         const SizedBox(height: 10),
                         Container(
                           width: double.infinity,
-                          constraints: BoxConstraints(minHeight: 100),
+                          constraints: const BoxConstraints(minHeight: 100),
                           decoration: BoxDecoration(
                             color: AppColor.fontColorSecondary,
                             borderRadius: AppStyles.borderRadiusAll,
@@ -335,4 +331,38 @@ class ProfileScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _buildCustomCalendar() {
+  return Column(
+    children: [
+      Container(
+        width: double.infinity,
+        height: 350,
+        decoration: BoxDecoration(
+          color: AppColor.fontColorSecondary,
+          borderRadius: AppStyles.borderRadiusAll,
+          boxShadow: [
+            AppShadow.innerShadow3,
+            AppShadow.innerShadow4,
+          ],
+        ),
+        child: Column(
+          children: [
+            TableCalendar(
+              focusedDay: DateTime.now(),
+              firstDay: DateTime.utc(2024, 01, 01),
+              lastDay: DateTime.utc(2025, 12, 31),
+              rowHeight: 43,
+              headerStyle: const HeaderStyle(
+                formatButtonVisible: false,
+                titleCentered: true,
+              ),
+              availableGestures: AvailableGestures.all,
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
 }
