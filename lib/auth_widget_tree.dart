@@ -19,7 +19,7 @@ class _AuthWidgetTreeState extends State<AuthWidgetTree> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           print('navigation');
-          return Navigation();
+          return const Navigation();
         } else {
           print('welcome');
           return const SplashScreen();

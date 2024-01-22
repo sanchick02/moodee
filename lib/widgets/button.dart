@@ -19,7 +19,7 @@ class DefaultButton extends StatefulWidget {
   final double height;
   final String text;
   final double width;
-  final VoidCallback press; // shorthand for void Function()
+  final void Function() press; // shorthand for void Function()
   final EdgeInsets padding;
 
   @override

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:moodee/navigation.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
@@ -63,7 +64,7 @@ class _SignUpFormState extends State<SignUpForm> {
       ).then(
         (value) => navigateNextPage(
           context,
-          const HomeScreen(),
+          const Navigation(),
         ),
       );
     } on FirebaseAuthException catch (error) {

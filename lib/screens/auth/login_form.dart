@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:moodee/navigation.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
-import 'package:moodee/screens/home_screen.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/auth_widgets/formfield.dart';
 
@@ -31,7 +31,7 @@ class _LoginFormState extends State<LoginForm> {
           .then(
             (value) => navigateNextPage(
               context,
-              const HomeScreen(),
+              const Navigation(),
             ),
           );
     } on FirebaseAuthException catch (e) {

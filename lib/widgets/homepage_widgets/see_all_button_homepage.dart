@@ -9,7 +9,7 @@ class SeeAllButtonHomepage extends StatelessWidget {
     required this.press,
   });
 
-  final VoidCallback press; // shorthand for void Function()
+  final void Function() press; // shorthand for void Function()
 
   @override
   Widget build(BuildContext context) {

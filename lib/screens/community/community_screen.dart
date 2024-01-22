@@ -29,12 +29,12 @@ class _CommunityScreenState extends State<CommunityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      bottomNavigationBar: CustomNavigationBar(
-        selectedIndex: 3,
-        onDestinationSelected: (index) {
-          navbarNavigation(context, 3, index);
-        },
-      ),
+      // bottomNavigationBar: CustomNavigationBar(
+      //   selectedIndex: 3,
+      //   onDestinationSelected: (index) {
+      //     navbarNavigation(context, 3, index);
+      //   },
+      // ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
