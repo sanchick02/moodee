@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:moodee/navigation.dart';
 import 'package:moodee/screens/home_screen.dart';
 import 'package:moodee/screens/splash_screen.dart';
 
@@ -18,7 +19,7 @@ class _AuthWidgetTreeState extends State<AuthWidgetTree> {
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           print('navigation');
-          return const HomeScreen();
+          return Navigation();
         } else {
           print('welcome');
           return const SplashScreen();

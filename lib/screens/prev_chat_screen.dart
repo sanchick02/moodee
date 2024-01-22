@@ -17,12 +17,12 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFFE5E7F2),
-        bottomNavigationBar: CustomNavigationBar(
-          selectedIndex: 1,
-          onDestinationSelected: (index) {
-            navbarNavigation(context, null, index);
-          },
-        ),
+        // bottomNavigationBar: CustomNavigationBar(
+        //   selectedIndex: 1,
+        //   onDestinationSelected: (index) {
+        //     navbarNavigation(context, null, index);
+        //   },
+        // ),
         body: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

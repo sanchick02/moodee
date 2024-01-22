@@ -37,12 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      bottomNavigationBar: CustomNavigationBar(
-        selectedIndex: 4,
-        onDestinationSelected: (index) {
-          navbarNavigation(context, 4, index);
-        },
-      ),
+      // bottomNavigationBar: 
       body: Container(
         color: AppColor.fontColorSecondary,
         child: SafeArea(

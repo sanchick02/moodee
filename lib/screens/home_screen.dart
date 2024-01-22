@@ -30,12 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      bottomNavigationBar: CustomNavigationBar(
-        selectedIndex: 0,
-        onDestinationSelected: (index) {
-          navbarNavigation(context, 0, index);
-        },
-      ),
+      // bottomNavigationBar: CustomNavigationBar(
+      //   selectedIndex: 0,
+      //   onDestinationSelected: (index) {
+      //     navbarNavigation(context, 0, index);
+      //   },
+      // ),
       body: Stack(
         children: [
           SafeArea(

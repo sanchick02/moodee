@@ -14,12 +14,12 @@ class EventScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      bottomNavigationBar: CustomNavigationBar(
-        selectedIndex: 1,
-        onDestinationSelected: (index) {
-          navbarNavigation(context, 1, index);
-        },
-      ),
+      // bottomNavigationBar: CustomNavigationBar(
+      //   selectedIndex: 1,
+      //   onDestinationSelected: (index) {
+      //     navbarNavigation(context, 1, index);
+      //   },
+      // ),
       body: const SafeArea(
         child: SingleChildScrollView(
           child: Column(

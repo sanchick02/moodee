@@ -21,67 +21,69 @@ class CustomNavigationBar extends StatefulWidget {
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      alignment: Alignment.bottomCenter,
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: 70,
-          decoration: BoxDecoration(
-              color: AppColor.btnColorSecondary,
-              borderRadius: AppStyles.borderRadiusTop,
-              boxShadow: [AppShadow.innerShadow1]),
-        ),
-        NavigationBarTheme(
-          data: NavigationBarThemeData(
-            indicatorColor: AppColor.fontColorPrimary.withOpacity(0.1),
-          ),
-          child: NavigationBar(
-            elevation: 0,
-            selectedIndex: widget.selectedIndex,
-            onDestinationSelected: widget.onDestinationSelected,
+    return Scaffold(
+      body: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Container(
+            width: MediaQuery.of(context).size.width,
             height: 70,
-            backgroundColor: Colors.transparent,
-            destinations: [
-              NavigationDestination(
-                icon: Image.asset(
-                  "lib/assets/images/home.png",
-                  width: 40,
-                ),
-                label: 'Home',
-              ),
-              NavigationDestination(
-                icon: Image.asset(
-                  "lib/assets/images/chat.png",
-                  width: 40,
-                ),
-                label: 'Chat',
-              ),
-              NavigationDestination(
-                icon: Image.asset(
-                  "lib/assets/images/bot.png",
-                  width: 40,
-                ),
-                label: 'Bazoot',
-              ),
-              NavigationDestination(
-                icon: Image.asset(
-                  "lib/assets/images/forum.png",
-                  width: 40,
-                ),
-                label: 'Forum',
-              ),
-              NavigationDestination(
-                icon: Image.asset(
-                  "lib/assets/images/profile.png",
-                  width: 40,
-                ),
-                label: 'Profile',
-              ),
-            ],
+            decoration: BoxDecoration(
+                color: AppColor.btnColorSecondary,
+                borderRadius: AppStyles.borderRadiusTop,
+                boxShadow: [AppShadow.innerShadow1]),
           ),
-        ),
-      ],
+          NavigationBarTheme(
+            data: NavigationBarThemeData(
+              indicatorColor: AppColor.fontColorPrimary.withOpacity(0.1),
+            ),
+            child: NavigationBar(
+              elevation: 0,
+              selectedIndex: widget.selectedIndex,
+              onDestinationSelected: widget.onDestinationSelected,
+              height: 70,
+              backgroundColor: Colors.transparent,
+              destinations: [
+                NavigationDestination(
+                  icon: Image.asset(
+                    "lib/assets/images/home.png",
+                    width: 40,
+                  ),
+                  label: 'Home',
+                ),
+                NavigationDestination(
+                  icon: Image.asset(
+                    "lib/assets/images/chat.png",
+                    width: 40,
+                  ),
+                  label: 'Chat',
+                ),
+                NavigationDestination(
+                  icon: Image.asset(
+                    "lib/assets/images/bot.png",
+                    width: 40,
+                  ),
+                  label: 'Bazoot',
+                ),
+                NavigationDestination(
+                  icon: Image.asset(
+                    "lib/assets/images/forum.png",
+                    width: 40,
+                  ),
+                  label: 'Forum',
+                ),
+                NavigationDestination(
+                  icon: Image.asset(
+                    "lib/assets/images/profile.png",
+                    width: 40,
+                  ),
+                  label: 'Profile',
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
