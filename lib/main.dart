@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: const MaterialApp(
-        home: MoodTrakcerScreen2(),
+        home: AuthWidgetTree(),
       ),
     );
   }
