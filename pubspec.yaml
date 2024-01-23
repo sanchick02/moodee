@@ -81,6 +81,7 @@ flutter:
     - lib/assets/icons/
     - lib/assets/rive/
     - lib/assets/tflite/
+    - lib/assets/tflite_new/
 
   # assets:
   #   - images/a_dot_burr.jpeg
