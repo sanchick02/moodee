@@ -1,7 +1,22 @@
+import 'package:camera/camera.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:moodee/screens/profile/profile_screen.dart';
+import 'package:moodee/auth_widget_tree.dart';
+import 'package:moodee/providers/user_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:moodee/screens/mood_tracker_screen2.dart';
+import 'package:provider/provider.dart';
+import 'package:moodee/screens/splash_screen.dart';
+import 'firebase_options.dart';
 
-void main() {
+List<CameraDescription>? cameras = [];
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  cameras = await availableCameras();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -10,8 +25,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: ProfileScreen(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(
+          value: UserProvider(),
+        ),
+      ],
+      child: const MaterialApp(
+        home: AuthWidgetTree(),
+      ),
     );
   }
 }

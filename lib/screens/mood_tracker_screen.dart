@@ -6,9 +6,14 @@ import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
 import 'package:moodee/widgets/button.dart';
 
-class MoodTrackerScreen extends StatelessWidget {
+class MoodTrackerScreen extends StatefulWidget {
   const MoodTrackerScreen({super.key});
 
+  @override
+  State<MoodTrackerScreen> createState() => _MoodTrackerScreenState();
+}
+
+class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/page_navigator.dart';
@@ -5,29 +6,38 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
+import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/profile/calendar_screen.dart';
+import 'package:moodee/screens/splash_screen.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/divider_line.dart';
-import 'package:moodee/widgets/nav_bar.dart';
+import 'package:moodee/nav_bar.dart';
 import 'package:moodee/widgets/profile_widgets/calendar_widget.dart';
 import 'package:moodee/widgets/profile_widgets/daily_mood_checkin.dart';
-import 'package:moodee/widgets/auth_widgets/toggle_switch_auth.dart';
 import 'package:moodee/widgets/toggle_switch.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
+import 'package:provider/provider.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  void _signOut() async {
+    FirebaseAuth.instance.signOut();
+    navigateNextPage(context, const SplashScreen());
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<UserProvider>(context, listen: false);
+
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      bottomNavigationBar: CustomNavigationBar(
-        selectedIndex: 4,
-        onDestinationSelected: (index) {
-          navbarNavigation(context, 4, index);
-        },
-      ),
+      // bottomNavigationBar: 
       body: Container(
         color: AppColor.fontColorSecondary,
         child: SafeArea(
@@ -88,7 +98,7 @@ class ProfileScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          "Evelyn Smith",
+                          "${provider.userProviderData!.firstName} ${provider.userProviderData!.lastName}",
                           style: AppFonts.largeMediumText,
                         ),
                         Text(
@@ -106,7 +116,10 @@ class ProfileScreen extends StatelessWidget {
                           children: [
                             DefaultButton(
                               text: "Edit Profile",
-                              press: () {},
+                              press: () {
+                                print("hello");
+                                print(provider.userProviderData!.uid);
+                              },
                               backgroundColor: AppColor.btnColorPrimary,
                               height: 25,
                               fontStyle: AppFonts.extraSmallLightTextWhite,
@@ -115,8 +128,10 @@ class ProfileScreen extends StatelessWidget {
                             ),
                             const SizedBox(width: 15),
                             DefaultButton(
-                              text: "Delete Profile",
-                              press: () {},
+                              text: "Sign Out",
+                              press: () {
+                                _signOut();
+                              },
                               backgroundColor: AppColor.btnColorPrimary,
                               height: 25,
                               fontStyle: AppFonts.extraSmallLightTextWhite,

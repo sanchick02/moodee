@@ -9,12 +9,17 @@ class CustomFormField extends StatelessWidget {
   final TextInputType keyboardType;
   final bool obscureText;
   final double width;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
 
   const CustomFormField({
     Key? key,
     required this.label,
     required this.keyboardType,
-    required this.obscureText, required this.width,
+    required this.obscureText,
+    required this.width,
+    required this.controller,
+    this.validator,
   }) : super(key: key);
 
   @override
@@ -45,13 +50,15 @@ class CustomFormField extends StatelessWidget {
                       ),
                     ),
                     TextFormField(
+                      controller: controller,
+                      validator: validator,
                       obscureText: obscureText,
                       keyboardType: keyboardType,
                       decoration: InputDecoration(
                         filled: true,
                         fillColor: Colors.transparent,
-                        contentPadding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                        contentPadding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 15),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(999),
                           borderSide: BorderSide.none,

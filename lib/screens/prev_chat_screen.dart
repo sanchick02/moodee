@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/fonts.dart';
-import 'package:moodee/widgets/nav_bar.dart';
+import 'package:moodee/nav_bar.dart';
 import 'package:moodee/widgets/prev_chat_widgets/chat_preview.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
 
@@ -17,12 +17,12 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color(0xFFE5E7F2),
-        bottomNavigationBar: CustomNavigationBar(
-          selectedIndex: 1,
-          onDestinationSelected: (index) {
-            navbarNavigation(context, null, index);
-          },
-        ),
+        // bottomNavigationBar: CustomNavigationBar(
+        //   selectedIndex: 1,
+        //   onDestinationSelected: (index) {
+        //     navbarNavigation(context, null, index);
+        //   },
+        // ),
         body: SafeArea(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
-import 'package:moodee/widgets/nav_bar.dart';
+import 'package:moodee/nav_bar.dart';
 import 'package:moodee/widgets/notifications_widgets/notification_widget.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -17,12 +17,12 @@ class _NotificationScreenState extends State<NotificationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColor.backgroundColor,
-        bottomNavigationBar: CustomNavigationBar(
-          selectedIndex: 0,
-          onDestinationSelected: (index) {
-            navbarNavigation(context, 0, index);
-          },
-        ),
+        // bottomNavigationBar: CustomNavigationBar(
+        //   selectedIndex: 0,
+        //   onDestinationSelected: (index) {
+        //     navbarNavigation(context, 0, index);
+        //   },
+        // ),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Container(
