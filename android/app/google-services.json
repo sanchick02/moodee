@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1057426507835",
+    "project_id": "moodee-acc66",
+    "storage_bucket": "moodee-acc66.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057426507835:android:b69bcc5770a562cc0eb41e",
+        "android_client_info": {
+          "package_name": "com.example.moodee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxp25iSZj0GOe0kmgUFeBdwFa2imUfGJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

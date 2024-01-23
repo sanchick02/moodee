@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodee/data/therapy_lists.dart';
 import 'package:moodee/models/media_item_model.dart';
+import 'package:moodee/screens/bazoot.dart';
 import 'package:moodee/screens/prev_chat_screen.dart';
 import 'package:moodee/screens/community/community_screen.dart';
 import 'package:moodee/screens/events/event_screen.dart';
@@ -43,7 +44,7 @@ navbarNavigation(BuildContext context, int? currentIndex, int? selectedIndex) {
         break;
       case 2:
         navigateNextPage(
-            context, const ChatScreen()); // to be changed to AI Chatbot
+            context, const Bazoot_Screen()); // to be changed to AI Chatbot
         break;
       case 3:
         navigateNextPage(

@@ -16,8 +16,9 @@ class _Bazoot_ScreenState extends State<Bazoot_Screen> {
       baseOption: HttpSetup(receiveTimeout: const Duration(seconds: 5)),
       enableLog: true);
   final ChatUser _currentUser = ChatUser(id: "1", firstName: "Charlie");
-  final ChatUser _ChatgptUser = ChatUser(id: "2", firstName: "ChatGpt");
+  final ChatUser _ChatgptUser = ChatUser(id: "2", firstName: "Bazoot");
   List<ChatMessage> _messages = <ChatMessage>[];
+  List<ChatUser> _typingUser = <ChatUser>[];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +28,7 @@ class _Bazoot_ScreenState extends State<Bazoot_Screen> {
       ),
       body: DashChat(
           currentUser: _currentUser,
+          typingUsers: _typingUser,
           messageOptions: const MessageOptions(
               currentUserContainerColor: Color(0xff8E83FF)),
           onSend: (ChatMessage m) {
@@ -40,6 +42,7 @@ class _Bazoot_ScreenState extends State<Bazoot_Screen> {
   Future<void> getChatResponse(ChatMessage m) async {
     setState(() {
       _messages.insert(0, m);
+      _typingUser.add(_ChatgptUser);
     });
     List<Messages> _messagesHistory = _messages.reversed.map((m) {
       if (m.user == _currentUser) {
@@ -49,7 +52,9 @@ class _Bazoot_ScreenState extends State<Bazoot_Screen> {
       }
     }).toList();
     final request = ChatCompleteText(
-        model: Gpt40314ChatModel(), messages: _messagesHistory, maxToken: 200);
+        model: GptTurbo0301ChatModel(),
+        messages: _messagesHistory,
+        maxToken: 500);
     final response = await _openAI.onChatCompletion(request: request);
     for (var element in response!.choices) {
       if (element.message != null) {
@@ -64,5 +69,8 @@ class _Bazoot_ScreenState extends State<Bazoot_Screen> {
         });
       }
     }
+    setState(() {
+      _typingUser.remove(_ChatgptUser);
+    });
   }
 }

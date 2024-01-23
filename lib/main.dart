@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodee/screens/bazoot.dart';
+import 'package:moodee/screens/community/community_screen.dart';
+import 'package:moodee/screens/home_screen.dart';
 import 'package:moodee/screens/profile/profile_screen.dart';
 
 void main() {
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Bazoot_Screen(),
+      home: CommunityScreen(),
     );
   }
 }
