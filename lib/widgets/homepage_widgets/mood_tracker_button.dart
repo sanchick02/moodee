@@ -4,6 +4,7 @@ import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/screens/mood_tracker_screen.dart';
+import 'package:moodee/screens/mood_tracker_screen2.dart';
 
 class MoodTrackerButton extends StatelessWidget {
   const MoodTrackerButton({
@@ -13,7 +14,7 @@ class MoodTrackerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => navigateNextPage(context, MoodTrackerScreen()),
+      onTap: () => navigateNextPage(context, const MoodTrakcerScreen2()),
       child: Container(
         height: 120,
         width: 120,
