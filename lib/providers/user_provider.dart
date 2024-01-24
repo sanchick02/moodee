@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moodee/models/user_model.dart';
 
-User? user = FirebaseAuth.instance.currentUser!;
+User? get user => FirebaseAuth.instance.currentUser!;
 
 class UserProvider with ChangeNotifier {
   UserModel? userProviderData = UserModel(
