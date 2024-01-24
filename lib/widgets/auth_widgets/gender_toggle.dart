@@ -74,13 +74,12 @@ class GenderToggleState extends State<GenderToggle> {
     return Container(
       height: double.infinity,
       decoration: BoxDecoration(
-        color:
-            isSelected ? AppColor.btnColorPrimary : AppColor.btnColorSecondary,
+        color: isSelected ? AppColor.btnColorPrimary : Color(0xffF6F6F6),
         borderRadius: borderRadius,
         boxShadow: [AppShadow.innerShadow1], // not done yet
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
         child: Text(
           label,
           style: isSelected

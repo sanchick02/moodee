@@ -29,7 +29,7 @@ class ProfileScreen extends StatelessWidget {
         },
       ),
       body: Container(
-        color: AppColor.fontColorSecondary,
+        color: AppColor.backgroundColor,
         child: SafeArea(
           child: SingleChildScrollView(
             child: Container(
@@ -104,19 +104,19 @@ class ProfileScreen extends StatelessWidget {
                               text: "Edit Profile",
                               press: () {},
                               backgroundColor: AppColor.btnColorPrimary,
-                              height: 25,
-                              fontStyle: AppFonts.extraSmallLightTextWhite,
-                              width: 100,
+                              height: 30,
+                              fontStyle: AppFonts.smallLightTextWhite,
+                              width: 120,
                               padding: EdgeInsets.zero,
                             ),
-                            const SizedBox(width: 15),
+                            const SizedBox(width: 10),
                             DefaultButton(
                               text: "Delete Profile",
                               press: () {},
                               backgroundColor: AppColor.btnColorPrimary,
-                              height: 25,
-                              fontStyle: AppFonts.extraSmallLightTextWhite,
-                              width: 100,
+                              height: 30,
+                              fontStyle: AppFonts.smallLightTextWhite,
+                              width: 120,
                               padding: EdgeInsets.zero,
                             )
                           ],
@@ -143,33 +143,46 @@ class ProfileScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: 10),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  DailyMoodCheckIn(
-                                    day: "Mon",
-                                    image: "lib/assets/images/emojiHappy.png",
+                                  Expanded(
+                                    child: DailyMoodCheckIn(
+                                      day: "Mon",
+                                      image: "lib/assets/images/emojiHappy.png",
+                                    ),
                                   ),
-                                  DailyMoodCheckIn(
-                                    day: "Tue",
-                                    image: "lib/assets/images/emojiHappy.png",
+                                  Expanded(
+                                    child: DailyMoodCheckIn(
+                                      day: "Tue",
+                                      image: "lib/assets/images/emojiHappy.png",
+                                    ),
                                   ),
-                                  DailyMoodCheckIn(
-                                    day: "Wed",
-                                    image: "lib/assets/images/emojiHappy.png",
+                                  Expanded(
+                                    child: DailyMoodCheckIn(
+                                      day: "Wed",
+                                      image: "lib/assets/images/emojiHappy.png",
+                                    ),
                                   ),
-                                  DailyMoodCheckIn(
-                                    day: "Thu",
-                                    image: '',
+                                  Expanded(
+                                    child: DailyMoodCheckIn(
+                                      day: "Thu",
+                                      image: '',
+                                    ),
                                   ),
-                                  DailyMoodCheckIn(
-                                    day: "Fri",
+                                  Expanded(
+                                    child: DailyMoodCheckIn(
+                                      day: "Fri",
+                                    ),
                                   ),
-                                  DailyMoodCheckIn(
-                                    day: "Sat",
+                                  Expanded(
+                                    child: DailyMoodCheckIn(
+                                      day: "Sat",
+                                    ),
                                   ),
-                                  DailyMoodCheckIn(
-                                    day: "Sun",
+                                  Expanded(
+                                    child: DailyMoodCheckIn(
+                                      day: "Sun",
+                                    ),
                                   ),
                                 ],
                               ),

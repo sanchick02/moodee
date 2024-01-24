@@ -47,7 +47,7 @@ class TherapistCard extends StatelessWidget {
           children: [
             Container(
               height: 230,
-              width: 180,
+              width: 170,
               decoration: BoxDecoration(
                 color: AppColor.btnColorSecondary,
                 borderRadius: BorderRadius.circular(30),
@@ -94,7 +94,7 @@ class TherapistCard extends StatelessWidget {
               children: [
                 Container(
                   height: 180,
-                  width: 180,
+                  width: 170,
                   decoration: BoxDecoration(
                     borderRadius: AppStyles.borderRadiusTop,
                     boxShadow: [
@@ -112,7 +112,7 @@ class TherapistCard extends StatelessWidget {
                 ),
                 Container(
                   height: 180,
-                  width: 180,
+                  width: 170,
                   padding: const EdgeInsets.only(
                     top: 50,
                     right: 15,
