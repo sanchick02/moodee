@@ -35,7 +35,10 @@ class MoodTrackerButton extends StatelessWidget {
               width: 70,
               height: 70,
             ),
-            Text("Mood Tracker", style: AppFonts.smallLightText)
+            Text(
+              "Mood Tracker",
+              style: AppFonts.smallLightText,
+            ),
           ],
         ),
       ),

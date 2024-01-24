@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:moodee/auth_widget_tree.dart';
 import 'package:moodee/navigation.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
@@ -22,6 +23,9 @@ class _LoginFormState extends State<LoginForm> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
+    // close keyboard
+    FocusScope.of(context).unfocus();
+
     try {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(
@@ -31,7 +35,7 @@ class _LoginFormState extends State<LoginForm> {
           .then(
             (value) => navigateNextPage(
               context,
-              const Navigation(),
+              const AuthWidgetTree(),
             ),
           );
     } on FirebaseAuthException catch (e) {

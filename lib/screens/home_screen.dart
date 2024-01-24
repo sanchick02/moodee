@@ -30,6 +30,13 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<UserProvider>(context, listen: false);
+
+    if (_provider.userProviderData == '') {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
     String name = _provider.userProviderData!.firstName.toString();
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,

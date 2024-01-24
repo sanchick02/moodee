@@ -48,6 +48,7 @@ dependencies:
   image_picker: ^0.8.4+4
   flutter_tflite: ^1.0.1
   firebase_storage: ^11.6.0
+  flutter_launcher_icons: ^0.9.3
 
 dev_dependencies:
   flutter_test:

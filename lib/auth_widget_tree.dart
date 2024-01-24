@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:moodee/loading_screen.dart';
 import 'package:moodee/navigation.dart';
 import 'package:moodee/screens/home_screen.dart';
 import 'package:moodee/screens/splash_screen.dart';
@@ -17,6 +18,9 @@ class _AuthWidgetTreeState extends State<AuthWidgetTree> {
     return StreamBuilder(
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
+        // if (snapshot.connectionState == ConnectionState.waiting) {
+        //   return const LoadingScreen();
+        // }
         if (snapshot.hasData) {
           print('navigation');
           return const Navigation();

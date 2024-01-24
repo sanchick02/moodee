@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:moodee/auth_widget_tree.dart';
+import 'package:moodee/navigation.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
@@ -184,10 +186,11 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
   void _handleButtonPress(String buttonText) {
     setState(() {
-      currentQuestionIndex++;
       isFirstQuestion = false;
-      if (currentQuestionIndex >= widget.questions.length) {
-        navigateNextPage(context, const HomeScreen());
+      if (currentQuestionIndex < widget.questions.length - 1) {
+        currentQuestionIndex++;
+      } else {
+        navigateNextPage(context, const AuthWidgetTree());
       }
     });
   }

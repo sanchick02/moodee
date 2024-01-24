@@ -1,12 +1,10 @@
 import 'package:camera/camera.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moodee/auth_widget_tree.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:moodee/screens/mood_tracker_screen2.dart';
+
 import 'package:provider/provider.dart';
-import 'package:moodee/screens/splash_screen.dart';
 import 'firebase_options.dart';
 
 List<CameraDescription>? cameras = [];

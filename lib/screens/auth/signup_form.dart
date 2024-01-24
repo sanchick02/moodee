@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:moodee/data/questions.dart';
 import 'package:moodee/navigation.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
-import 'package:moodee/screens/home_screen.dart';
+import 'package:moodee/screens/questions/question_screen.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/auth_widgets/formfield.dart';
 import 'package:moodee/widgets/auth_widgets/gender_toggle.dart';
@@ -39,6 +40,9 @@ class _SignUpFormState extends State<SignUpForm> {
     final genderMale = isSelected[0];
     String gender = '';
 
+    // close keyboard
+    FocusScope.of(context).unfocus();
+
     if (genderMale == true) {
       gender = 'male';
     } else {
@@ -64,7 +68,9 @@ class _SignUpFormState extends State<SignUpForm> {
       ).then(
         (value) => navigateNextPage(
           context,
-          const Navigation(),
+          const QuestionsScreen(
+            questions: questionsList,
+          ),
         ),
       );
     } on FirebaseAuthException catch (error) {

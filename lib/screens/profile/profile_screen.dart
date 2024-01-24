@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:moodee/auth_widget_tree.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
@@ -11,7 +12,6 @@ import 'package:moodee/screens/profile/calendar_screen.dart';
 import 'package:moodee/screens/splash_screen.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/divider_line.dart';
-import 'package:moodee/nav_bar.dart';
 import 'package:moodee/widgets/profile_widgets/calendar_widget.dart';
 import 'package:moodee/widgets/profile_widgets/daily_mood_checkin.dart';
 import 'package:moodee/widgets/toggle_switch.dart';
@@ -27,17 +27,28 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   void _signOut() async {
-    FirebaseAuth.instance.signOut();
-    navigateNextPage(context, const SplashScreen());
+    // Navigator.pushAndRemoveUntil(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => const AuthWidgetTree()),
+    //   (Route<dynamic> route) => false,
+    // );
+    // Navigator.pushReplacement(
+    //   context,
+    //   MaterialPageRoute(builder: (context) => const AuthWidgetTree()),
+    // );
+    await FirebaseAuth.instance.signOut().then((value) => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AuthWidgetTree()),
+        ));
   }
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<UserProvider>(context, listen: false);
+    var provider = Provider.of<UserProvider>(context, listen: true);
 
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      // bottomNavigationBar: 
+      // bottomNavigationBar:
       body: Container(
         color: AppColor.fontColorSecondary,
         child: SafeArea(
