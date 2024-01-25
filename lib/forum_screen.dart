@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:moodee/forum_list.dart';
+import 'package:moodee/new_forum.dart';
 import 'package:moodee/forum_list_.dart';
 import 'package:moodee/models/forum.dart';
 
