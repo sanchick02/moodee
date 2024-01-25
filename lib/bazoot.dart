@@ -40,35 +40,40 @@ class _Bazoot_ScreenState extends State<Bazoot_Screen> {
   }
 
   Future<void> getChatResponse(ChatMessage m) async {
-    setState(() {
-      _messages.insert(0, m);
-      _typingUser.add(_chatgptUser);
-    });
-    List<Messages> _messagesHistory = _messages.reversed.map((m) {
-      if (m.user == _currentUser) {
-        return Messages(role: Role.user, content: m.text);
-      } else {
-        return Messages(role: Role.assistant, content: m.text);
+    try {
+      setState(() {
+        _messages.insert(0, m);
+        _typingUser.add(_chatgptUser);
+      });
+      List<Messages> _messagesHistory = _messages.reversed.map((m) {
+        if (m.user == _currentUser) {
+          return Messages(role: Role.user, content: m.text);
+        } else {
+          return Messages(role: Role.assistant, content: m.text);
+        }
+      }).toList();
+      final request = ChatCompleteText(
+          model: GptTurbo0301ChatModel(),
+          messages: _messagesHistory,
+          maxToken: 500);
+      final response = await _openAI.onChatCompletion(request: request);
+      for (var element in response!.choices) {
+        if (element.message != null) {
+          setState(() {
+            _messages.insert(
+              0,
+              ChatMessage(
+                  user: _chatgptUser,
+                  createdAt: DateTime.now(),
+                  text: element.message!.content),
+            );
+          });
+        }
       }
-    }).toList();
-    final request = ChatCompleteText(
-        model: GptTurbo0301ChatModel(),
-        messages: _messagesHistory,
-        maxToken: 500);
-    final response = await _openAI.onChatCompletion(request: request);
-    for (var element in response!.choices) {
-      if (element.message != null) {
-        setState(() {
-          _messages.insert(
-            0,
-            ChatMessage(
-                user: _chatgptUser,
-                createdAt: DateTime.now(),
-                text: element.message!.content),
-          );
-        });
-      }
+    } catch (e) {
+      print(e);
     }
+
     setState(() {
       _typingUser.remove(_chatgptUser);
     });
