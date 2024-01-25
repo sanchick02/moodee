@@ -11,12 +11,12 @@ class TherapyFiltered extends StatelessWidget {
     required this.index,
   });
 
-  final MediaItem mediaItem;
+  final CustomMediaItem mediaItem;
   final int index;
 
   @override
   Widget build(BuildContext context) {
-    late List<MediaItem> mediaList;
+    late List<CustomMediaItem> mediaList;
     if (mediaItem is MusicItem) {
       mediaList = musicList;
     } else if (mediaItem is MeditationItem) {

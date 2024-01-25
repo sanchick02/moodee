@@ -7,7 +7,7 @@ import 'package:moodee/presets/styles.dart';
 import 'package:moodee/widgets/therapy_widgets/progress_indicator.dart';
 import 'package:moodee/widgets/rounded_button.dart';
 
-class PlayerWidget<T extends MediaItem> extends StatefulWidget {
+class PlayerWidget<T extends CustomMediaItem> extends StatefulWidget {
   PlayerWidget({
     Key? key,
     required this.mediaItem,
@@ -21,7 +21,7 @@ class PlayerWidget<T extends MediaItem> extends StatefulWidget {
   State<PlayerWidget<T>> createState() => _PlayerWidgetState<T>();
 }
 
-class _PlayerWidgetState<T extends MediaItem> extends State<PlayerWidget<T>> {
+class _PlayerWidgetState<T extends CustomMediaItem> extends State<PlayerWidget<T>> {
   int currentTherapyIndex = 0;
   bool isButtonClicked = false;
 

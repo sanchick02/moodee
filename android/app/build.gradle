@@ -70,7 +70,9 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation "androidx.multidex:multidex:2.0.1"
+}
 
 android {
   ndkVersion "25.1.8937393"

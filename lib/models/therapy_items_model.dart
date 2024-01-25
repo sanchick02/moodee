@@ -1,6 +1,6 @@
 import 'package:moodee/models/media_item_model.dart';
 
-class MusicItem implements MediaItem {
+class MusicItem implements CustomMediaItem {
   @override
   final String therapyType;
   @override
@@ -15,18 +15,22 @@ class MusicItem implements MediaItem {
   final String instructions;
   @override
   final String sessionDurationDisplay;
+  @override
+  final String audioURL;
 
-  MusicItem(
-      {required this.therapyType,
-      required this.image,
-      required this.title,
-      required this.singerOrAuthor,
-      required this.duration,
-      required this.instructions,
-      required this.sessionDurationDisplay});
+  MusicItem({
+    required this.therapyType,
+    required this.image,
+    required this.title,
+    required this.singerOrAuthor,
+    required this.duration,
+    required this.instructions,
+    required this.sessionDurationDisplay,
+    required this.audioURL,
+  });
 }
 
-class MeditationItem implements MediaItem {
+class MeditationItem implements CustomMediaItem {
   @override
   final String therapyType;
   @override
@@ -41,18 +45,22 @@ class MeditationItem implements MediaItem {
   final String instructions;
   @override
   final String sessionDurationDisplay;
+  @override
+  final String audioURL;
 
-  MeditationItem(
-      {required this.therapyType,
-      required this.image,
-      required this.title,
-      required this.singerOrAuthor,
-      required this.duration,
-      required this.instructions,
-      required this.sessionDurationDisplay});
+  MeditationItem({
+    required this.therapyType,
+    required this.image,
+    required this.title,
+    required this.singerOrAuthor,
+    required this.duration,
+    required this.instructions,
+    required this.sessionDurationDisplay,
+    required this.audioURL,
+  });
 }
 
-class StoryItem implements MediaItem {
+class StoryItem implements CustomMediaItem {
   @override
   final String therapyType;
   @override
@@ -67,13 +75,17 @@ class StoryItem implements MediaItem {
   final String instructions;
   @override
   final String sessionDurationDisplay;
+  @override
+  final String audioURL;
 
-  StoryItem(
-      {required this.therapyType,
-      required this.image,
-      required this.title,
-      required this.singerOrAuthor,
-      required this.duration,
-      required this.instructions,
-      required this.sessionDurationDisplay});
+  StoryItem({
+    required this.therapyType,
+    required this.image,
+    required this.title,
+    required this.singerOrAuthor,
+    required this.duration,
+    required this.instructions,
+    required this.sessionDurationDisplay,
+    required this.audioURL,
+  });
 }

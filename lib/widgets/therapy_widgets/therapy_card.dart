@@ -12,18 +12,18 @@ import 'package:moodee/widgets/therapy_widgets/therapy_card_bottom_section.dart'
 
 class TherapyCard extends StatelessWidget {
   const TherapyCard(
-    MediaItem selectedList, {
+    CustomMediaItem selectedList, {
     super.key,
     required this.mediaItem,
     required this.margin,
   });
 
-  final MediaItem mediaItem;
+  final CustomMediaItem mediaItem;
   final EdgeInsets margin;
 
   @override
   Widget build(BuildContext context) {
-    late List<MediaItem> mediaList;
+    late List<CustomMediaItem> mediaList;
     if (mediaItem is MusicItem) {
       mediaList = musicList;
     } else if (mediaItem is MeditationItem) {

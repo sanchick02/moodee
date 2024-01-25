@@ -48,6 +48,9 @@ dependencies:
   image_picker: ^0.8.4+4
   flutter_tflite: ^1.0.1
   firebase_storage: ^11.6.0
+  just_audio: ^0.9.36
+  audio_service: ^0.18.12
+  rxdart: ^0.27.7
 
 dev_dependencies:
   flutter_test:

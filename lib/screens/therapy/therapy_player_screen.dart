@@ -13,11 +13,11 @@ class TherapyPlayerScreen extends StatelessWidget {
     required this.mediaItem,
   });
 
-  final MediaItem mediaItem;
+  final CustomMediaItem mediaItem;
 
   @override
   Widget build(BuildContext context) {
-    late List<MediaItem> mediaList;
+    late List<CustomMediaItem> mediaList;
     if (mediaItem is MusicItem) {
       mediaList = musicList;
     } else if (mediaItem is MeditationItem) {

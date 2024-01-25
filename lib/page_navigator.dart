@@ -17,7 +17,7 @@ navigateNextPage(BuildContext context, Widget nextPage) {
   );
 }
 
-void navigateToPlayer(BuildContext context, MediaItem mediaItem) {
+void navigateToPlayer(BuildContext context, CustomMediaItem mediaItem) {
   Navigator.push(
     context,
     MaterialPageRoute(

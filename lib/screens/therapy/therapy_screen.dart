@@ -19,7 +19,7 @@ class TherapyScreen extends StatefulWidget {
     required this.mediaItem,
   });
   // T mediaItem;
-  final MediaItem mediaItem;
+  final CustomMediaItem mediaItem;
   // final List<MediaList> mediaList;
 
   @override

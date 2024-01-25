@@ -5,7 +5,7 @@ import 'package:moodee/models/therapy_items_model.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/fonts.dart';
 
-class TherapyCardBottomSection<T extends MediaItem> extends StatefulWidget {
+class TherapyCardBottomSection<T extends CustomMediaItem> extends StatefulWidget {
   TherapyCardBottomSection({
     super.key,
     // required this.call2Action,
@@ -24,7 +24,7 @@ class TherapyCardBottomSection<T extends MediaItem> extends StatefulWidget {
       _TherapyCardBottomSectionState<T>();
 }
 
-class _TherapyCardBottomSectionState<T extends MediaItem>
+class _TherapyCardBottomSectionState<T extends CustomMediaItem>
     extends State<TherapyCardBottomSection<T>> {
   @override
   Widget build(BuildContext context) {

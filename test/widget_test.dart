@@ -5,15 +5,19 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
+import 'package:audio_service/audio_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:moodee/main.dart';
+import 'package:moodee/src/audio_handler.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    AudioHandler audioHandler = await AudioService.init(
+        builder: () => MyAudiohandler(), config: const AudioServiceConfig());
+    await tester.pumpWidget(MyApp(audioHandler: audioHandler));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);
