@@ -1,33 +1,47 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:moodee/auth_widget_tree.dart';
+import 'package:moodee/nav_bar.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
+import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/profile/calendar_screen.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/divider_line.dart';
-import 'package:moodee/widgets/nav_bar.dart';
+import 'package:moodee/widgets/profile_widgets/calendar_widget.dart';
 import 'package:moodee/widgets/profile_widgets/daily_mood_checkin.dart';
 import 'package:moodee/widgets/toggle_switch.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class ProfileScreen extends StatelessWidget {
-  ProfileScreen({super.key});
+class ProfileScreen extends StatefulWidget {
+  const ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   final DateTime? _selectedDay = DateTime.now();
+
+  void _signOut() async {
+    await FirebaseAuth.instance.signOut().then((value) => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AuthWidgetTree()),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<UserProvider>(context, listen: true);
+
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      bottomNavigationBar: CustomNavigationBar(
-        selectedIndex: 4,
-        onDestinationSelected: (index) {
-          navbarNavigation(context, 4, index);
-        },
-      ),
       body: Container(
         color: AppColor.backgroundColor,
         child: SafeArea(
@@ -84,7 +98,7 @@ class ProfileScreen extends StatelessWidget {
                     child: Column(
                       children: [
                         Text(
-                          "Evelyn Smith",
+                          "${provider.userProviderData!.firstName} ${provider.userProviderData!.lastName}",
                           style: AppFonts.largeMediumText,
                         ),
                         Text(
