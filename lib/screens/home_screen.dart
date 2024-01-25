@@ -1,13 +1,15 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/data/therapists.dart';
 import 'package:moodee/data/therapy_lists.dart';
+import 'package:moodee/nav_bar.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
+import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/events/event_screen.dart';
 import 'package:moodee/screens/therapist/therapist_screen.dart';
 import 'package:moodee/screens/therapy/therapy_screen.dart';
@@ -15,12 +17,11 @@ import 'package:moodee/widgets/event_widgets/event_card.dart';
 import 'package:moodee/widgets/homepage_widgets/mood_tracker_button.dart';
 import 'package:moodee/widgets/homepage_widgets/progress_box.dart';
 import 'package:moodee/widgets/homepage_widgets/see_all_button_homepage.dart';
-import 'package:moodee/widgets/nav_bar.dart';
 import 'package:moodee/widgets/therapist_widgets/therapist_card.dart';
 import 'package:moodee/widgets/therapy_widgets/therapy_card.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
 import 'package:moodee/data/events.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -35,25 +36,18 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> carouselImageUrls = []; // List to store image URLs
 
   @override
-  void initState() {
-    super.initState();
-    fetchImageUrls().then((urls) {
-      setState(() {
-        carouselImageUrls = urls;
-      });
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    var _provider = Provider.of<UserProvider>(context, listen: false);
+
+    if (_provider.userProviderData == '') {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    String name = _provider.userProviderData!.firstName.toString();
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      bottomNavigationBar: CustomNavigationBar(
-        selectedIndex: 0,
-        onDestinationSelected: (index) {
-          navbarNavigation(context, 0, index);
-        },
-      ),
       body: Stack(
         children: [
           SafeArea(
@@ -95,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     // Carousel
                     height: 180,
                     width: 370,
-                    margin: EdgeInsets.symmetric(horizontal: 15),
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                     ),
@@ -123,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ]);
                         }).toList(),
                         options: CarouselOptions(
-                          autoPlayInterval: Duration(seconds: 2),
+                          autoPlayInterval: const Duration(seconds: 2),
                           autoPlay: true,
                           height: 180,
                           aspectRatio: 2.0,
@@ -150,7 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         SeeAllButtonHomepage(
                           press: () {
                             navigateNextPage(
-                                context, EventScreen()); // not working
+                                context, const EventScreen()); // not working
                           },
                         ),
                       ],
