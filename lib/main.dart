@@ -1,6 +1,9 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:moodee/auth_widget_tree.dart';
+import 'package:moodee/create_forum.dart';
+import 'package:moodee/display_forums.dart';
+import 'package:moodee/models/forum.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -29,9 +32,7 @@ class MyApp extends StatelessWidget {
           value: UserProvider(),
         ),
       ],
-      child: const MaterialApp(
-        home: AuthWidgetTree(),
-      ),
+      child: MaterialApp(home: ForumScreen()),
     );
   }
 }
