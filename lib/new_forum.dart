@@ -1,13 +1,22 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:moodee/models/forum.dart';
 
 final formatted = DateFormat.yMd();
 
 class NewForum extends StatefulWidget {
-  const NewForum({super.key, required this.onAddExpense});
+  const NewForum({
+    super.key,
+    required this.onAddExpense,
+    required this.onPickedImage,
+  });
 
   final void Function(ForumPost forumPost) onAddExpense;
+  final void Function(File pickedImage) onPickedImage;
+
   @override
   State<NewForum> createState() {
     return _NewExpenseState();
@@ -15,30 +24,32 @@ class NewForum extends StatefulWidget {
 }
 
 class _NewExpenseState extends State<NewForum> {
-  final _titleController = TextEditingController();
+  final _captionController = TextEditingController();
   final _amountController = TextEditingController();
-  DateTime? _selectedDate;
-  // Categories _selectedCategory = Categories.leisure;
+  DateTime? _currentDateTime = DateTime.now();
+  File? _pickedImageFile;
 
-  void presentDatePicker() async {
-    //either async & await or then value
-    final now = DateTime.now();
-    final firstDate = DateTime(now.year - 1, now.month, now.day);
-    final lastDate = now;
-    final pickedDate = await showDatePicker(
+  void _openAddExpenseOverlay() {
+    showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
-      initialDate: now,
-      firstDate: firstDate,
-      lastDate: lastDate,
+      builder: (ctx) {
+        return NewForum(
+          onAddExpense: ,
+          onPickedImage: (File pickedImage) {
+            _pickedImageFile = pickedImage;
+            setState(() {
+              _pickedImageFile = pickedImage;
+            });
+          },
+        );
+      },
     );
-    setState(() {
-      _selectedDate = pickedDate;
-    });
   }
 
   @override
   void dispose() {
-    _titleController.dispose();
+    _captionController.dispose();
     _amountController.dispose();
     super.dispose();
   }
@@ -47,15 +58,13 @@ class _NewExpenseState extends State<NewForum> {
     final enteredAmount = double.tryParse(_amountController.text);
     final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
 
-    if (_titleController.text.trim().isEmpty ||
-        amountIsInvalid ||
-        _selectedDate == null) {
+    if (_captionController.text.trim().isEmpty || amountIsInvalid == null) {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
           title: const Text("Invalid Input"),
           content: const Text(
-              "Please make sure a valid title,amount,date and category was entered"),
+              "Please make sure a valid title,subject, and topic was entered"),
           actions: [
             TextButton(
               onPressed: () {
@@ -70,12 +79,30 @@ class _NewExpenseState extends State<NewForum> {
     }
     widget.onAddExpense(ForumPost(
       id: '',
-      title: _titleController.text,
-      subject: _amountController.text,
-      topic: _selectedDate.toString(),
+      caption: _captionController.text,
+      time: _currentDateTime.toString(),
       likes: 0,
+      userImage: '',
+      name: '',
+      postImage: '',
     ));
     Navigator.pop(context);
+  }
+
+  void _pickedImage() async {
+    final pickedImage = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      // imageQuality: 50,
+      // maxWidth: 150,
+    );
+    if (pickedImage == null) {
+      return;
+    }
+    setState(() {
+      _pickedImageFile = File(pickedImage.path);
+    });
+
+    widget.onPickedImage(_pickedImageFile!);
   }
 
   @override
@@ -85,47 +112,16 @@ class _NewExpenseState extends State<NewForum> {
       child: Column(
         children: [
           TextField(
-            controller: _titleController,
+            controller: _captionController,
             maxLength: 50,
             keyboardType: TextInputType.text,
             decoration: const InputDecoration(
-              label: Text('Title'),
+              label: Text('Write your post caption'),
             ),
           ),
           Row(
             children: [
-              Expanded(
-                child: TextField(
-                  controller: _amountController,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    prefixText: '\$',
-                    label: Text("Amount"),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 16,
-              ),
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      _selectedDate == null
-                          ? 'No date Selected'
-                          : formatted.format(_selectedDate!),
-                    ),
-                    IconButton(
-                      onPressed: presentDatePicker,
-                      icon: const Icon(
-                        Icons.calendar_month,
-                      ),
-                    )
-                  ],
-                ),
-              ),
+              ElevatedButton(onPressed: _pickedImage, child: Text("Add Image"))
             ],
           ),
           const SizedBox(
@@ -133,27 +129,6 @@ class _NewExpenseState extends State<NewForum> {
           ),
           Row(
             children: [
-              // DropdownButton(
-              //     value: _selectedCategory,
-              //     items: Categories.values
-              //         .map(
-              //           (category) => DropdownMenuItem(
-              //             value: category,
-              //             child: Text(category.name.toUpperCase()),
-              //           ),
-              //         )
-              //         .toList(),
-              //     onChanged: (value) {
-              //       setState(
-              //         () {
-              //           if (value == null) {
-              //             return;
-              //           }
-              //           _selectedCategory = value;
-              //         },
-              //       );
-              //     }),
-              const Spacer(),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
@@ -162,8 +137,14 @@ class _NewExpenseState extends State<NewForum> {
               ),
               ElevatedButton(
                   onPressed: _submitExpenseData,
-                  child: const Text('Save Expense'))
+                  child: const Text('Post on Forum'))
             ],
+          ),
+          CircleAvatar(
+            radius: 40,
+            backgroundColor: Colors.grey,
+            foregroundImage:
+                _pickedImageFile != null ? FileImage(_pickedImageFile!) : null,
           ),
         ],
       ),

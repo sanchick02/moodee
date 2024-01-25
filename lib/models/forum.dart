@@ -1,14 +1,20 @@
+import 'dart:io';
+
 class ForumPost {
-  String id; // Unique ID for each post
-  String title;
-  String subject;
-  String topic;
+  String id; //
+  String userImage;
+  String name;
+  String time;
+  String caption;
+  String postImage;
   int likes;
 
   ForumPost(
       {required this.id,
-      required this.title,
-      required this.subject,
-      required this.topic,
+      required this.userImage,
+      required this.name,
+      required this.time,
+      required this.caption,
+      required this.postImage,
       this.likes = 0});
 }
