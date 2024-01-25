@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:moodee/data/forum_channels.dart';
-import 'package:moodee/data/forum_moodeeBoard.dart';
+import 'package:moodee/data/forum_moodeeboard.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/widgets/community_widgets/community_buttons.dart';
 import 'package:moodee/widgets/community_widgets/forum_channel_card.dart';
-import 'package:moodee/widgets/community_widgets/forum_moodeeBoard_card.dart';
+import 'package:moodee/widgets/community_widgets/forum_moodeeboard_card.dart';
 import 'package:moodee/nav_bar.dart';
 import 'package:moodee/widgets/screen_title.dart';
 

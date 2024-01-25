@@ -3,17 +3,17 @@ import 'package:moodee/models/therapists_model.dart';
 
 List<Therapist> therapistList = [
   Therapist(
-    name: "Sheryl",
-    image: "lib/assets/images/therapist1.png",
-    title: "Psychologist",
+    name: "Dr. Thompson",
+    image: "lib/assets/images/therapist/therapist1.png",
+    title: "Youth Counselor",
     rating: "4.9",
-    imageCard: "lib/assets/images/therapist1bg.png",
+    imageCard: "lib/assets/images/therapist/therapist1bg.png",
     achievements: [
-      "• Published research contributing to mental health knowledge.",
+      "• Graduated from the University of Psychology and Counseling.",
+      "• Published research on adolescent mental health.",
       "• ABCT Awards in cognitive-behavioral therapy research and practice.",
-      "• ABCT Awards in cognitive-behavioral therapy research and practice.",
-      "• ABCT Awards in cognitive-behavioral therapy research and practice.",
-      "• ABCT Awards in cognitive-behavioral therapy research and practice."
+      "• Recognized for outstanding work in youth empowerment programs.",
+      "• Certified in Cognitive Behavioral Therapy for adolescents."
     ],
     availability: [
       TherapistAvailability(
@@ -40,10 +40,10 @@ List<Therapist> therapistList = [
   ),
   Therapist(
     name: "John",
-    image: "lib/assets/images/therapist2.png",
+    image: "lib/assets/images/therapist/therapist2.png",
     title: "Therapist",
     rating: "4.8",
-    imageCard: "lib/assets/images/therapist2bg.png",
+    imageCard: "lib/assets/images/therapist/therapist2bg.png",
     achievements: [
       "• Published research contributing to mental health knowledge.",
       "• ABCT Awards in cognitive-behavioral therapy research and practice.",
@@ -76,10 +76,10 @@ List<Therapist> therapistList = [
   ),
   Therapist(
     name: "Monica",
-    image: "lib/assets/images/therapist3.png",
+    image: "lib/assets/images/therapist/therapist3.png",
     title: "Therapist",
     rating: "4.8",
-    imageCard: "lib/assets/images/therapist3bg.png",
+    imageCard: "lib/assets/images/therapist/therapist3bg.png",
     achievements: [
       "• ABCT Awards in cognitive-behavioral therapy research and practice.",
       "• ABCT Awards in cognitive-behavioral therapy research and practice.",
@@ -110,10 +110,10 @@ List<Therapist> therapistList = [
   ),
   Therapist(
     name: "Eric",
-    image: "lib/assets/images/therapist4.png",
+    image: "lib/assets/images/therapist/therapist4.png",
     title: "Psychologist",
     rating: "4.6",
-    imageCard: "lib/assets/images/therapist4bg.png",
+    imageCard: "lib/assets/images/therapist/therapist4bg.png",
     achievements: [
       "• Published research contributing to mental health knowledge.",
       "• ABCT Awards in cognitive-behavioral therapy research and practice.",

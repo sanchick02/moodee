@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-import 'package:moodee/data/forum_moodeeBoard.dart';
+import 'package:moodee/data/forum_moodeeboard.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
-
 
 class ForumMoodeeBoardCard extends StatelessWidget {
   const ForumMoodeeBoardCard({
@@ -26,7 +25,7 @@ class ForumMoodeeBoardCard extends StatelessWidget {
       ),
       margin: margin,
       width: (MediaQuery.of(context).size.width) - 30,
-      height: 210,
+      constraints: BoxConstraints(minHeight: 200),
       decoration: BoxDecoration(
         color: AppColor.fontColorSecondary,
         borderRadius: AppStyles.borderRadiusAll,

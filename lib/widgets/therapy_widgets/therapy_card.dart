@@ -94,7 +94,7 @@ class TherapyCard extends StatelessWidget {
                     bottom: 15,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFFFFF).withOpacity(0.4),
+                    color: const Color(0xFFFFFFFF).withOpacity(0.4),
                     borderRadius: AppStyles.borderRadiusTop,
                   ),
                   child: Column(

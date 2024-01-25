@@ -37,7 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      // bottomNavigationBar: 
+      // bottomNavigationBar:
       body: Container(
         color: AppColor.fontColorSecondary,
         child: SafeArea(
