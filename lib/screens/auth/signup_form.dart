@@ -1,14 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter/widgets.dart';
 import 'package:moodee/data/questions.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
+import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/screens/questions/question_screen.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/auth_widgets/formfield.dart';
 import 'package:moodee/widgets/auth_widgets/gender_toggle.dart';
+
+final _firebase = FirebaseAuth.instance;
 
 class SignUpForm extends StatefulWidget {
   const SignUpForm({super.key});
@@ -22,6 +26,66 @@ class _SignUpFormState extends State<SignUpForm> {
     true,
     false,
   ];
+  final _firstNameController = TextEditingController();
+  final _lastNameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
+
+  void _signUp() async {
+    String firstName = _firstNameController.text;
+    String lastName = _lastNameController.text;
+    String email = _emailController.text;
+    String password = _passwordController.text;
+    String confirmPassword = _confirmPasswordController.text;
+    final genderMale = isSelected[0];
+    String gender = '';
+
+    // close keyboard
+    FocusScope.of(context).unfocus();
+
+    if (genderMale == true) {
+      gender = 'male';
+    } else {
+      gender = 'female';
+    }
+    try {
+      final userCredentials = await _firebase.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userCredentials.user!.uid)
+          .set(
+        {
+          'first_name': firstName,
+          'last_name': lastName,
+          'email': email,
+          'gender': gender,
+          'date_joined': DateTime.now(),
+          'last_login': DateTime.now(),
+        },
+      ).then(
+        (value) => navigateNextPage(
+          context,
+          const QuestionsScreen(
+            questions: questionsList,
+          ),
+        ),
+      );
+    } on FirebaseAuthException catch (error) {
+      if (error.code == 'email-already-in-use') {
+        //...
+      }
+      ScaffoldMessenger.of(context).clearSnackBars();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error.message ?? ' Authentication Failed'),
+        ),
+      );
+    }
+  }
 
   DateTime selectedDate = DateTime.now();
 
@@ -39,23 +103,35 @@ class _SignUpFormState extends State<SignUpForm> {
   }
 
   @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(
               child: CustomFormField(
+                controller: _firstNameController,
                 label: "First Name",
                 keyboardType: TextInputType.name,
                 obscureText: false,
                 width: 165,
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Expanded(
               child: CustomFormField(
+                controller: _lastNameController,
                 label: "Last Name",
                 keyboardType: TextInputType.name,
                 obscureText: false,
@@ -138,8 +214,8 @@ class _SignUpFormState extends State<SignUpForm> {
                           child: TextButton(
                             onPressed: () => _selectDate(context),
                             style: ButtonStyle(
-                              padding:
-                                  const MaterialStatePropertyAll(EdgeInsets.zero),
+                              padding: const MaterialStatePropertyAll(
+                                  EdgeInsets.zero),
                               backgroundColor: const MaterialStatePropertyAll(
                                   Colors.transparent),
                               shape: MaterialStateProperty.all(
@@ -159,33 +235,27 @@ class _SignUpFormState extends State<SignUpForm> {
                       ],
                     ),
                   ),
-                  // DefaultButton(
-                  //   press: () => _selectDate(context),
-                  //   text: 'Click to Select Date',
-                  //   backgroundColor: AppColor.btnColorSecondary,
-                  //   height: 55,
-                  //   width: double.infinity,
-                  //   fontStyle: AppFonts.smallLightText,
-                  //   padding: EdgeInsets.zero,
-                  // ),
                 ],
               ),
             ))
           ],
         ),
-        const CustomFormField(
+        CustomFormField(
+          controller: _emailController,
           label: "Email",
           keyboardType: TextInputType.emailAddress,
           obscureText: false,
           width: double.infinity,
         ),
-        const CustomFormField(
+        CustomFormField(
+          controller: _passwordController,
           label: "Password",
           keyboardType: TextInputType.visiblePassword,
           obscureText: true,
           width: double.infinity,
         ),
-        const CustomFormField(
+        CustomFormField(
+          controller: _confirmPasswordController,
           label: "Confirm Password",
           keyboardType: TextInputType.visiblePassword,
           obscureText: true,
@@ -200,9 +270,7 @@ class _SignUpFormState extends State<SignUpForm> {
           fontStyle: AppFonts.normalRegularTextWhite,
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
           press: () {
-            setState(() {
-              navigateNextPage(context, const AuthScreen());
-            });
+            _signUp();
           },
         ),
       ],
