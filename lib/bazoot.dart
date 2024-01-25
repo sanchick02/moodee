@@ -73,7 +73,6 @@ class _Bazoot_ScreenState extends State<Bazoot_Screen> {
     } catch (e) {
       print(e);
     }
-
     setState(() {
       _typingUser.remove(_chatgptUser);
     });
