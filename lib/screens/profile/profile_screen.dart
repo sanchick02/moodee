@@ -126,7 +126,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             const SizedBox(width: 10),
                             DefaultButton(
                               text: "Delete Profile",
-                              press: () {},
+                              press: () {
+                                _signOut();
+                              },
                               backgroundColor: AppColor.btnColorPrimary,
                               height: 30,
                               fontStyle: AppFonts.smallLightTextWhite,
