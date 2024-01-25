@@ -3,7 +3,6 @@ import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
-import 'package:moodee/screens/mood_tracker_screen.dart';
 import 'package:moodee/screens/mood_tracker_screen2.dart';
 
 class MoodTrackerButton extends StatelessWidget {

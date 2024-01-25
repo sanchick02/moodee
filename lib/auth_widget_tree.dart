@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:moodee/loading_screen.dart';
 import 'package:moodee/navigation.dart';
-import 'package:moodee/screens/home_screen.dart';
 import 'package:moodee/screens/splash_screen.dart';
 
 class AuthWidgetTree extends StatefulWidget {
