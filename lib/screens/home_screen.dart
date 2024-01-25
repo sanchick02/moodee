@@ -36,6 +36,16 @@ class _HomeScreenState extends State<HomeScreen> {
   List<String> carouselImageUrls = []; // List to store image URLs
 
   @override
+  void initState() {
+    super.initState();
+    fetchImageUrls().then((List<String> list) {
+      setState(() {
+        carouselImageUrls = list;
+      });
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<UserProvider>(context, listen: false);
 
@@ -293,8 +303,10 @@ Future<List<String>> fetchImageUrls() async {
   List<String> imageUrls = [];
   try {
     // Assuming you have images stored in Firebase Storage under a certain path
-    ListResult result =
-        await FirebaseStorage.instance.ref('carousel_images').listAll();
+    ListResult result = await FirebaseStorage.instance
+        .ref('images')
+        .child('carousel_images')
+        .listAll();
 
     for (Reference ref in result.items) {
       String imageUrl = await ref.getDownloadURL();
