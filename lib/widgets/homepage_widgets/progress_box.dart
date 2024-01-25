@@ -11,8 +11,8 @@ class ProgressBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 120,
-      width: 240,
+      height: 110,
+      width: 235,
       padding: const EdgeInsets.symmetric(horizontal: 30),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),

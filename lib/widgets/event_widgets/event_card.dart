@@ -39,7 +39,7 @@ class EventCard extends StatelessWidget {
           children: [
             Container(
               height: 230,
-              width: 180,
+              width: 170,
               decoration: BoxDecoration(
                 color: AppColor.btnColorSecondary,
                 borderRadius: BorderRadius.circular(30),
@@ -58,9 +58,9 @@ class EventCard extends StatelessWidget {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          width: 50,
-                          height: 50,
+                        Container(
+                          padding: EdgeInsets.only(right: 5, left: 10),
+                          constraints: BoxConstraints(minWidth: 20),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -82,8 +82,8 @@ class EventCard extends StatelessWidget {
                         ),
                         Container(
                           height: 50,
-                          width: 120,
-                          padding: EdgeInsets.only(left: 10, top: 5),
+                          width: 110,
+                          padding: EdgeInsets.only(left: 5, top: 5),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -108,7 +108,7 @@ class EventCard extends StatelessWidget {
               children: [
                 Container(
                   height: 180,
-                  width: 180,
+                  width: 170,
                   decoration: BoxDecoration(
                     borderRadius: AppStyles.borderRadiusTop,
                     boxShadow: [
@@ -138,7 +138,7 @@ class EventCard extends StatelessWidget {
                 ),
                 Container(
                   height: 180,
-                  width: 180,
+                  width: 170,
                   padding: const EdgeInsets.only(
                     top: 50,
                     right: 15,
@@ -176,7 +176,7 @@ class EventCard extends StatelessWidget {
               ],
             ),
             Container(
-              width: 180,
+              width: 170,
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

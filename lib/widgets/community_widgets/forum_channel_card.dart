@@ -6,6 +6,7 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
+import 'package:moodee/screens/community/audio_room.dart';
 import 'package:moodee/screens/community/group_call_screen.dart';
 import 'package:moodee/widgets/button.dart';
 
@@ -22,7 +23,12 @@ class ForumChannelCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => navigateNextPage(context, const GroupCallScreen()),
+      onTap: () => navigateNextPage(
+        context,
+        const AudioRoom(
+          roomID: "123",
+        ),
+      ),
       child: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: 15,
@@ -68,13 +74,13 @@ class ForumChannelCard extends StatelessWidget {
               ],
             ),
             SizedBox(
-              width: 250,
+              width: 230,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     forumChannelList[index].title,
-                    style: AppFonts.normalRegularTextHeight,
+                    style: AppFonts.smallLightText,
                   ),
                   const SizedBox(height: 10),
                   DefaultButton(
@@ -82,11 +88,13 @@ class ForumChannelCard extends StatelessWidget {
                     press: () {
                       navigateNextPage(
                         context,
-                        const GroupCallScreen(),
+                        const AudioRoom(
+                          roomID: "123",
+                        ),
                       );
                     },
                     backgroundColor: AppColor.btnColorPrimary,
-                    height: 30,
+                    height: 25,
                     fontStyle: AppFonts.smallLightTextWhite,
                     width: 150,
                     padding: EdgeInsets.zero,

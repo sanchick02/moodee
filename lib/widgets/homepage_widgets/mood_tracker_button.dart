@@ -15,8 +15,8 @@ class MoodTrackerButton extends StatelessWidget {
     return GestureDetector(
       onTap: () => navigateNextPage(context, const MoodTrakcerScreen2()),
       child: Container(
-        height: 120,
-        width: 120,
+        height: 110,
+        width: 110,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30),
           color: Colors.white,

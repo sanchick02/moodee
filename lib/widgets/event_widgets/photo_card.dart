@@ -23,7 +23,7 @@ class PhotoCard extends StatelessWidget {
           left: 15.0,
           right: index == eventList[index].eventImages.length - 1 ? 15.0 : 0.0),
       height: 230,
-      width: 180,
+      width: 170,
       child: ClipRRect(
         borderRadius: AppStyles.borderRadiusAll,
         child: Stack(

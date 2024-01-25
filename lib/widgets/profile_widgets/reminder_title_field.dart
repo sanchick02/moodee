@@ -1,13 +1,15 @@
-
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
-import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';import 'package:moodee/presets/colors.dart';
+import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 
 class ReminderTitleField extends StatelessWidget {
   const ReminderTitleField({
-    super.key,
+    super.key, required this.controller,
   });
+
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +35,7 @@ class ReminderTitleField extends StatelessWidget {
                 ),
               ),
               TextFormField(
+                controller: controller,
                 decoration: InputDecoration(
                   filled: true,
                   fillColor: Colors.transparent,

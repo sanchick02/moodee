@@ -52,10 +52,20 @@ class _TherapyScreenState extends State<TherapyScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    filterButton("All", 70, isSelected = true),
-                    filterButton("Meditation", 100, isSelected = false),
-                    filterButton("Music", 90, isSelected = false),
-                    filterButton("Stories", 90, isSelected = false),
+                    Expanded(
+                        flex: 2, child: filterButton("All", isSelected = true)),
+                    SizedBox(width: 10),
+                    Expanded(
+                        flex: 3,
+                        child: filterButton("Meditation", isSelected = false)),
+                    SizedBox(width: 10),
+                    Expanded(
+                        flex: 2,
+                        child: filterButton("Music", isSelected = false)),
+                    SizedBox(width: 10),
+                    Expanded(
+                        flex: 2,
+                        child: filterButton("Stories", isSelected = false)),
                   ],
                 ),
               ),
@@ -186,7 +196,7 @@ class _TherapyScreenState extends State<TherapyScreen> {
     );
   }
 
-  Widget filterButton(String category, double width, bool isSelected) {
+  Widget filterButton(String category, bool isSelected) {
     bool isSelected = category == selectedCategory;
 
     return DefaultButton(
@@ -201,7 +211,7 @@ class _TherapyScreenState extends State<TherapyScreen> {
         height: 35,
         fontStyle:
             isSelected ? AppFonts.smallLightTextWhite : AppFonts.smallLightText,
-        width: width,
+        width: 50,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8));
   }
 

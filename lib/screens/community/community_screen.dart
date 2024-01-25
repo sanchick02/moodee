@@ -49,23 +49,35 @@ class _CommunityScreenState extends State<CommunityScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        filterButton("All", 90, isSelected = true, (category) {
-                          setState(() {
-                            selectedCategory = category;
-                          });
-                        }, selectedCategory),
-                        filterButton("Forum Channels", 140, isSelected = false,
-                            (category) {
-                          setState(() {
-                            selectedCategory = category;
-                          });
-                        }, selectedCategory),
-                        filterButton("moodeeBoard", 120, isSelected = false,
-                            (category) {
-                          setState(() {
-                            selectedCategory = category;
-                          });
-                        }, selectedCategory),
+                        Expanded(
+                          flex: 2,
+                          child: filterButton("All", isSelected = true,
+                              (category) {
+                            setState(() {
+                              selectedCategory = category;
+                            });
+                          }, selectedCategory),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          flex: 4,
+                          child: filterButton(
+                              "Forum Channels", isSelected = false, (category) {
+                            setState(() {
+                              selectedCategory = category;
+                            });
+                          }, selectedCategory),
+                        ),
+                        SizedBox(width: 10),
+                        Expanded(
+                          flex: 4,
+                          child: filterButton("moodeeBoard", isSelected = false,
+                              (category) {
+                            setState(() {
+                              selectedCategory = category;
+                            });
+                          }, selectedCategory),
+                        ),
                       ],
                     ),
                   ],
