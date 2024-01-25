@@ -49,6 +49,8 @@ dependencies:
   flutter_tflite: ^1.0.1
   firebase_storage: ^11.6.0
   flutter_launcher_icons: ^0.9.3
+  chat_gpt_sdk: ^2.2.8
+  dash_chat_2: ^0.0.19
 
 dev_dependencies:
   flutter_test:

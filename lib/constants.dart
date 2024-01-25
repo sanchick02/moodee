@@ -1,6 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:moodee/providers/user_provider.dart';
-import 'package:provider/provider.dart';
 
 class PageParam {
   static const String localUserID = 'local_user_id';
@@ -11,3 +9,5 @@ class PageParam {
 final String localUserID = FirebaseAuth.instance.currentUser!.uid;
 
 const String cacheUserIDKey = 'cache_user_id_key';
+
+const OPENAI_API_KEY = "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";

@@ -17,6 +17,8 @@ import path_provider_foundation
 import rive_common
 import shared_preferences_foundation
 import sqflite
+import url_launcher_macos
+import video_player_avfoundation
 import wakelock_plus
 import zego_express_engine
 import zego_zim
@@ -34,6 +36,8 @@ func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   RivePlugin.register(with: registry.registrar(forPlugin: "RivePlugin"))
   SharedPreferencesPlugin.register(with: registry.registrar(forPlugin: "SharedPreferencesPlugin"))
   SqflitePlugin.register(with: registry.registrar(forPlugin: "SqflitePlugin"))
+  UrlLauncherPlugin.register(with: registry.registrar(forPlugin: "UrlLauncherPlugin"))
+  FVPVideoPlayerPlugin.register(with: registry.registrar(forPlugin: "FVPVideoPlayerPlugin"))
   WakelockPlusMacosPlugin.register(with: registry.registrar(forPlugin: "WakelockPlusMacosPlugin"))
   ZegoExpressEnginePlugin.register(with: registry.registrar(forPlugin: "ZegoExpressEnginePlugin"))
   ZegoZimPlugin.register(with: registry.registrar(forPlugin: "ZegoZimPlugin"))
