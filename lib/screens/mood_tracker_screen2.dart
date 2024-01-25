@@ -177,6 +177,13 @@ class _MoodTrakcerScreen2State extends State<MoodTrakcerScreen2> {
   }
 
   @override
+  void dispose() {
+    Tflite.close();
+    cameraController!.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(

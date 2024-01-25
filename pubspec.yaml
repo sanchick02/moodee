@@ -48,6 +48,7 @@ dependencies:
   image_picker: ^0.8.4+4
   flutter_tflite: ^1.0.1
   firebase_storage: ^11.6.0
+  flutter_launcher_icons: ^0.9.3
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,11 @@ dev_dependencies:
   build_runner: ^2.4.8
   custom_lint: ^0.5.8
   riverpod_lint: ^2.3.7
+  device_info_plus: any
+  shared_preferences: any
+  cached_network_image: ^3.3.0
+  zego_uikit: ^2.15.1
+  zego_uikit_prebuilt_call: ^3.18.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
