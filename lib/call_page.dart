@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart' as zego;
 import 'common.dart';
 
 class CallPage extends StatefulWidget {
@@ -12,12 +12,12 @@ class CallPage extends StatefulWidget {
 }
 
 class CallPageState extends State<CallPage> {
-  ZegoUIKitPrebuiltCallController? callController;
+  zego.ZegoUIKitPrebuiltCallController? callController;
 
   @override
   void initState() {
     super.initState();
-    callController = ZegoUIKitPrebuiltCallController();
+    callController = zego.ZegoUIKitPrebuiltCallController();
   }
 
   @override
@@ -34,7 +34,7 @@ class CallPageState extends State<CallPage> {
     String localUserID = (provider.userProviderData!.uid).toString();
 
     return SafeArea(
-      child: ZegoUIKitPrebuiltCall(
+      child: zego.ZegoUIKitPrebuiltCall(
         appID: 569492539 /*input your AppID*/,
         appSign:
             'aaaa0e0391972c5cbb94d292f1db2d3b5dcf4921f79026c9cab3771415a6269b' /*input your AppSign*/,
@@ -42,22 +42,22 @@ class CallPageState extends State<CallPage> {
         userName: userName,
         callID: 'Hello',
         controller: callController,
-        config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+        config: zego.ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
 
           /// support minimizing
           ..topMenuBarConfig.isVisible = true
           ..topMenuBarConfig.buttons = [
-            ZegoMenuBarButtonName.minimizingButton,
-            ZegoMenuBarButtonName.showMemberListButton,
+            zego.ZegoMenuBarButtonName.minimizingButton,
+            zego.ZegoMenuBarButtonName.showMemberListButton,
           ]
           ..avatarBuilder = customAvatarBuilder
 
           ///
           ..onOnlySelfInRoom = (context) {
-            if (PrebuiltCallMiniOverlayPageState.idle !=
-                ZegoUIKitPrebuiltCallMiniOverlayMachine().state()) {
+            if (zego.PrebuiltCallMiniOverlayPageState.idle !=
+                zego.ZegoUIKitPrebuiltCallMiniOverlayMachine().state()) {
               /// now is minimizing state, not need to navigate, just switch to idle
-              ZegoUIKitPrebuiltCallMiniOverlayMachine().switchToIdle();
+              zego.ZegoUIKitPrebuiltCallMiniOverlayMachine().switchToIdle();
             } else {
               Navigator.of(context).pop();
             }
