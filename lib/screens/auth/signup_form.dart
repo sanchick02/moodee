@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter/widgets.dart';
 import 'package:moodee/data/questions.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
+import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/screens/questions/question_screen.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/auth_widgets/formfield.dart';
@@ -85,6 +87,21 @@ class _SignUpFormState extends State<SignUpForm> {
     }
   }
 
+  DateTime selectedDate = DateTime.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(1946, 1),
+        lastDate: DateTime(2024, 12));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
   @override
   void dispose() {
     _firstNameController.dispose();
@@ -102,68 +119,129 @@ class _SignUpFormState extends State<SignUpForm> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomFormField(
-              controller: _firstNameController,
-              validator: (p0) {
-                if (p0!.isEmpty) {
-                  return "Please enter your first name";
-                }
-                return null;
-              },
-              label: "First Name",
-              keyboardType: TextInputType.name,
-              obscureText: false,
-              width: 165,
+            Expanded(
+              child: CustomFormField(
+                controller: _firstNameController,
+                label: "First Name",
+                keyboardType: TextInputType.name,
+                obscureText: false,
+                width: 165,
+              ),
             ),
-            CustomFormField(
-              controller: _lastNameController,
-              label: "Last Name",
-              keyboardType: TextInputType.name,
-              obscureText: false,
-              width: 165,
+            const SizedBox(width: 10),
+            Expanded(
+              child: CustomFormField(
+                controller: _lastNameController,
+                label: "Last Name",
+                keyboardType: TextInputType.name,
+                obscureText: false,
+                width: 165,
+              ),
             ),
           ],
         ),
         Row(
           children: [
-            Padding(
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Gender",
+                      style: AppFonts.normalRegularText,
+                    ),
+                    StatefulBuilder(
+                      builder: (context, setState) {
+                        return Stack(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: AppColor.btnColorSecondary,
+                                boxShadow: [
+                                  AppShadow.innerShadow3,
+                                ],
+                                borderRadius: BorderRadius.circular(999),
+                              ),
+                            ),
+                            GenderToggle(
+                              onPressed: (index) {
+                                setState(() {
+                                  for (int buttonIndex = 0;
+                                      buttonIndex < isSelected.length;
+                                      buttonIndex++) {
+                                    isSelected[buttonIndex] =
+                                        (buttonIndex == index);
+                                  }
+                                });
+                              },
+                              isSelected: isSelected,
+                            ),
+                          ],
+                        );
+                      },
+                    ), // ToggleButtons(
+                  ],
+                ),
+              ),
+            ),
+            Expanded(
+                child: Padding(
               padding: const EdgeInsets.only(top: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Gender",
+                    "Date of Birth",
                     style: AppFonts.normalRegularText,
                   ),
-                  StatefulBuilder(
-                    builder: (context, setState) {
-                      return GenderToggle(
-                        onPressed: (index) {
-                          setState(() {
-                            for (int buttonIndex = 0;
-                                buttonIndex < isSelected.length;
-                                buttonIndex++) {
-                              isSelected[buttonIndex] = (buttonIndex == index);
-                            }
-                          });
-                        },
-                        isSelected: isSelected,
-                      );
-                    },
-                  ), // ToggleButtons(
+                  SizedBox(
+                    width: double.infinity,
+                    height: 55,
+                    child: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: AppColor.btnColorSecondary,
+                            boxShadow: [
+                              AppShadow.innerShadow3,
+                            ],
+                            borderRadius: BorderRadius.circular(999),
+                          ),
+                        ),
+                        Positioned.fill(
+                          child: TextButton(
+                            onPressed: () => _selectDate(context),
+                            style: ButtonStyle(
+                              padding: const MaterialStatePropertyAll(
+                                  EdgeInsets.zero),
+                              backgroundColor: const MaterialStatePropertyAll(
+                                  Colors.transparent),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(999),
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              selectedDate != null
+                                  ? "${selectedDate.toLocal()}".split(' ')[0]
+                                  : "Click to Select Date",
+                              style: AppFonts.smallLightText,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-            ),
+            ))
           ],
         ),
         CustomFormField(
           controller: _emailController,
-          validator: (p0) {
-            if (p0!.isEmpty) {
-              return "Please enter your email";
-            }
-            return null;
-          },
           label: "Email",
           keyboardType: TextInputType.emailAddress,
           obscureText: false,
@@ -171,12 +249,6 @@ class _SignUpFormState extends State<SignUpForm> {
         ),
         CustomFormField(
           controller: _passwordController,
-          validator: (p0) {
-            if (p0!.isEmpty) {
-              return "Please enter your password";
-            }
-            return null;
-          },
           label: "Password",
           keyboardType: TextInputType.visiblePassword,
           obscureText: true,
@@ -184,18 +256,12 @@ class _SignUpFormState extends State<SignUpForm> {
         ),
         CustomFormField(
           controller: _confirmPasswordController,
-          validator: (p0) {
-            if (p0!.isEmpty || p0 != _passwordController.text) {
-              return "Please confirm your password";
-            }
-            return null;
-          },
           label: "Confirm Password",
           keyboardType: TextInputType.visiblePassword,
           obscureText: true,
           width: double.infinity,
         ),
-        const SizedBox(height: 100),
+        const SizedBox(height: 70),
         DefaultButton(
           text: "Sign Up Now",
           backgroundColor: AppColor.btnColorPrimary,

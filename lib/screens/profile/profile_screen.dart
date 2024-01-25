@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/auth_widget_tree.dart';
+import 'package:moodee/nav_bar.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
@@ -9,7 +10,6 @@ import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/profile/calendar_screen.dart';
-import 'package:moodee/screens/splash_screen.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/divider_line.dart';
 import 'package:moodee/widgets/profile_widgets/calendar_widget.dart';
@@ -17,6 +17,7 @@ import 'package:moodee/widgets/profile_widgets/daily_mood_checkin.dart';
 import 'package:moodee/widgets/toggle_switch.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
 import 'package:provider/provider.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -26,16 +27,9 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final DateTime? _selectedDay = DateTime.now();
+
   void _signOut() async {
-    // Navigator.pushAndRemoveUntil(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => const AuthWidgetTree()),
-    //   (Route<dynamic> route) => false,
-    // );
-    // Navigator.pushReplacement(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => const AuthWidgetTree()),
-    // );
     await FirebaseAuth.instance.signOut().then((value) => Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const AuthWidgetTree()),
@@ -48,9 +42,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      // bottomNavigationBar:
       body: Container(
-        color: AppColor.fontColorSecondary,
+        color: AppColor.backgroundColor,
         child: SafeArea(
           child: SingleChildScrollView(
             child: Container(
@@ -65,12 +58,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         decoration: BoxDecoration(
                           color: AppColor.fontColorSecondary,
                           boxShadow: [
-                            BoxShadow(
-                              offset: const Offset(0, -10),
-                              blurRadius: 10,
-                              color: Colors.black.withOpacity(0.4),
-                              inset: true,
-                            )
+                            AppShadow.innerShadow3,
+                            AppShadow.innerShadow4
                           ],
                         ),
                       ),
@@ -127,26 +116,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             DefaultButton(
                               text: "Edit Profile",
-                              press: () {
-                                print("hello");
-                                print(provider.userProviderData!.uid);
-                              },
+                              press: () {},
                               backgroundColor: AppColor.btnColorPrimary,
-                              height: 25,
-                              fontStyle: AppFonts.extraSmallLightTextWhite,
-                              width: 100,
+                              height: 30,
+                              fontStyle: AppFonts.smallLightTextWhite,
+                              width: 120,
                               padding: EdgeInsets.zero,
                             ),
-                            const SizedBox(width: 15),
+                            const SizedBox(width: 10),
                             DefaultButton(
-                              text: "Sign Out",
-                              press: () {
-                                _signOut();
-                              },
+                              text: "Delete Profile",
+                              press: () {},
                               backgroundColor: AppColor.btnColorPrimary,
-                              height: 25,
-                              fontStyle: AppFonts.extraSmallLightTextWhite,
-                              width: 100,
+                              height: 30,
+                              fontStyle: AppFonts.smallLightTextWhite,
+                              width: 120,
                               padding: EdgeInsets.zero,
                             )
                           ],
@@ -155,7 +139,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Container(
                           padding: const EdgeInsets.all(15),
                           width: double.infinity,
-                          constraints: BoxConstraints(minHeight: 50),
+                          constraints: const BoxConstraints(minHeight: 50),
                           decoration: BoxDecoration(
                             color: AppColor.fontColorSecondary,
                             borderRadius: AppStyles.borderRadiusAll,
@@ -173,33 +157,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                               const SizedBox(height: 10),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  DailyMoodCheckIn(
-                                    day: "Mon",
-                                    image: "lib/assets/images/emojiHappy.png",
+                                  Expanded(
+                                    child: DailyMoodCheckIn(
+                                      day: "Mon",
+                                      image: "lib/assets/images/emojiHappy.png",
+                                    ),
                                   ),
-                                  DailyMoodCheckIn(
-                                    day: "Tue",
-                                    image: "lib/assets/images/emojiHappy.png",
+                                  Expanded(
+                                    child: DailyMoodCheckIn(
+                                      day: "Tue",
+                                      image: "lib/assets/images/emojiHappy.png",
+                                    ),
                                   ),
-                                  DailyMoodCheckIn(
-                                    day: "Wed",
-                                    image: "lib/assets/images/emojiHappy.png",
+                                  Expanded(
+                                    child: DailyMoodCheckIn(
+                                      day: "Wed",
+                                      image: "lib/assets/images/emojiHappy.png",
+                                    ),
                                   ),
-                                  DailyMoodCheckIn(
-                                    day: "Thu",
-                                    image: '',
+                                  Expanded(
+                                    child: DailyMoodCheckIn(
+                                      day: "Thu",
+                                      image: '',
+                                    ),
                                   ),
-                                  DailyMoodCheckIn(
-                                    day: "Fri",
+                                  Expanded(
+                                    child: DailyMoodCheckIn(
+                                      day: "Fri",
+                                    ),
                                   ),
-                                  DailyMoodCheckIn(
-                                    day: "Sat",
+                                  Expanded(
+                                    child: DailyMoodCheckIn(
+                                      day: "Sat",
+                                    ),
                                   ),
-                                  DailyMoodCheckIn(
-                                    day: "Sun",
+                                  Expanded(
+                                    child: DailyMoodCheckIn(
+                                      day: "Sun",
+                                    ),
                                   ),
                                 ],
                               ),
@@ -210,12 +207,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         GestureDetector(
                           onTap: () =>
                               navigateNextPage(context, CalendarScreen()),
-                          child: CustomCalendar(),
+                          child: _buildCustomCalendar(),
                         ),
                         const SizedBox(height: 10),
                         Container(
                           width: double.infinity,
-                          constraints: BoxConstraints(minHeight: 100),
+                          constraints: const BoxConstraints(minHeight: 100),
                           decoration: BoxDecoration(
                             color: AppColor.fontColorSecondary,
                             borderRadius: AppStyles.borderRadiusAll,
@@ -361,4 +358,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
+}
+
+Widget _buildCustomCalendar() {
+  return Column(
+    children: [
+      Container(
+        width: double.infinity,
+        height: 350,
+        decoration: BoxDecoration(
+          color: AppColor.fontColorSecondary,
+          borderRadius: AppStyles.borderRadiusAll,
+          boxShadow: [
+            AppShadow.innerShadow3,
+            AppShadow.innerShadow4,
+          ],
+        ),
+        child: Column(
+          children: [
+            TableCalendar(
+              focusedDay: DateTime.now(),
+              firstDay: DateTime.utc(2024, 01, 01),
+              lastDay: DateTime.utc(2025, 12, 31),
+              rowHeight: 43,
+              headerStyle: const HeaderStyle(
+                formatButtonVisible: false,
+                titleCentered: true,
+              ),
+              availableGestures: AvailableGestures.all,
+            ),
+          ],
+        ),
+      ),
+    ],
+  );
 }

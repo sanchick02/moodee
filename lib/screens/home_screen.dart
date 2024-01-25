@@ -1,10 +1,14 @@
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/data/therapists.dart';
 import 'package:moodee/data/therapy_lists.dart';
+import 'package:moodee/nav_bar.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
+import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/events/event_screen.dart';
 import 'package:moodee/screens/therapist/therapist_screen.dart';
@@ -27,6 +31,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  int carouselCurrentIndex = 0;
+
+  List<String> carouselImageUrls = []; // List to store image URLs
+
   @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<UserProvider>(context, listen: false);
@@ -40,12 +48,6 @@ class _HomeScreenState extends State<HomeScreen> {
     String name = _provider.userProviderData!.firstName.toString();
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      // bottomNavigationBar: CustomNavigationBar(
-      //   selectedIndex: 0,
-      //   onDestinationSelected: (index) {
-      //     navbarNavigation(context, 0, index);
-      //   },
-      // ),
       body: Stack(
         children: [
           SafeArea(
@@ -62,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Good Day, ${(name)}!",
+                          "Good Day, Sam!",
                           style: AppFonts.largeMediumText,
                         ),
                       ],
@@ -74,8 +76,11 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        MoodTrackerButton(),
-                        ProgressBox(),
+                        Expanded(flex: 1, child: MoodTrackerButton()),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(flex: 2, child: ProgressBox()),
                       ],
                     ),
                   ),
@@ -84,14 +89,45 @@ class _HomeScreenState extends State<HomeScreen> {
                     // Carousel
                     height: 180,
                     width: 370,
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(30),
-                      child: Image.asset(
-                        "lib/assets/images/Carousel.jpg",
-                        fit: BoxFit.cover,
+                      child: CarouselSlider(
+                        items: carouselImageUrls.map((imageUrl) {
+                          return Stack(children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(30),
+                              child: Image.network(
+                                imageUrl,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  AppShadow.innerShadow1,
+                                ],
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                            ),
+                          ]);
+                        }).toList(),
+                        options: CarouselOptions(
+                          autoPlayInterval: const Duration(seconds: 2),
+                          autoPlay: true,
+                          height: 180,
+                          aspectRatio: 2.0,
+                          viewportFraction: 1.0,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              carouselCurrentIndex = index;
+                            });
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -107,7 +143,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                         SeeAllButtonHomepage(
                           press: () {
-                            navigateNextPage(context, const EventScreen());
+                            navigateNextPage(
+                                context, const EventScreen()); // not working
                           },
                         ),
                       ],
@@ -250,4 +287,21 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+
+Future<List<String>> fetchImageUrls() async {
+  List<String> imageUrls = [];
+  try {
+    // Assuming you have images stored in Firebase Storage under a certain path
+    ListResult result =
+        await FirebaseStorage.instance.ref('carousel_images').listAll();
+
+    for (Reference ref in result.items) {
+      String imageUrl = await ref.getDownloadURL();
+      imageUrls.add(imageUrl);
+    }
+  } catch (e) {
+    print('Error fetching image URLs: $e');
+  }
+  return imageUrls;
 }

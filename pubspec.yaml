@@ -51,6 +51,7 @@ dependencies:
   flutter_launcher_icons: ^0.9.3
   chat_gpt_sdk: ^2.2.8
   dash_chat_2: ^0.0.19
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
