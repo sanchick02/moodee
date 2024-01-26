@@ -36,11 +36,22 @@ class _ExpensesState extends State<ForumScreen> {
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+        backgroundColor: AppColor.fontColorSecondary,
         isScrollControlled: true,
         context: context,
         builder: (ctx) {
-          return NewForum(
-            onAddExpense: _addExpense,
+          return Container(
+            height: MediaQuery.of(context).size.height * 0.7,
+            decoration: BoxDecoration(
+              boxShadow: [
+                AppShadow.innerShadow3,
+                AppShadow.innerShadow4,
+              ],
+              borderRadius: AppStyles.borderRadiusTop,
+            ), // Set the desired height
+            child: NewForum(
+              onAddExpense: _addExpense,
+            ),
           );
         }); //ctx also is a context
   }
@@ -65,27 +76,10 @@ class _ExpensesState extends State<ForumScreen> {
         onPressed: () {
           setState(() {
             _registeredExpenses.insert(expenseIndex, forumPost);
-            _registeredExpenses.sort((a, b) => a.time.compareTo(b.time));
           });
         },
       ),
     ));
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _registeredExpenses.sort((a, b) => a.time.compareTo(b.time));
-    // update new forum post
-    _registeredExpenses.add(ForumPost(
-        uid: '',
-        pid: '',
-        userImage: '',
-        userName: '',
-        time: '',
-        caption: '',
-        postImage: '',
-        likes: 0));
   }
 
   @override
@@ -99,7 +93,6 @@ class _ExpensesState extends State<ForumScreen> {
     }
 
     return Scaffold(
-      // ),
       body: SafeArea(
         child: Column(
           children: [
@@ -118,7 +111,7 @@ class _ExpensesState extends State<ForumScreen> {
             GestureDetector(
               onTap: _openAddExpenseOverlay, // change to create post!
               child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15),
+                margin: const EdgeInsets.only(left: 15, right: 15, bottom: 5),
                 width: double.infinity,
                 constraints: const BoxConstraints(
                     minHeight: 80, maxHeight: 100), // ADJUST LATER!!
@@ -132,7 +125,7 @@ class _ExpensesState extends State<ForumScreen> {
                 ),
                 child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
                   child: Row(
                     children: [
                       SizedBox(
@@ -148,25 +141,27 @@ class _ExpensesState extends State<ForumScreen> {
                       const SizedBox(
                         width: 10,
                       ),
-                      Column(
-                        children: [
-                          Text(
-                            "Share your thoughts here...",
-                            style: AppFonts.smallLightText,
+                      Expanded(
+                        child: SizedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Share your thoughts here...",
+                                style: AppFonts.smallLightText,
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Divider(
+                                thickness: 1,
+                                color:
+                                    AppColor.fontColorPrimary.withOpacity(0.5),
+                              ),
+                            ],
                           ),
-
-                          // DIVIDER LINE NOT DONE YET!!!!!1
-                          // Container(
-                          //   width: double.infinity,
-                          //   height: 3,
-                          //   color: AppColor.btnColorPrimary,
-                          // )
-                          // OR
-                          // Divider(
-                          //   thickness: 4,
-                          //   color: AppColor.fontColorPrimary,
-                          // ),
-                        ],
+                        ),
                       )
                     ],
                   ),

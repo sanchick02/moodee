@@ -74,6 +74,7 @@ dev_dependencies:
   zego_uikit: ^2.15.1
   zego_uikit_prebuilt_call: ^3.18.0
   zego_uikit_prebuilt_live_audio_room: ^2.18.1
+  timeago: ^3.6.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -7,7 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:moodee/models/forum.dart';
+import 'package:moodee/presets/colors.dart';
+import 'package:moodee/presets/fonts.dart';
+import 'package:moodee/presets/styles.dart';
 import 'package:moodee/providers/user_provider.dart';
+import 'package:moodee/widgets/button.dart';
 import 'package:uuid/uuid.dart';
 
 final formatted = DateFormat.yMd();
@@ -139,43 +143,98 @@ class _NewExpenseState extends State<NewForum> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
+      padding: const EdgeInsets.fromLTRB(16, 40, 16, 16),
       child: Column(
         children: [
           TextField(
+            cursorColor: AppColor.fontColorPrimary,
             controller: _captionController,
-            maxLength: 50,
+            maxLength: 500,
             keyboardType: TextInputType.text,
-            decoration: const InputDecoration(
-              label: Text('Write your post caption'),
+            decoration: InputDecoration(
+              label: Text(
+                'Write your post caption...',
+                style: AppFonts.smallLightText,
+              ),
             ),
           ),
-          Row(
-            children: [
-              ElevatedButton(onPressed: _pickedImage, child: Text("Add Image"))
-            ],
-          ),
+
           const SizedBox(
             height: 16,
           ),
-          Row(
-            children: [
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                child: const Text('Cancel'),
+
+          // CircleAvatar(
+          //   radius: 40,
+          //   backgroundColor: Colors.grey,
+          //   foregroundImage:
+          //       _pickedImageFile != null ? FileImage(_pickedImageFile!) : null,
+          // ),
+          GestureDetector(
+            onTap: () => _pickedImage(),
+            child: Container(
+              margin: EdgeInsets.only(top: 15),
+              alignment: Alignment.center,
+              width: double.infinity,
+              height: 200,
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.2),
+                borderRadius: AppStyles.borderRadiusAll,
+                image: _pickedImageFile != null
+                    ? DecorationImage(
+                        fit: BoxFit.cover,
+                        image: FileImage(_pickedImageFile!),
+                      )
+                    : null,
               ),
-              ElevatedButton(
-                  onPressed: _submitExpenseData,
-                  child: const Text('Post on Forum'))
-            ],
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Click Here to Add Image",
+                    style: AppFonts.normalRegularText,
+                  ),
+                  Text(
+                    "(Image preview will be shown here)",
+                    style: AppFonts.smallLightText,
+                  ),
+                ],
+              ),
+            ),
           ),
-          CircleAvatar(
-            radius: 40,
-            backgroundColor: Colors.grey,
-            foregroundImage:
-                _pickedImageFile != null ? FileImage(_pickedImageFile!) : null,
+          SizedBox(
+            height: 30,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                flex: 3,
+                child: DefaultButton(
+                  text: "Publish Post on Forum",
+                  press: _submitExpenseData,
+                  backgroundColor: AppColor.btnColorPrimary,
+                  height: 40,
+                  fontStyle: AppFonts.smallLightTextWhite,
+                  width: 200,
+                  padding: EdgeInsets.zero,
+                ),
+              ),
+              SizedBox(width: 15),
+              Expanded(
+                flex: 2,
+                child: DefaultButton(
+                  text: "Cancel",
+                  press: () {
+                    Navigator.pop(context);
+                  },
+                  backgroundColor: AppColor.btnColorSecondary,
+                  height: 40,
+                  fontStyle: AppFonts.smallLightText,
+                  width: 100,
+                  padding: EdgeInsets.zero,
+                ),
+              ),
+            ],
           ),
         ],
       ),

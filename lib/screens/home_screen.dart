@@ -78,11 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Good Day, Sam!",
                           style: AppFonts.largeMediumText,
                         ),
-                        TextButton(
-                            onPressed: () {
-                              navigateNextPage(context, ForumScreen());
-                            },
-                            child: Text('chat'))
+                        
                       ],
                     ),
                   ),

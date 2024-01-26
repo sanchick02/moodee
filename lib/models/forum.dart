@@ -16,5 +16,5 @@ class ForumPost {
       required this.time,
       required this.caption,
       required this.postImage,
-      this.likes = 0});
+      required this.likes});
 }
