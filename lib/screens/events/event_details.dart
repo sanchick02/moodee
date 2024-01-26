@@ -39,7 +39,7 @@ class EventDetailsScreen extends StatelessWidget {
                     Image.asset(
                       "lib/assets/images/meshGrad1.png",
                       height: 300,
-                      width: double.infinity,
+                      width: double.infinity - 50,
                       fit: BoxFit.cover,
                       opacity: const AlwaysStoppedAnimation(0.7),
                     ),
@@ -47,40 +47,42 @@ class EventDetailsScreen extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Container(
-                      height: 300,
-                      constraints: const BoxConstraints(maxWidth: 400),
-                      padding: const EdgeInsets.only(left: 30, right: 30),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Spacer(),
-                          Text(
-                            Text(eventList[index].name).data!,
-                            style: AppFonts.heading3Height,
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            Text(eventList[index].description).data!,
-                            style: AppFonts.smallLightText,
-                          ),
-                          const SizedBox(height: 15),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Image.asset(
-                                "lib/assets/icons/Location.png",
-                                width: 15,
-                              ),
-                              const SizedBox(width: 5),
-                              Text(
-                                Text(eventList[index].location).data!,
-                                style: AppFonts.smallLightText,
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 30),
-                        ],
+                    Expanded(
+                      child: Container(
+                        height: 300,
+                        constraints: const BoxConstraints(maxWidth: 400),
+                        padding: const EdgeInsets.only(left: 30, right: 30),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Spacer(),
+                            Text(
+                              Text(eventList[index].name).data!,
+                              style: AppFonts.heading3Height,
+                            ),
+                            const SizedBox(height: 5),
+                            Text(
+                              Text(eventList[index].description).data!,
+                              style: AppFonts.smallLightText,
+                            ),
+                            const SizedBox(height: 15),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.asset(
+                                  "lib/assets/icons/Location.png",
+                                  width: 15,
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  Text(eventList[index].location).data!,
+                                  style: AppFonts.smallLightText,
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                          ],
+                        ),
                       ),
                     ),
                   ],
