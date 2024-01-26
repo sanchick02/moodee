@@ -65,10 +65,27 @@ class _ExpensesState extends State<ForumScreen> {
         onPressed: () {
           setState(() {
             _registeredExpenses.insert(expenseIndex, forumPost);
+            _registeredExpenses.sort((a, b) => a.time.compareTo(b.time));
           });
         },
       ),
     ));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _registeredExpenses.sort((a, b) => a.time.compareTo(b.time));
+    // update new forum post
+    _registeredExpenses.add(ForumPost(
+        uid: '',
+        pid: '',
+        userImage: '',
+        userName: '',
+        time: '',
+        caption: '',
+        postImage: '',
+        likes: 0));
   }
 
   @override
@@ -82,14 +99,6 @@ class _ExpensesState extends State<ForumScreen> {
     }
 
     return Scaffold(
-      // appBar: AppBar(
-      //   actions: [
-      //     IconButton(
-      //       onPressed: _openAddExpenseOverlay,
-      //       icon: const Icon(Icons.add),
-      //     ),
-      //   ],
-      //   title: const Text("Sanjiv's Expense Tracker"),
       // ),
       body: SafeArea(
         child: Column(

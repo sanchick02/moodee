@@ -72,18 +72,6 @@ class _NewExpenseState extends State<NewForum> {
         .doc(currentUser.uid)
         .get();
 
-    // widget.onAddExpense(ForumPost(
-    //   uid: currentUser.uid,
-    //   pid: postId,
-    //   caption: _captionController.text,
-    //   time: _currentDateTime.toString(),
-    //   likes: 0,
-    //   userImage: '',
-    //   userName: userData.data()!['first_name'],
-    //   name: '',
-    //   postImage: _pickedImageFile!.path,
-    // ));
-
     // convert image to file
     final _capturedImage = File(_pickedImageFile!.path);
     String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
@@ -118,6 +106,20 @@ class _NewExpenseState extends State<NewForum> {
       'timestamp': timestamp,
     });
     Navigator.pop(context);
+    setState(() {
+      _pickedImageFile = null;
+
+      // update new forum post
+      widget.onAddExpense(ForumPost(
+          uid: currentUser.uid,
+          pid: postId,
+          userImage: '',
+          userName: userData.data()!['first_name'],
+          time: _currentDateTime.toString(),
+          caption: _captionController.text,
+          postImage: imageUrl,
+          likes: 0));
+    });
   }
 
   void _pickedImage() async {

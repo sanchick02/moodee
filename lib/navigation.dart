@@ -2,6 +2,7 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/bazoot.dart';
 import 'package:moodee/chat_screen.dart';
+import 'package:moodee/forum_screen.dart';
 import 'package:moodee/loading_screen.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/shadow.dart';
@@ -35,7 +36,8 @@ class _NavigationState extends State<Navigation> {
     const HomeScreen(),
     const ChatScreen1(),
     const Bazoot_Screen(),
-    const CommunityScreen(),
+    // const CommunityScreen(),
+    const ForumScreen(),
     const ProfileScreen()
   ];
 
