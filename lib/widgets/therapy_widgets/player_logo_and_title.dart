@@ -11,24 +11,21 @@ class PlayerLogoAndTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 60),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 80),
-            child: Text(
-              title,
-              style: AppFonts.largeMediumText,
-            ),
+    return Stack(
+      alignment: Alignment.center,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 70),
+          child: Text(
+            title,
+            style: AppFonts.largeMediumText,
           ),
-          Image.asset(
-            "lib/assets/images/Logo.png",
-            width: 200,
-          ),
-        ],
-      ),
+        ),
+        Image.asset(
+          "lib/assets/images/Logo.png",
+          width: 200,
+        ),
+      ],
     );
   }
 }

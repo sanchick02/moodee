@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/bazoot.dart';
@@ -30,23 +32,35 @@ class _NavigationState extends State<Navigation> {
   int currentIndex = 0;
   bool _isLoading = true;
 
-  List<Widget> pages = [
-    const HomeScreen(),
-    const ChatScreen1(),
-    const Bazoot_Screen(),
-    const CommunityScreen(),
-    const ProfileScreen()
-  ];
+  File? _selectedImage;
+
+  List<Widget> pages = [];
+
+  void handlePickedImage(File pickedImage) {
+    setState(() {
+      _selectedImage = pickedImage;
+    });
+  }
 
   @override
   void initState() {
-    Provider.of<UserProvider>(context, listen: false)
-        .fetchUserData()
-        .then((_) => setState(() {
-              _isLoading = false;
-            }));
+    Provider.of<UserProvider>(context, listen: false).fetchUserData().then((_) {
+      setState(() {
+        _isLoading = false;
+
+        pages = [
+          const HomeScreen(),
+          const ChatScreen1(),
+          const Bazoot_Screen(),
+          const CommunityScreen(),
+          ProfileScreen(
+            onPickedImage: handlePickedImage,
+          ),
+        ];
+      });
+    });
+
     super.initState();
-    // _loadData();
   }
 
   @override

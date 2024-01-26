@@ -4,7 +4,6 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/data/therapists.dart';
 import 'package:moodee/data/therapy_lists.dart';
-import 'package:moodee/nav_bar.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
@@ -13,10 +12,10 @@ import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/events/event_screen.dart';
 import 'package:moodee/screens/therapist/therapist_screen.dart';
 import 'package:moodee/screens/therapy/therapy_screen.dart';
+import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/event_widgets/event_card.dart';
 import 'package:moodee/widgets/homepage_widgets/mood_tracker_button.dart';
 import 'package:moodee/widgets/homepage_widgets/progress_box.dart';
-import 'package:moodee/widgets/homepage_widgets/see_all_button_homepage.dart';
 import 'package:moodee/widgets/therapist_widgets/therapist_card.dart';
 import 'package:moodee/widgets/therapy_widgets/therapy_card.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
@@ -74,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Good Day, Sam!",
+                          "Good Day, $name!",
                           style: AppFonts.largeMediumText,
                         ),
                       ],
@@ -151,11 +150,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Events Nearby",
                           style: AppFonts.largeMediumText,
                         ),
-                        SeeAllButtonHomepage(
+                        DefaultButton(
+                          text: "See All",
                           press: () {
                             navigateNextPage(
                                 context, const EventScreen()); // not working
                           },
+                          backgroundColor: AppColor.btnColorPrimary,
+                          height: 35,
+                          fontStyle: AppFonts.smallLightTextWhite,
+                          width: 100,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
                         ),
                       ],
                     ),
@@ -196,11 +202,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Book a Therapist",
                           style: AppFonts.largeMediumText,
                         ),
-                        SeeAllButtonHomepage(
+                        DefaultButton(
+                          text: "See All",
                           press: () {
                             navigateNextPage(
                                 context, TherapistScreen()); // not working
                           },
+                          backgroundColor: AppColor.btnColorPrimary,
+                          height: 35,
+                          fontStyle: AppFonts.smallLightTextWhite,
+                          width: 100,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
                         ),
                       ],
                     ),
@@ -235,7 +248,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Featured Therapy",
                           style: AppFonts.largeMediumText,
                         ),
-                        SeeAllButtonHomepage(
+                        DefaultButton(
+                          text: "See All",
                           press: () {
                             navigateNextPage(
                               context,
@@ -244,6 +258,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ); // not working
                           },
+                          backgroundColor: AppColor.btnColorPrimary,
+                          height: 35,
+                          fontStyle: AppFonts.smallLightTextWhite,
+                          width: 100,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
                         ),
                       ],
                     ),

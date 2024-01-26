@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
@@ -18,16 +20,20 @@ import 'package:moodee/widgets/toggle_switch.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({super.key, required this.onPickedImage});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
+
+  final void Function(File pickedImage) onPickedImage;
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final DateTime? _selectedDay = DateTime.now();
+  File? _pickedImageFile; // Move it here
 
   void _signOut() async {
     await FirebaseAuth.instance.signOut().then((value) => Navigator.push(
@@ -39,6 +45,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<UserProvider>(context, listen: true);
+
+    void _pickedImage() async {
+      final pickedImage = await ImagePicker().pickImage(
+        source: ImageSource.gallery,
+        // imageQuality: 50,
+        // maxWidth: 150,
+      );
+      if (pickedImage == null) {
+        return;
+      }
+      setState(() {
+        _pickedImageFile = File(pickedImage.path);
+      });
+
+      widget.onPickedImage(_pickedImageFile!);
+    }
 
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
@@ -78,13 +100,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            ClipOval(
-                              child: Image.asset(
-                                "lib/assets/images/face1.jpg",
-                                width: 150,
-                                height: 150,
-                                fit: BoxFit.cover,
-                              ),
+                            Stack(
+                              alignment: Alignment.bottomRight,
+                              children: [
+                                ClipOval(
+                                  child: _pickedImageFile != null
+                                      ? Image.file(
+                                          _pickedImageFile!,
+                                          width: 150, // Set the desired width
+                                          height: 150, // Set the desired height
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.asset(
+                                          "lib/assets/images/userAnon.png",
+                                          width: 150,
+                                          height: 150,
+                                          fit: BoxFit.cover,
+                                        ),
+                                ),
+                                Material(
+                                  color: AppColor.fontColorPrimary,
+                                  borderRadius: BorderRadius.circular(999),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      _pickedImage();
+                                    },
+                                    icon: const Icon(Icons.camera_alt),
+                                    color: AppColor.btnColorSecondary,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -125,7 +170,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                             const SizedBox(width: 10),
                             DefaultButton(
-                              text: "Delete Profile",
+                              text: "Sign Out", // CHANGED THIS
                               press: () {
                                 _signOut();
                               },

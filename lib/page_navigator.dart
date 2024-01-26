@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:moodee/data/therapy_lists.dart';
 import 'package:moodee/models/media_item_model.dart';
@@ -9,6 +11,7 @@ import 'package:moodee/screens/home_screen.dart';
 import 'package:moodee/screens/therapy/therapy_screen.dart';
 
 // to be reused as a navigator for switching pages
+File? _selectedImage;
 
 navigateNextPage(BuildContext context, Widget nextPage) {
   Navigator.push(
@@ -52,7 +55,11 @@ navbarNavigation(BuildContext context, int? currentIndex, int? selectedIndex) {
             CommunityScreen());
         break;
       case 4:
-        navigateNextPage(context, ProfileScreen());
+        navigateNextPage(context, ProfileScreen(
+          onPickedImage: (pickedImage) {
+            _selectedImage = pickedImage;
+          },
+        ));
         break;
 
       case null:

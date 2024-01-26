@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moodee/data/therapy_lists.dart';
 import 'package:moodee/models/media_item_model.dart';
 import 'package:moodee/models/therapy_items_model.dart';
+import 'package:moodee/presets/colors.dart';
 
 import 'package:moodee/widgets/back_button_top.dart';
 import 'package:moodee/widgets/therapy_widgets/player_logo_and_title.dart';
@@ -26,36 +27,39 @@ class TherapyPlayerScreen extends StatelessWidget {
       mediaList = storyList;
     }
     return Scaffold(
-      body: Stack(
-        children: [
-          Image.asset(
-            "lib/assets/images/meshGrad1.png",
-            fit: BoxFit.cover,
-            height: double.infinity,
-            width: double.infinity,
-          ),
-          Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 30, left: 15, right: 15),
-                child: Row(
-                  children: [
-                    BackButtonTop(
-                      onBackButtonPressed: () {
-                        Navigator.pop(context);
-                      },
-                    ),
-                  ],
+      backgroundColor: AppColor.backgroundColor,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Image.asset(
+              "lib/assets/images/meshGrad1.png",
+              fit: BoxFit.cover,
+              height: double.infinity,
+              width: double.infinity,
+            ),
+            Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
+                  child: Row(
+                    children: [
+                      BackButtonTop(
+                        onBackButtonPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              PlayerLogoAndTitle(title: Text(mediaItem.therapyType).data!),
-              PlayerWidget(
-                mediaItem: mediaItem,
-                mediaList: mediaList,
-              ),
-            ],
-          ),
-        ],
+                PlayerLogoAndTitle(title: Text(mediaItem.therapyType).data!),
+                PlayerWidget(
+                  mediaItem: mediaItem,
+                  mediaList: mediaList,
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

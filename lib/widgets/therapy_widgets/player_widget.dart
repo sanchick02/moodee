@@ -4,8 +4,8 @@ import 'package:moodee/models/therapy_items_model.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/styles.dart';
-import 'package:moodee/widgets/therapy_widgets/progress_indicator.dart';
 import 'package:moodee/widgets/rounded_button.dart';
+import 'package:lottie/lottie.dart';
 
 class PlayerWidget<T extends MediaItem> extends StatefulWidget {
   PlayerWidget({
@@ -21,9 +21,75 @@ class PlayerWidget<T extends MediaItem> extends StatefulWidget {
   State<PlayerWidget<T>> createState() => _PlayerWidgetState<T>();
 }
 
-class _PlayerWidgetState<T extends MediaItem> extends State<PlayerWidget<T>> {
+class _PlayerWidgetState<T extends MediaItem> extends State<PlayerWidget<T>>
+    with SingleTickerProviderStateMixin {
   int currentTherapyIndex = 0;
   bool isButtonClicked = false;
+  bool _isDisposed = false;
+
+  late AnimationController _controller;
+  late Animation<double> _progress;
+
+  final ValueNotifier<double> _player = ValueNotifier<double>(0);
+  bool _isDark = false;
+
+  controllerListener() {
+    if (_controller.status == AnimationStatus.forward ||
+        _controller.status == AnimationStatus.completed) {
+      increasePlayer();
+    }
+  }
+
+  increasePlayer() async {
+    if (!_isDisposed) {
+      if (_controller.status == AnimationStatus.forward ||
+          _controller.status == AnimationStatus.completed) {
+        if ((_player.value + .0005) > 1) {
+          _player.value = 1;
+          if (!_isDisposed) {
+            _controller.reverse();
+          }
+        } else {
+          _player.value += .00005;
+        }
+
+        await Future.delayed(
+          const Duration(milliseconds: 100),
+        );
+        if (_player.value < 1) {
+          increasePlayer();
+        }
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    // Dispose of your resources here.
+    _controller.dispose();
+    _player.dispose();
+    _isDisposed = true;
+
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 300),
+      vsync: this,
+    );
+
+    _progress = Tween<double>(begin: 0, end: 1).animate(_controller)
+      ..addListener(() {
+        setState(() {});
+      });
+
+    _controller.addListener(() {
+      controllerListener();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +99,43 @@ class _PlayerWidgetState<T extends MediaItem> extends State<PlayerWidget<T>> {
           padding: AppStyles.edgeInsetsLR,
           child: Column(
             children: [
-              ClipOval(
-                child: Image.asset(
-                  widget.mediaItem.image,
-                  width: 250,
-                  height: 250,
-                  fit: BoxFit.cover,
+              SizedBox.square(
+                dimension: MediaQuery.sizeOf(context).width - 40,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      left: 30,
+                      top: 30,
+                      bottom: 30,
+                      right: 30,
+                      child: ValueListenableBuilder(
+                          valueListenable: _player,
+                          builder: (context, value, _) {
+                            return CircularProgressIndicator(
+                              color: AppColor.btnColorPrimary,
+                              value: value,
+                              strokeCap: StrokeCap.round,
+                              strokeWidth: 10,
+                              backgroundColor: AppColor.backgroundColor,
+                            );
+                          }),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(1000),
+                        child: Container(
+                          height: 200,
+                          width: 200,
+                          color: AppColor.backgroundColor,
+                          child: _buildMediaContent(),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 50),
+
               Text(widget.mediaItem.instructions),
               Text(
                 widget.mediaItem.title,
@@ -53,14 +147,29 @@ class _PlayerWidgetState<T extends MediaItem> extends State<PlayerWidget<T>> {
                 style: AppFonts.smallLightText,
               ),
               const SizedBox(height: 30),
-              MusicPlayerProgressIndicator(
-                duration: widget.mediaItem.duration,
+
+              ValueListenableBuilder(
+                valueListenable: _player,
+                builder: (context, value, _) {
+                  return Slider(
+                    thumbColor: AppColor.btnColorPrimary,
+                    activeColor: AppColor.btnColorPrimary,
+                    inactiveColor: AppColor.btnColorPrimary.withOpacity(.4),
+                    secondaryActiveColor:
+                        AppColor.btnColorPrimary.withOpacity(.4),
+                    value: value,
+                    onChanged: (_) {
+                      _controller.reverse();
+                      _player.value = _;
+                    },
+                  );
+                },
               ),
             ],
           ),
         ),
         Padding(
-          padding: AppStyles.edgeInsetsLRT,
+          padding: AppStyles.edgeInsetsLR,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -70,26 +179,36 @@ class _PlayerWidgetState<T extends MediaItem> extends State<PlayerWidget<T>> {
                   width: 30,
                 ),
                 color: AppColor.btnColorSecondary,
+
                 press: () {
                   _handleButtonPrev();
                 },
+                // ),
               ),
-              const SizedBox(width: 15),
+              const SizedBox(width: 30),
               RoundedButton(
+                color: AppColor.fontColorPrimary,
                 image: Image.asset(
                   isButtonClicked
-                      ? "lib/assets/icons/player_pause_icon.png"
-                      : "lib/assets/icons/player_play_icon.png",
+                      ? "lib/assets/icons/player_play_icon.png"
+                      : "lib/assets/icons/player_pause_icon.png",
                   width: 20,
                 ),
-                color: AppColor.fontColorPrimary,
                 press: () {
-                  setState(() {
-                    isButtonClicked = !isButtonClicked;
-                  });
+                  if (_controller.status == AnimationStatus.completed) {
+                    _controller.reverse();
+                    setState(() {
+                      isButtonClicked = !isButtonClicked;
+                    });
+                  } else {
+                    _controller.forward();
+                    setState(() {
+                      isButtonClicked = !isButtonClicked;
+                    });
+                  }
                 },
               ),
-              const SizedBox(width: 15),
+              const SizedBox(width: 30),
               RoundedButton(
                 image: Image.asset(
                   "lib/assets/icons/player_next_icon.png",
@@ -106,7 +225,6 @@ class _PlayerWidgetState<T extends MediaItem> extends State<PlayerWidget<T>> {
       ],
     );
   }
-
 
   void _handleButtonNext() {
     setState(() {
@@ -135,6 +253,11 @@ class _PlayerWidgetState<T extends MediaItem> extends State<PlayerWidget<T>> {
         StoryItem nextItem = storyList[currentTherapyIndex];
         widget.mediaItem = nextItem as T;
       }
+
+      _controller.reset();
+      _player.value = 0.0;
+
+      isButtonClicked = false;
     });
   }
 
@@ -165,6 +288,41 @@ class _PlayerWidgetState<T extends MediaItem> extends State<PlayerWidget<T>> {
         StoryItem prevItem = storyList[currentTherapyIndex];
         widget.mediaItem = prevItem as T;
       }
+
+      _controller.reset();
+      _player.value = 0.0;
+
+      isButtonClicked = false;
     });
+  }
+
+  Widget _buildMediaContent() {
+    if (widget.mediaItem is MusicItem) {
+      // If it's a MusicItem, display an image
+      return Image.asset(
+        (widget.mediaItem as MusicItem).image,
+        width: 250,
+        height: 250,
+        fit: BoxFit.cover,
+      );
+    } else if (widget.mediaItem is MeditationItem) {
+      // If it's a MeditationItem, display Lottie animation
+      return Padding(
+        padding: const EdgeInsets.only(top: 120, left: 5),
+        child: Transform.scale(
+          scale: 4,
+          child: Lottie.asset('lib/assets/lottie/yoga.json'),
+        ),
+      );
+    } else if (widget.mediaItem is StoryItem) {
+      return Image.asset(
+        (widget.mediaItem as StoryItem).image,
+        width: 250,
+        height: 250,
+        fit: BoxFit.cover,
+      );
+    } else {
+      return Container();
+    }
   }
 }

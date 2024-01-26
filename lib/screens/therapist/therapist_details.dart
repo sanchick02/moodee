@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:moodee/call_page.dart';
+import 'package:moodee/chat_screen.dart';
 import 'package:moodee/models/therapists_model.dart';
+import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/styles.dart';
+import 'package:moodee/screens/prev_chat_screen.dart';
 import 'package:moodee/widgets/therapist_widgets/therapist_availability_rows.dart';
 import 'package:moodee/widgets/button.dart';
 
@@ -32,65 +36,73 @@ class TherapistDetailsScreen extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Container(
-                      height: 300,
-                      padding: const EdgeInsets.only(left: 30),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Spacer(),
-                          Text(
-                            Text(therapistList[index].name).data!,
-                            style: AppFonts.heading3,
-                          ),
-                          Text(
-                            Text(therapistList[index].title).data!,
-                            style: AppFonts.normalRegularText,
-                          ),
-                          Row(
-                            children: [
-                              Image.asset(
-                                "lib/assets/icons/Rating.png",
-                                width: 12,
-                              ),
-                              const SizedBox(width: 5),
-                              Text(
-                                therapistList[index].rating.toString(),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            children: [
-                              DefaultButton(
-                                text: "Call",
-                                press: () {},
-                                backgroundColor: AppColor.btnColorPrimary,
-                                height: 25,
-                                fontStyle: AppFonts.extraSmallLightTextWhite,
-                                width: 75,
-                                padding: EdgeInsets.zero,
-                              ),
-                              const SizedBox(width: 15),
-                              DefaultButton(
-                                text: "Message",
-                                press: () {},
-                                backgroundColor: AppColor.btnColorPrimary,
-                                height: 25,
-                                fontStyle: AppFonts.extraSmallLightTextWhite,
-                                width: 75,
-                                padding: EdgeInsets.zero,
-                              )
-                            ],
-                          ),
-                          const SizedBox(height: 30),
-                        ],
+                    Expanded(
+                      child: Container(
+                        height: 300,
+                        padding: const EdgeInsets.only(left: 30),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Spacer(),
+                            Text(
+                              Text(therapistList[index].name).data!,
+                              style: AppFonts.heading3,
+                            ),
+                            Text(
+                              Text(therapistList[index].title).data!,
+                              style: AppFonts.normalRegularText,
+                            ),
+                            Row(
+                              children: [
+                                Image.asset(
+                                  "lib/assets/icons/Rating.png",
+                                  width: 12,
+                                ),
+                                const SizedBox(width: 5),
+                                Text(
+                                  therapistList[index].rating.toString(),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                DefaultButton(
+                                  text: "Call",
+                                  press: () {
+                                    navigateNextPage(context, const CallPage());
+                                  },
+                                  backgroundColor: AppColor.btnColorPrimary,
+                                  height: 25,
+                                  fontStyle: AppFonts.extraSmallLightTextWhite,
+                                  width: 75,
+                                  padding: EdgeInsets.zero,
+                                ),
+                                const SizedBox(width: 5),
+                                DefaultButton(
+                                  text: "Message",
+                                  press: () {
+                                    navigateNextPage(
+                                        context, const ChatScreen1());
+                                  },
+                                  backgroundColor: AppColor.btnColorPrimary,
+                                  height: 25,
+                                  fontStyle: AppFonts.extraSmallLightTextWhite,
+                                  width: 75,
+                                  padding: EdgeInsets.zero,
+                                )
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(width: 20),
                     Container(
+                      alignment: Alignment.bottomCenter,
                       constraints:
-                          const BoxConstraints(maxWidth: 200, maxHeight: 300),
+                          const BoxConstraints(maxWidth: 170, maxHeight: 300),
                       child: Image.asset(
                         therapistList[index].image,
                       ),
