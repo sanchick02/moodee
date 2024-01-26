@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:moodee/bazoot.dart';
+import 'package:moodee/chat_screen.dart';
+import 'package:moodee/loading_screen.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
@@ -29,8 +32,8 @@ class _NavigationState extends State<Navigation> {
 
   List<Widget> pages = [
     const HomeScreen(),
-    const ChatScreen(),
-    const ChatScreen(),
+    const ChatScreen1(),
+    const Bazoot_Screen(),
     const CommunityScreen(),
     const ProfileScreen()
   ];
@@ -39,7 +42,7 @@ class _NavigationState extends State<Navigation> {
   void initState() {
     Provider.of<UserProvider>(context, listen: false)
         .fetchUserData()
-        .then((value) => setState(() {
+        .then((_) => setState(() {
               _isLoading = false;
             }));
     super.initState();
@@ -51,7 +54,11 @@ class _NavigationState extends State<Navigation> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColor.backgroundColor,
-      body: _isLoading ? SplashScreen() : pages[currentIndex],
+      body: _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : pages[currentIndex],
       bottomNavigationBar: Stack(
         children: [
           Container(

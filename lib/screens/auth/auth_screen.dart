@@ -27,8 +27,8 @@ class _AuthScreenState extends State<AuthScreen> {
             TopBar(
               title: isMember ? "LOGIN" : "SIGN UP",
               padding: isMember
-                  ? const EdgeInsets.only(right: 130)
-                  : const EdgeInsets.only(right: 110.5),
+                  ? const EdgeInsets.only(right: 120)
+                  : const EdgeInsets.only(right: 100.5),
               onBackButtonPressed: () {
                 Navigator.pop(context);
               },

@@ -5,7 +5,7 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
-import 'package:moodee/screens/auth/auth.dart';
+import 'package:moodee/screens/auth/auth_screen.dart';
 import 'package:rive/rive.dart' as rive;
 
 class SplashScreen extends StatelessWidget {

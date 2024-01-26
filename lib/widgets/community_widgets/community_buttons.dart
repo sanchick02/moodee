@@ -3,7 +3,7 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/widgets/button.dart';
 
-Widget filterButton(String category, double width, bool isSelected,
+Widget filterButton(String category, bool isSelected,
     Function(String) onPressed, String selectedCategory) {
   isSelected = category == selectedCategory;
 
@@ -17,7 +17,7 @@ Widget filterButton(String category, double width, bool isSelected,
     height: 35,
     fontStyle:
         isSelected ? AppFonts.smallLightTextWhite : AppFonts.smallLightText,
-    width: width,
+    width: 50,
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
   );
 }

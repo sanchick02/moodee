@@ -52,7 +52,7 @@ navbarNavigation(BuildContext context, int? currentIndex, int? selectedIndex) {
             CommunityScreen());
         break;
       case 4:
-        navigateNextPage(context, const ProfileScreen());
+        navigateNextPage(context, ProfileScreen());
         break;
 
       case null:
