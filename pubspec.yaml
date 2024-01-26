@@ -45,13 +45,14 @@ dependencies:
   provider: ^6.1.1
   camera: ^0.10.5+9
   tflite_flutter: ^0.10.1
-  image_picker: ^0.8.4+4
+  image_picker: ^0.8.9
   flutter_tflite: ^1.0.1
   firebase_storage: ^11.6.0
   flutter_launcher_icons: ^0.9.3
   chat_gpt_sdk: ^2.2.8
   dash_chat_2: ^0.0.19
   carousel_slider: ^4.2.1
+  uuid: ^4.3.3
 
 dev_dependencies:
   flutter_test:
@@ -73,7 +74,6 @@ dev_dependencies:
   zego_uikit: ^2.15.1
   zego_uikit_prebuilt_call: ^3.18.0
   zego_uikit_prebuilt_live_audio_room: ^2.18.1
-  image_picker: ^1.0.7
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

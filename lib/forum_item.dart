@@ -2,69 +2,58 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:moodee/models/forum.dart';
+import 'package:moodee/providers/forum_post_provider.dart';
+import 'package:provider/provider.dart';
 
 class ForumItem extends StatelessWidget {
-  ForumItem({super.key, required this.forumPost, this.postImage});
-
   final ForumPost forumPost;
-  final File? postImage; // Add this line for the image file
 
-  // File? _selectedImage;
-
-  
+  const ForumItem({Key? key, required this.forumPost}) : super(key: key);
 
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 20,
-          vertical: 16,
-        ),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          // Text(
-          //   forumPost.caption,
-          //   style: Theme.of(context).textTheme.titleLarge,
-          // ),
-          // const SizedBox(
-          //   height: 4,
-          // ),
-          Row(
-            children: [
-              // Text('\$${forumPost.title}'),
-              // const Spacer(),
-              Text(
+        padding: const EdgeInsets.all(16.0), // Increased padding
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Text(
                 forumPost.caption,
-                style: Theme.of(context).textTheme.bodyText1,
+                style: TextStyle(
+                  fontSize: 18, // Increased font size
+                  fontWeight: FontWeight.bold, // Bold text
+                ),
               ),
-            ],
-          ),
-
-          // const SizedBox(
-          //   height: 4,
-          // ),
-          // Row(
-          //   children: [
-          //     Text(
-          //       forumPost.subject,
-          //       style: Theme.of(context).textTheme.bodyText1,
-          //     ),
-          //     const Spacer(),
-          //     Text(
-          //       forumPost.likes.toString(),
-          //       style: Theme.of(context).textTheme.bodyText1,
-          //     ),
-          //   ],
-          // ),
-        ]),
+            ),
+            Row(
+              children: [
+                Text(
+                  'UID: ${forumPost.uid}',
+                  style: TextStyle(fontSize: 16), // Adjusted font size
+                ),
+                const SizedBox(width: 8), // Increased spacing
+              ],
+            ),
+            Text(
+              'PID: ${forumPost.pid}',
+              style: TextStyle(fontSize: 16), // Adjusted font size
+            ),
+            const SizedBox(width: 8), // Increased spacing
+            Text(
+              'Time: ${forumPost.time}',
+              style: TextStyle(fontSize: 16), // Adjusted font size
+            ),
+            const SizedBox(width: 8), // Increased spacing
+            Text(
+              'Likes: ${forumPost.likes}',
+              style: TextStyle(fontSize: 16), // Adjusted font size
+            ),
+          ],
+        ),
       ),
     );
   }
-
-  
 }
-
-
-              // Text(
-
-          

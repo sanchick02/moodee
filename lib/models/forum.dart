@@ -1,18 +1,18 @@
-import 'dart:io';
-
 class ForumPost {
-  String id; //
+  String uid; //
+  String pid;
   String userImage;
-  String name;
+  String userName;
   String time;
   String caption;
   String postImage;
   int likes;
 
   ForumPost(
-      {required this.id,
+      {required this.uid,
+      required this.pid,
       required this.userImage,
-      required this.name,
+      required this.userName,
       required this.time,
       required this.caption,
       required this.postImage,

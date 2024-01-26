@@ -4,6 +4,7 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/data/therapists.dart';
 import 'package:moodee/data/therapy_lists.dart';
+import 'package:moodee/forum_screen.dart';
 import 'package:moodee/nav_bar.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
@@ -77,6 +78,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Good Day, Sam!",
                           style: AppFonts.largeMediumText,
                         ),
+                        TextButton(
+                            onPressed: () {
+                              navigateNextPage(context, ForumScreen());
+                            },
+                            child: Text('chat'))
                       ],
                     ),
                   ),

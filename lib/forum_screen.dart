@@ -24,9 +24,10 @@ class ForumScreen extends StatefulWidget {
 class _ExpensesState extends State<ForumScreen> {
   final List<ForumPost> _registeredExpenses = [
     ForumPost(
-        id: '',
+        uid: '',
+        pid: '',
         userImage: '',
-        name: '',
+        userName: '',
         time: '',
         caption: '',
         postImage: '',
@@ -39,8 +40,7 @@ class _ExpensesState extends State<ForumScreen> {
         context: context,
         builder: (ctx) {
           return NewForum(
-            onAddExpense : _addExpense,
-            onPickedImage: (File pickedImage) {},
+            onAddExpense: _addExpense,
           );
         }); //ctx also is a context
   }
@@ -59,7 +59,7 @@ class _ExpensesState extends State<ForumScreen> {
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       duration: const Duration(seconds: 3),
-      content: const Text('Expense Deleted'),
+      content: const Text('Forum Deleted'),
       action: SnackBarAction(
         label: 'Undo',
         onPressed: () {
@@ -78,10 +78,7 @@ class _ExpensesState extends State<ForumScreen> {
     );
 
     if (_registeredExpenses.isNotEmpty) {
-      mainContent = ForumLists(
-        formPosts: _registeredExpenses,
-        onRemovePost: _removeExpense,
-      );
+      mainContent = ForumLists();
     }
 
     return Scaffold(

@@ -1,21 +1,26 @@
 import 'dart:io';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:moodee/models/forum.dart';
+import 'package:moodee/providers/user_provider.dart';
+import 'package:uuid/uuid.dart';
 
 final formatted = DateFormat.yMd();
+final currentUser = FirebaseAuth.instance.currentUser!;
+const random = Uuid();
 
 class NewForum extends StatefulWidget {
   const NewForum({
     super.key,
     required this.onAddExpense,
-    required this.onPickedImage,
   });
 
   final void Function(ForumPost forumPost) onAddExpense;
-  final void Function(File pickedImage) onPickedImage;
 
   @override
   State<NewForum> createState() {
@@ -29,24 +34,6 @@ class _NewExpenseState extends State<NewForum> {
   DateTime? _currentDateTime = DateTime.now();
   File? _pickedImageFile;
 
-  void _openAddExpenseOverlay() {
-    showModalBottomSheet(
-      isScrollControlled: true,
-      context: context,
-      builder: (ctx) {
-        return NewForum(
-          onAddExpense: ,
-          onPickedImage: (File pickedImage) {
-            _pickedImageFile = pickedImage;
-            setState(() {
-              _pickedImageFile = pickedImage;
-            });
-          },
-        );
-      },
-    );
-  }
-
   @override
   void dispose() {
     _captionController.dispose();
@@ -54,7 +41,7 @@ class _NewExpenseState extends State<NewForum> {
     super.dispose();
   }
 
-  void _submitExpenseData() {
+  void _submitExpenseData() async {
     final enteredAmount = double.tryParse(_amountController.text);
     final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
 
@@ -77,15 +64,59 @@ class _NewExpenseState extends State<NewForum> {
       );
       return;
     }
-    widget.onAddExpense(ForumPost(
-      id: '',
-      caption: _captionController.text,
-      time: _currentDateTime.toString(),
-      likes: 0,
-      userImage: '',
-      name: '',
-      postImage: '',
-    ));
+
+    // randomly generate post id
+    String postId = random.v1();
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUser.uid)
+        .get();
+
+    // widget.onAddExpense(ForumPost(
+    //   uid: currentUser.uid,
+    //   pid: postId,
+    //   caption: _captionController.text,
+    //   time: _currentDateTime.toString(),
+    //   likes: 0,
+    //   userImage: '',
+    //   userName: userData.data()!['first_name'],
+    //   name: '',
+    //   postImage: _pickedImageFile!.path,
+    // ));
+
+    // convert image to file
+    final _capturedImage = File(_pickedImageFile!.path);
+    String timestamp = DateTime.now().millisecondsSinceEpoch.toString();
+    String filename = '$timestamp.jpg';
+
+    // upload image to firebase storage
+    final ref = FirebaseStorage.instance
+        .ref()
+        .child('forum_posts')
+        .child(currentUser.uid)
+        .child(filename);
+
+    await ref.putFile(_capturedImage);
+
+    // get image url
+    final imageUrl = await ref.getDownloadURL();
+
+    final userForumCollection = FirebaseFirestore.instance
+        .collection('forums')
+        .doc(currentUser.uid)
+        .collection('users_posts');
+
+    await userForumCollection.add({
+      'uid': currentUser.uid,
+      'pid': postId,
+      'caption': _captionController.text,
+      'time': _currentDateTime.toString(),
+      'likes': 0,
+      'userImage': '',
+      'userName': userData.data()!['first_name'],
+      'postImage': imageUrl,
+      'timestamp': timestamp,
+    });
     Navigator.pop(context);
   }
 
@@ -101,8 +132,6 @@ class _NewExpenseState extends State<NewForum> {
     setState(() {
       _pickedImageFile = File(pickedImage.path);
     });
-
-    widget.onPickedImage(_pickedImageFile!);
   }
 
   @override

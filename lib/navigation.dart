@@ -6,6 +6,7 @@ import 'package:moodee/loading_screen.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
+import 'package:moodee/providers/forum_post_provider.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/community/community_screen.dart';
 import 'package:moodee/screens/home_screen.dart';
@@ -43,6 +44,12 @@ class _NavigationState extends State<Navigation> {
     Provider.of<UserProvider>(context, listen: false)
         .fetchUserData()
         .then((_) => setState(() {
+              _isLoading = false;
+            }));
+
+    Provider.of<ForumProvider>(context, listen: false)
+        .fetchUserData()
+        .then((value) => setState(() {
               _isLoading = false;
             }));
     super.initState();
