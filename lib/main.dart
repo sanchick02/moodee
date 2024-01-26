@@ -32,7 +32,9 @@ class MyApp extends StatelessWidget {
           value: UserProvider(),
         ),
       ],
-      child: MaterialApp(home: ForumScreen()),
+      child: const MaterialApp(
+        home: AuthWidgetTree(),
+      ),
     );
   }
 }
