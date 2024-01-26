@@ -4,7 +4,6 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/data/therapists.dart';
 import 'package:moodee/data/therapy_lists.dart';
-import 'package:moodee/nav_bar.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
@@ -13,10 +12,10 @@ import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/events/event_screen.dart';
 import 'package:moodee/screens/therapist/therapist_screen.dart';
 import 'package:moodee/screens/therapy/therapy_screen.dart';
+import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/event_widgets/event_card.dart';
 import 'package:moodee/widgets/homepage_widgets/mood_tracker_button.dart';
 import 'package:moodee/widgets/homepage_widgets/progress_box.dart';
-import 'package:moodee/widgets/homepage_widgets/see_all_button_homepage.dart';
 import 'package:moodee/widgets/therapist_widgets/therapist_card.dart';
 import 'package:moodee/widgets/therapy_widgets/therapy_card.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
@@ -33,12 +32,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int carouselCurrentIndex = 0;
 
-  List<String> carouselImageUrls = [
-    "lib/assets/images/1.png",
-    "lib/assets/images/2.png",
-    "lib/assets/images/3.png",
-    "lib/assets/images/4.png",
-  ]; // List to store image URLs
+  List<String> carouselImageUrls = []; // List to store image URLs
+
+  @override
+  void initState() {
+    super.initState();
+    fetchImageUrls().then((List<String> list) {
+      setState(() {
+        carouselImageUrls = list;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Good Day, $name", // changed this
+                          "Good Day, $name!",
                           style: AppFonts.largeMediumText,
                         ),
                       ],
@@ -99,41 +103,42 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: ClipRRect(
-                        borderRadius: BorderRadius.circular(30),
-                        child: CarouselSlider(
-                          items: carouselImageUrls.map((imageUrl) {
-                            return Stack(children: [
-                              ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: CarouselSlider(
+                        items: carouselImageUrls.map((imageUrl) {
+                          return Stack(children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(30),
+                              child: Image.network(
+                                imageUrl,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  AppShadow.innerShadow1,
+                                ],
                                 borderRadius: BorderRadius.circular(30),
-                                child: Image.asset(
-                                  imageUrl,
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                ),
                               ),
-                              Container(
-                                decoration: BoxDecoration(
-                                  boxShadow: [
-                                    AppShadow.innerShadow1,
-                                  ],
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                              ),
-                            ]);
-                          }).toList(),
-                          options: CarouselOptions(
-                            autoPlayInterval: const Duration(seconds: 2),
-                            autoPlay: true,
-                            height: 180,
-                            aspectRatio: 2.0,
-                            viewportFraction: 1.0,
-                            onPageChanged: (index, reason) {
-                              setState(() {
-                                carouselCurrentIndex = index;
-                              });
-                            },
-                          ),
-                        )),
+                            ),
+                          ]);
+                        }).toList(),
+                        options: CarouselOptions(
+                          autoPlayInterval: const Duration(seconds: 2),
+                          autoPlay: true,
+                          height: 180,
+                          aspectRatio: 2.0,
+                          viewportFraction: 1.0,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              carouselCurrentIndex = index;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 20),
                   Container(
@@ -145,11 +150,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Events Nearby",
                           style: AppFonts.largeMediumText,
                         ),
-                        SeeAllButtonHomepage(
+                        DefaultButton(
+                          text: "See All",
                           press: () {
                             navigateNextPage(
                                 context, const EventScreen()); // not working
                           },
+                          backgroundColor: AppColor.btnColorPrimary,
+                          height: 35,
+                          fontStyle: AppFonts.smallLightTextWhite,
+                          width: 100,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
                         ),
                       ],
                     ),
@@ -190,11 +202,18 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Book a Therapist",
                           style: AppFonts.largeMediumText,
                         ),
-                        SeeAllButtonHomepage(
+                        DefaultButton(
+                          text: "See All",
                           press: () {
                             navigateNextPage(
                                 context, TherapistScreen()); // not working
                           },
+                          backgroundColor: AppColor.btnColorPrimary,
+                          height: 35,
+                          fontStyle: AppFonts.smallLightTextWhite,
+                          width: 100,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
                         ),
                       ],
                     ),
@@ -229,7 +248,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Featured Therapy",
                           style: AppFonts.largeMediumText,
                         ),
-                        SeeAllButtonHomepage(
+                        DefaultButton(
+                          text: "See All",
                           press: () {
                             navigateNextPage(
                               context,
@@ -238,6 +258,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ); // not working
                           },
+                          backgroundColor: AppColor.btnColorPrimary,
+                          height: 35,
+                          fontStyle: AppFonts.smallLightTextWhite,
+                          width: 100,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
                         ),
                       ],
                     ),
@@ -293,19 +319,21 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-// Future<List<String>> fetchImageUrls() async {
-//   List<String> imageUrls = [];
-//   try {
-//     // Assuming you have images stored in Firebase Storage under a certain path
-//     ListResult result =
-//         await FirebaseStorage.instance.ref('carousel_images').listAll();
+Future<List<String>> fetchImageUrls() async {
+  List<String> imageUrls = [];
+  try {
+    // Assuming you have images stored in Firebase Storage under a certain path
+    ListResult result = await FirebaseStorage.instance
+        .ref('images')
+        .child('carousel_images')
+        .listAll();
 
-//     for (Reference ref in result.items) {
-//       String imageUrl = await ref.getDownloadURL();
-//       imageUrls.add(imageUrl);
-//     }
-//   } catch (e) {
-//     print('Error fetching image URLs: $e');
-//   }
-//   return imageUrls;
-// }
+    for (Reference ref in result.items) {
+      String imageUrl = await ref.getDownloadURL();
+      imageUrls.add(imageUrl);
+    }
+  } catch (e) {
+    print('Error fetching image URLs: $e');
+  }
+  return imageUrls;
+}
