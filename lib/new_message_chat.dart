@@ -1,6 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:moodee/presets/colors.dart';
+import 'package:moodee/presets/fonts.dart';
+import 'package:moodee/presets/shadow.dart';
 
 class NewMessage extends StatefulWidget {
   const NewMessage({super.key});
@@ -57,13 +61,38 @@ class _NewMessageState extends State<NewMessage> {
       child: Row(
         children: [
           Expanded(
-            child: TextField(
-              controller: _messageController,
-              textCapitalization: TextCapitalization.sentences,
-              autocorrect: true,
-              enableSuggestions: true,
-              decoration: const InputDecoration(
-                labelText: 'Send a Message...',
+            child: SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      color: AppColor.fontColorSecondary,
+                      boxShadow: [
+                        AppShadow.innerShadow3,
+                      ],
+                      borderRadius: BorderRadius.circular(999),
+                    ),
+                  ),
+                  TextField(
+                    controller: _messageController,
+                    textCapitalization: TextCapitalization.sentences,
+                    autocorrect: true,
+                    enableSuggestions: true,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.transparent,
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 15),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(999),
+                        borderSide: BorderSide.none,
+                      ),
+                    ),
+                    style: AppFonts.smallRegularText,
+                  ),
+                ],
               ),
             ),
           ),
@@ -71,6 +100,7 @@ class _NewMessageState extends State<NewMessage> {
             onPressed: _submitMessage,
             icon: Icon(
               Icons.send,
+              color: AppColor.fontColorPrimary,
             ),
           ),
         ],

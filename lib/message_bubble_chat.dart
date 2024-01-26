@@ -1,4 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:moodee/presets/colors.dart';
+import 'package:moodee/presets/fonts.dart';
+import 'package:moodee/presets/shadow.dart';
+import 'package:moodee/presets/styles.dart';
 
 // A MessageBubble for showing a single chat message on the ChatScreen.
 class MessageBubble extends StatelessWidget {
@@ -80,36 +85,35 @@ class MessageBubble extends StatelessWidget {
                         left: 13,
                         right: 13,
                       ),
-                      child: Text(
-                        username!,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
+                      child: Text(username!, style: AppFonts.smallLightText),
                     ),
 
                   // The "speech" box surrounding the message.
                   Container(
                     decoration: BoxDecoration(
-                      color: isMe
-                          ? Colors.grey[300]
-                          : theme.colorScheme.secondary.withAlpha(200),
-                      // Only show the message bubble's "speaking edge" if first in
-                      // the chain.
-                      // Whether the "speaking edge" is on the left or right depends
-                      // on whether or not the message bubble is the current user.
-                      borderRadius: BorderRadius.only(
-                        topLeft: !isMe && isFirstInSequence
-                            ? Radius.zero
-                            : const Radius.circular(12),
-                        topRight: isMe && isFirstInSequence
-                            ? Radius.zero
-                            : const Radius.circular(12),
-                        bottomLeft: const Radius.circular(12),
-                        bottomRight: const Radius.circular(12),
-                      ),
-                    ),
+                        color: isMe
+                            ? AppColor.btnColorPrimary
+                            : AppColor.btnColorSecondary,
+                        // Only show the message bubble's "speaking edge" if first in
+                        // the chain.
+                        // Whether the "speaking edge" is on the left or right depends
+                        // on whether or not the message bubble is the current user.
+                        borderRadius: AppStyles.borderRadiusAll,
+                        boxShadow: [
+                          AppShadow.innerShadow3,
+                          AppShadow.innerShadow4
+                        ]
+                        // BorderRadius.only(
+                        //   topLeft: !isMe && isFirstInSequence
+                        //       ? Radius.zero
+                        //       : const Radius.circular(12),
+                        //   topRight: isMe && isFirstInSequence
+                        //       ? Radius.zero
+                        //       : const Radius.circular(12),
+                        //   bottomLeft: const Radius.circular(12),
+                        //   bottomRight: const Radius.circular(12),
+                        // ),
+                        ),
                     // Set some reasonable constraints on the width of the
                     // message bubble so it can adjust to the amount of text
                     // it should show.
@@ -125,14 +129,10 @@ class MessageBubble extends StatelessWidget {
                     ),
                     child: Text(
                       message,
-                      style: TextStyle(
-                        // Add a little line spacing to make the text look nicer
-                        // when multilined.
-                        height: 1.3,
-                        color: isMe
-                            ? Colors.black87
-                            : theme.colorScheme.onSecondary,
-                      ),
+                      style: isMe
+                          ? AppFonts.smallLightTextWhite
+                          // : theme.colorScheme.onSecondary,
+                          : AppFonts.smallLightText,
                       softWrap: true,
                     ),
                   ),
