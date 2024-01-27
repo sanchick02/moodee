@@ -32,16 +32,17 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int carouselCurrentIndex = 0;
 
-  List<String> carouselImageUrls = []; // List to store image URLs
+  List<String> carouselImageUrls = [
+    "lib/assets/images/1.png",
+    "lib/assets/images/2.png",
+    "lib/assets/images/3.png",
+    "lib/assets/images/4.png",
+  ]; // List to store image URLs
 
   @override
   void initState() {
     super.initState();
-    fetchImageUrls().then((List<String> list) {
-      setState(() {
-        carouselImageUrls = list;
-      });
-    });
+    
   }
 
   @override
@@ -110,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           return Stack(children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(30),
-                              child: Image.network(
+                              child: Image.asset(
                                 imageUrl,
                                 fit: BoxFit.cover,
                                 width: double.infinity,
