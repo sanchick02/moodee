@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -10,7 +9,6 @@ import 'package:moodee/models/forum.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/styles.dart';
-import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:uuid/uuid.dart';
 
@@ -129,8 +127,7 @@ class _NewExpenseState extends State<NewForum> {
   void _pickedImage() async {
     final pickedImage = await ImagePicker().pickImage(
       source: ImageSource.gallery,
-      // imageQuality: 50,
-      // maxWidth: 150,
+  
     );
     if (pickedImage == null) {
       return;
@@ -172,7 +169,7 @@ class _NewExpenseState extends State<NewForum> {
           GestureDetector(
             onTap: () => _pickedImage(),
             child: Container(
-              margin: EdgeInsets.only(top: 15),
+              margin: const EdgeInsets.only(top: 15),
               alignment: Alignment.center,
               width: double.infinity,
               height: 200,
@@ -201,7 +198,7 @@ class _NewExpenseState extends State<NewForum> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Row(
@@ -219,7 +216,7 @@ class _NewExpenseState extends State<NewForum> {
                   padding: EdgeInsets.zero,
                 ),
               ),
-              SizedBox(width: 15),
+              const SizedBox(width: 15),
               Expanded(
                 flex: 2,
                 child: DefaultButton(

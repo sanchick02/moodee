@@ -2,8 +2,6 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/bazoot.dart';
 import 'package:moodee/chat_screen.dart';
-import 'package:moodee/forum_screen.dart';
-import 'package:moodee/loading_screen.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
@@ -11,9 +9,7 @@ import 'package:moodee/providers/forum_post_provider.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/community/community_screen.dart';
 import 'package:moodee/screens/home_screen.dart';
-import 'package:moodee/screens/prev_chat_screen.dart';
 import 'package:moodee/screens/profile/profile_screen.dart';
-import 'package:moodee/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 class Navigation extends StatefulWidget {

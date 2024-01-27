@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:moodee/forum_item.dart';
-import 'package:moodee/models/forum.dart';
-import 'package:moodee/presets/colors.dart';
 import 'package:moodee/providers/forum_post_provider.dart';
 import 'package:provider/provider.dart';
 

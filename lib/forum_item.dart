@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
@@ -7,8 +6,6 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
-import 'package:moodee/providers/forum_post_provider.dart';
-import 'package:provider/provider.dart';
 
 class ForumItem extends StatefulWidget {
   final ForumPost forumPost;
@@ -51,14 +48,14 @@ class _ForumItemState extends State<ForumItem> {
     }
 
     return Container(
-      margin: EdgeInsets.symmetric(
+      margin: const EdgeInsets.symmetric(
         horizontal: 10,
       ),
       child: Card(
         color: Colors.white,
         elevation: 0,
         child: Container(
-          constraints: BoxConstraints(minHeight: 50),
+          constraints: const BoxConstraints(minHeight: 50),
           decoration: BoxDecoration(
             color: AppColor.btnColorSecondary,
             borderRadius: AppStyles.borderRadiusAll,
@@ -84,7 +81,7 @@ class _ForumItemState extends State<ForumItem> {
                         ),
                       ),
                     ),
-                    SizedBox(width: 10,),
+                    const SizedBox(width: 10,),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
