@@ -34,18 +34,26 @@ class _TherapyScreenState extends State<TherapyScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      // bottomNavigationBar: CustomNavigationBar(
-      //   selectedIndex: 1,
-      //   onDestinationSelected: (index) {
-      //     navbarNavigation(context, 1, index);
-      //   },
-      // ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               const TopBarLogoNotif(),
-              const ScreenTitle(title: "Therapy"),
+              Row(
+                children: [
+                  const SizedBox(width: 5),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Image.asset(
+                      "lib/assets/icons/arrow_back_gray_small.png",
+                      width: 30,
+                    ),
+                  ),
+                  const ScreenTitle(title: "Therapy"),
+                ],
+              ),
               Padding(
                 padding: const EdgeInsets.only(
                     top: 15, bottom: 30, left: 15, right: 15),
@@ -54,15 +62,15 @@ class _TherapyScreenState extends State<TherapyScreen> {
                   children: [
                     Expanded(
                         flex: 2, child: filterButton("All", isSelected = true)),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(
                         flex: 3,
                         child: filterButton("Meditation", isSelected = false)),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(
                         flex: 2,
                         child: filterButton("Music", isSelected = false)),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(
                         flex: 2,
                         child: filterButton("Stories", isSelected = false)),

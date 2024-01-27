@@ -4,6 +4,7 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/nav_bar.dart';
 import 'package:moodee/widgets/notifications_widgets/notification_widget.dart';
+import 'package:moodee/widgets/screen_title.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
 
 class NotificationsScreen extends StatefulWidget {
@@ -18,12 +19,6 @@ class _NotificationScreenState extends State<NotificationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColor.backgroundColor,
-        // bottomNavigationBar: CustomNavigationBar(
-        //   selectedIndex: 0,
-        //   onDestinationSelected: (index) {
-        //     navbarNavigation(context, 0, index);
-        //   },
-        // ),
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
@@ -38,9 +33,19 @@ class _NotificationScreenState extends State<NotificationsScreen> {
                       const SizedBox(
                         height: 15,
                       ),
-                      Text(
-                        "Notifications",
-                        style: AppFonts.largeMediumText,
+                      Row(
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            icon: Image.asset(
+                              "lib/assets/icons/arrow_back_gray_small.png",
+                              width: 30,
+                            ),
+                          ),
+                          ScreenTitle(title: "Notifications"),
+                        ],
                       ),
                       const SizedBox(
                         height: 15,

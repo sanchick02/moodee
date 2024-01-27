@@ -123,7 +123,10 @@ class _CommunityScreenState extends State<CommunityScreen> {
           child: Column(
             children: [
               const TopBarLogoNotif(),
-              const ScreenTitle(title: "Community"),
+              Padding(
+                padding: const EdgeInsets.only(left: 15),
+                child: const ScreenTitle(title: "Community"),
+              ),
               Padding(
                 padding: const EdgeInsets.only(
                     top: 15, bottom: 15, left: 15, right: 15),
