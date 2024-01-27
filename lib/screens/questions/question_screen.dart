@@ -4,6 +4,7 @@ import 'package:moodee/navigation.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
+import 'package:moodee/screens/animation_screen.dart';
 import 'package:moodee/screens/home_screen.dart';
 import 'package:moodee/screens/mood_tracker_screen.dart';
 import 'package:moodee/widgets/button.dart';
@@ -190,7 +191,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
       if (currentQuestionIndex < widget.questions.length - 1) {
         currentQuestionIndex++;
       } else {
-        navigateNextPage(context, const AuthWidgetTree());
+        navigateNextPage(context, const AnimationScreen());
       }
     });
   }
