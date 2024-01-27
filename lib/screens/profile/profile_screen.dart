@@ -169,18 +169,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           fit: BoxFit.cover,
                                         ),
                                 ),
-                                // if (provider.userProviderData!.imageURL == '')
-                                  // Material(
-                                  //   color: AppColor.fontColorPrimary,
-                                  //   borderRadius: BorderRadius.circular(999),
-                                  //   child: IconButton(
-                                  //     onPressed: () {
-                                  //       _pickedImage();
-                                  //     },
-                                  //     icon: const Icon(Icons.camera_alt),
-                                  //     color: AppColor.btnColorSecondary,
-                                  //   ),
-                                  // ),
+                                if (provider.userProviderData!.imageURL == '')
+                                  Material(
+                                    color: AppColor.fontColorPrimary,
+                                    borderRadius: BorderRadius.circular(999),
+                                    child: IconButton(
+                                      onPressed: () {
+                                        _pickedImage();
+                                      },
+                                      icon: const Icon(Icons.camera_alt),
+                                      color: AppColor.btnColorSecondary,
+                                    ),
+                                  ),
                               ],
                             ),
                           ],

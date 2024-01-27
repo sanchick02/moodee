@@ -26,6 +26,7 @@ class _MoodTrakcerScreen2State extends State<MoodTrakcerScreen2> {
   CameraImage? cameraImage;
   CameraController? cameraController;
   String output = '';
+  String emojiAsset = '';
   File? _capturedImage;
   bool isCaptured = false;
   bool isLoading = false;
@@ -70,6 +71,7 @@ class _MoodTrakcerScreen2State extends State<MoodTrakcerScreen2> {
         for (var element in predictions!) {
           setState(() {
             output = element['label'];
+            output = output.replaceAll(RegExp(r'[0-9]'), '');
           });
         }
       }
@@ -89,6 +91,7 @@ class _MoodTrakcerScreen2State extends State<MoodTrakcerScreen2> {
   void logMood() async {
     final currentUser = FirebaseAuth.instance.currentUser!;
     String emoji = '';
+    String emojiAsset = '';
     setState(() {
       isLoading = true;
     });
@@ -129,12 +132,15 @@ class _MoodTrakcerScreen2State extends State<MoodTrakcerScreen2> {
       if (output == '0 happy') {
         output = 'happy';
         emoji = '😁';
+        emojiAsset = 'lib/assets/images/emojiHappy.png';
       } else if (output == '2 angry') {
         output = 'angry';
         emoji = '😡';
+        emojiAsset = 'lib/assets/images/emojiAngry.png';
       } else if (output == '1 sad') {
         output = 'sad';
         emoji = '😢';
+        emojiAsset = 'lib/assets/images/emojiSad.png';
       } else if (output == '4 neutral') {
         output = 'neutral';
         emoji = '😐';
@@ -176,16 +182,18 @@ class _MoodTrakcerScreen2State extends State<MoodTrakcerScreen2> {
 
   @override
   void initState() {
-    super.initState();
-    loadModel();
     loadCamera();
+    loadModel();
+    super.initState();
+
+    // make sure model is loaded before camera
   }
 
   @override
   void dispose() {
     super.dispose();
     cameraController!.dispose();
-    Tflite.close();
+    // Tflite.close();
   }
 
   @override

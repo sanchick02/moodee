@@ -1,25 +1,16 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-// import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
-// import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter/widgets.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:moodee/data/questions.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
-import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/questions/question_screen.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/auth_widgets/formfield.dart';
 import 'package:moodee/widgets/auth_widgets/gender_toggle.dart';
-import 'package:provider/provider.dart';
 
 final _firebase = FirebaseAuth.instance;
 
@@ -31,7 +22,6 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<SignUpForm> {
-  File? _pickedImageFile;
   List<bool> isSelected = [
     true,
     false,
@@ -113,35 +103,6 @@ class _SignUpFormState extends State<SignUpForm> {
     }
   }
 
-  void _pickedImage() async {
-    final pickedImage = await ImagePicker().pickImage(
-      source: ImageSource.gallery,
-      imageQuality: 50,
-      maxWidth: 150,
-    );
-    if (pickedImage == null) {
-      return;
-    }
-
-    final storageRef = FirebaseStorage.instance
-        .ref()
-        .child('user_profile_image')
-        .child(FirebaseAuth.instance.currentUser!.uid + '.jpg');
-
-    await storageRef.putFile(File(pickedImage.path));
-
-    final imageURL = await storageRef.getDownloadURL();
-
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .update({'profileImageURL': imageURL});
-
-    setState(() {
-      _pickedImageFile = File(pickedImage.path);
-    });
-  }
-
   @override
   void dispose() {
     _firstNameController.dispose();
@@ -154,8 +115,6 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<UserProvider>(context, listen: true);
-
     return Column(
       children: [
         Row(
@@ -303,23 +262,7 @@ class _SignUpFormState extends State<SignUpForm> {
           obscureText: true,
           width: double.infinity,
         ),
-        SizedBox(
-          height: 30,
-        ),
-        DefaultButton(
-          text: "Upload Profile Photo",
-          press: () {
-            // THIS ONE WILL NEED USER TO HAVE UID FIRST!!!
-            // if (provider.userProviderData!.imageURL == '')
-            // _pickedImage();
-          },
-          backgroundColor: AppColor.btnColorSecondary,
-          height: 50,
-          fontStyle: AppFonts.normalRegularText,
-          width: double.infinity,
-          padding: EdgeInsets.zero,
-        ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 70),
         DefaultButton(
           text: "Sign Up Now",
           backgroundColor: AppColor.btnColorPrimary,
