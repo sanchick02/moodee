@@ -12,6 +12,7 @@ import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/profile/calendar_screen.dart';
+import 'package:moodee/services/database.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/divider_line.dart';
 import 'package:moodee/widgets/profile_widgets/calendar_widget.dart';
@@ -40,6 +41,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
           context,
           MaterialPageRoute(builder: (context) => const AuthWidgetTree()),
         ));
+  }
+
+  DateTime _normalizeDateTime(DateTime dateTime) {
+    return DateTime(dateTime.year, dateTime.month, dateTime.day);
+  }
+
+    // To store the events created
+  Map<DateTime?, List<String>> _remindersMap = {};
+  List<String> reminders = [];
+
+  Future<void> _fetchRemindersFromFirebase() async {
+    try {
+      Map<DateTime?, List<String>> remindersFromFirebase =
+          await DatabaseService().fetchReminders();
+
+      print("Selected Day: $_selectedDay");
+      print("Reminders from Firebase: $remindersFromFirebase");
+
+      setState(() {
+        _remindersMap = remindersFromFirebase;
+        reminders = _remindersMap[_selectedDay] ?? [];
+        print("Updated reminders: $reminders");
+      });
+    } catch (e) {
+      print("Error fetching reminders: $e");
+      // Handle the error as needed
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Fetch reminders from Firebase when the screen is initialized
+    _fetchRemindersFromFirebase();
   }
 
   @override
@@ -405,8 +441,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
-}
 
+  
 Widget _buildCustomCalendar() {
   return Column(
     children: [
@@ -433,6 +469,21 @@ Widget _buildCustomCalendar() {
                 titleCentered: true,
               ),
               availableGestures: AvailableGestures.all,
+              eventLoader: (day) {
+                                  DateTime normalizedDay =
+                                      _normalizeDateTime(day);
+                                  return _remindersMap[normalizedDay] ?? [];
+                                },
+                                calendarStyle: CalendarStyle(
+                                  markerDecoration: BoxDecoration(
+                                    color: AppColor.btnColorPrimary,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  markerMargin: const EdgeInsets.symmetric(
+                                    horizontal: 0.5,
+                                    vertical: 5.5,
+                                  ),
+                                ),
             ),
           ],
         ),
@@ -440,3 +491,8 @@ Widget _buildCustomCalendar() {
     ],
   );
 }
+
+}
+
+  
+
