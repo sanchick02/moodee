@@ -121,6 +121,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
       mainContent = const ForumLists();
     }
     return Scaffold(
+      backgroundColor: AppColor.backgroundColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
