@@ -65,6 +65,7 @@ class _SignUpFormState extends State<SignUpForm> {
           'gender': gender,
           'date_joined': DateTime.now(),
           'last_login': DateTime.now(),
+          'profileImageURL': '',
         },
       ).then(
         (value) => navigateNextPage(

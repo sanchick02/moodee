@@ -5,12 +5,15 @@ class UserModel {
   String userName;
   String email;
   String gender;
+  String imageURL;
 
-  UserModel(
-      {required this.uid,
-      required this.firstName,
-      required this.lastName,
-      required this.userName,
-      required this.email,
-      required this.gender});
+  UserModel({
+    required this.uid,
+    required this.firstName,
+    required this.lastName,
+    required this.userName,
+    required this.email,
+    required this.gender,
+    required this.imageURL,
+  });
 }

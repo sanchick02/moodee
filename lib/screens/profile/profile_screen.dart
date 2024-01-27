@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/auth_widget_tree.dart';
@@ -24,12 +26,10 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:image_picker/image_picker.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key, required this.onPickedImage});
+  const ProfileScreen({super.key});
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
-
-  final void Function(File pickedImage) onPickedImage;
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
@@ -47,7 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return DateTime(dateTime.year, dateTime.month, dateTime.day);
   }
 
-    // To store the events created
+  // To store the events created
   Map<DateTime?, List<String>> _remindersMap = {};
   List<String> reminders = [];
 
@@ -70,6 +70,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  void _pickedImage() async {
+    final pickedImage = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      imageQuality: 50,
+      maxWidth: 150,
+    );
+    if (pickedImage == null) {
+      return;
+    }
+
+    final storageRef = FirebaseStorage.instance
+        .ref()
+        .child('user_profile_image')
+        .child(FirebaseAuth.instance.currentUser!.uid + '.jpg');
+
+    await storageRef.putFile(File(pickedImage.path));
+
+    final imageURL = await storageRef.getDownloadURL();
+
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({'profileImageURL': imageURL});
+
+    setState(() {
+      _pickedImageFile = File(pickedImage.path);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -81,22 +110,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<UserProvider>(context, listen: true);
-
-    void _pickedImage() async {
-      final pickedImage = await ImagePicker().pickImage(
-        source: ImageSource.gallery,
-        // imageQuality: 50,
-        // maxWidth: 150,
-      );
-      if (pickedImage == null) {
-        return;
-      }
-      setState(() {
-        _pickedImageFile = File(pickedImage.path);
-      });
-
-      widget.onPickedImage(_pickedImageFile!);
-    }
 
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
@@ -140,11 +153,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               alignment: Alignment.bottomRight,
                               children: [
                                 ClipOval(
-                                  child: _pickedImageFile != null
-                                      ? Image.file(
-                                          _pickedImageFile!,
-                                          width: 150, // Set the desired width
-                                          height: 150, // Set the desired height
+                                  child: provider.userProviderData!.imageURL !=
+                                          ''
+                                      ? Image.network(
+                                          provider.userProviderData!.imageURL
+                                              .toString(),
+                                          width: 150,
+                                          height: 150,
                                           fit: BoxFit.cover,
                                         )
                                       : Image.asset(
@@ -154,17 +169,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           fit: BoxFit.cover,
                                         ),
                                 ),
-                                Material(
-                                  color: AppColor.fontColorPrimary,
-                                  borderRadius: BorderRadius.circular(999),
-                                  child: IconButton(
-                                    onPressed: () {
-                                      _pickedImage();
-                                    },
-                                    icon: const Icon(Icons.camera_alt),
-                                    color: AppColor.btnColorSecondary,
+                                if (provider.userProviderData!.imageURL == '')
+                                  Material(
+                                    color: AppColor.fontColorPrimary,
+                                    borderRadius: BorderRadius.circular(999),
+                                    child: IconButton(
+                                      onPressed: () {
+                                        _pickedImage();
+                                      },
+                                      icon: const Icon(Icons.camera_alt),
+                                      color: AppColor.btnColorSecondary,
+                                    ),
                                   ),
-                                ),
                               ],
                             ),
                           ],
@@ -442,57 +458,51 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  
-Widget _buildCustomCalendar() {
-  return Column(
-    children: [
-      Container(
-        width: double.infinity,
-        height: 350,
-        decoration: BoxDecoration(
-          color: AppColor.fontColorSecondary,
-          borderRadius: AppStyles.borderRadiusAll,
-          boxShadow: [
-            AppShadow.innerShadow3,
-            AppShadow.innerShadow4,
-          ],
-        ),
-        child: Column(
-          children: [
-            TableCalendar(
-              focusedDay: DateTime.now(),
-              firstDay: DateTime.utc(2024, 01, 01),
-              lastDay: DateTime.utc(2025, 12, 31),
-              rowHeight: 43,
-              headerStyle: const HeaderStyle(
-                formatButtonVisible: false,
-                titleCentered: true,
+  Widget _buildCustomCalendar() {
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          height: 350,
+          decoration: BoxDecoration(
+            color: AppColor.fontColorSecondary,
+            borderRadius: AppStyles.borderRadiusAll,
+            boxShadow: [
+              AppShadow.innerShadow3,
+              AppShadow.innerShadow4,
+            ],
+          ),
+          child: Column(
+            children: [
+              TableCalendar(
+                focusedDay: DateTime.now(),
+                firstDay: DateTime.utc(2024, 01, 01),
+                lastDay: DateTime.utc(2025, 12, 31),
+                rowHeight: 43,
+                headerStyle: const HeaderStyle(
+                  formatButtonVisible: false,
+                  titleCentered: true,
+                ),
+                availableGestures: AvailableGestures.all,
+                eventLoader: (day) {
+                  DateTime normalizedDay = _normalizeDateTime(day);
+                  return _remindersMap[normalizedDay] ?? [];
+                },
+                calendarStyle: CalendarStyle(
+                  markerDecoration: BoxDecoration(
+                    color: AppColor.btnColorPrimary,
+                    shape: BoxShape.circle,
+                  ),
+                  markerMargin: const EdgeInsets.symmetric(
+                    horizontal: 0.5,
+                    vertical: 5.5,
+                  ),
+                ),
               ),
-              availableGestures: AvailableGestures.all,
-              eventLoader: (day) {
-                                  DateTime normalizedDay =
-                                      _normalizeDateTime(day);
-                                  return _remindersMap[normalizedDay] ?? [];
-                                },
-                                calendarStyle: CalendarStyle(
-                                  markerDecoration: BoxDecoration(
-                                    color: AppColor.btnColorPrimary,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  markerMargin: const EdgeInsets.symmetric(
-                                    horizontal: 0.5,
-                                    vertical: 5.5,
-                                  ),
-                                ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    ],
-  );
+      ],
+    );
+  }
 }
-
-}
-
-  
-
