@@ -76,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Good Day, $name!",
                           style: AppFonts.largeMediumText,
                         ),
+                        
                       ],
                     ),
                   ),
@@ -206,7 +207,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           text: "See All",
                           press: () {
                             navigateNextPage(
-                                context, TherapistScreen()); // not working
+                                context, const TherapistScreen()); // not working
                           },
                           backgroundColor: AppColor.btnColorPrimary,
                           height: 35,

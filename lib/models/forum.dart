@@ -1,14 +1,20 @@
 class ForumPost {
-  String id; // Unique ID for each post
-  String title;
-  String subject;
-  String topic;
+  String uid; //
+  String pid;
+  String userImage;
+  String userName;
+  String time;
+  String caption;
+  String postImage;
   int likes;
 
   ForumPost(
-      {required this.id,
-      required this.title,
-      required this.subject,
-      required this.topic,
-      this.likes = 0});
+      {required this.uid,
+      required this.pid,
+      required this.userImage,
+      required this.userName,
+      required this.time,
+      required this.caption,
+      required this.postImage,
+      required this.likes});
 }
