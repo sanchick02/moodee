@@ -1,15 +1,19 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/bazoot.dart';
 import 'package:moodee/chat_screen.dart';
+import 'package:moodee/loading_screen.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
-import 'package:moodee/providers/forum_post_provider.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/community/community_screen.dart';
 import 'package:moodee/screens/home_screen.dart';
+import 'package:moodee/screens/prev_chat_screen.dart';
 import 'package:moodee/screens/profile/profile_screen.dart';
+import 'package:moodee/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 class Navigation extends StatefulWidget {
@@ -28,30 +32,35 @@ class _NavigationState extends State<Navigation> {
   int currentIndex = 0;
   bool _isLoading = true;
 
-  List<Widget> pages = [
-    const HomeScreen(),
-    const ChatScreen1(),
-    const Bazoot_Screen(),
-    // const CommunityScreen(),
-    const CommunityScreen(),
-    const ProfileScreen()
-  ];
+  File? _selectedImage;
+
+  List<Widget> pages = [];
+
+  void handlePickedImage(File pickedImage) {
+    setState(() {
+      _selectedImage = pickedImage;
+    });
+  }
 
   @override
   void initState() {
-    Provider.of<UserProvider>(context, listen: false)
-        .fetchUserData()
-        .then((_) => setState(() {
-              _isLoading = false;
-            }));
+    Provider.of<UserProvider>(context, listen: false).fetchUserData().then((_) {
+      setState(() {
+        _isLoading = false;
 
-    Provider.of<ForumProvider>(context, listen: false)
-        .fetchUserData()
-        .then((value) => setState(() {
-              _isLoading = false;
-            }));
+        pages = [
+          const HomeScreen(),
+          const ChatScreen1(),
+          const Bazoot_Screen(),
+          const CommunityScreen(),
+          ProfileScreen(
+            onPickedImage: handlePickedImage,
+          ),
+        ];
+      });
+    });
+
     super.initState();
-    // _loadData();
   }
 
   @override
