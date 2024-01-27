@@ -1,9 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:moodee/auth_widget_tree.dart';
-import 'package:moodee/forum_screen.dart';
-import 'package:moodee/display_forums.dart';
-import 'package:moodee/models/forum.dart';
+import 'package:moodee/providers/forum_post_provider.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -31,10 +29,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: UserProvider(),
         ),
+        ChangeNotifierProvider.value(
+          value: ForumProvider(),
+        ),
       ],
-      child: const MaterialApp(
-        home: AuthWidgetTree(),
-      ),
+      child: const MaterialApp(home: AuthWidgetTree()),
     );
   }
 }
