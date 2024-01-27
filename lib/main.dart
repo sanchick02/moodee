@@ -12,11 +12,15 @@ List<CameraDescription>? cameras = [];
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   cameras = await availableCameras();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -33,7 +37,10 @@ class MyApp extends StatelessWidget {
           value: ForumProvider(),
         ),
       ],
-      child: const MaterialApp(home: AuthWidgetTree()),
+      child: const MaterialApp(
+        home: AuthWidgetTree(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }
