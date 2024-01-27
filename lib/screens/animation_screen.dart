@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:moodee/auth_widget_tree.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/screens/auth/auth_screen.dart';
@@ -13,7 +14,7 @@ class AnimationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GestureDetector(
-        onTap: () => navigateNextPage(context, const AuthScreen()),
+        onTap: () => navigateNextPage(context, const AuthWidgetTree()),
         child: Stack(
           children: [
             Image.asset(
