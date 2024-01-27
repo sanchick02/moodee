@@ -185,6 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 index: index,
                                 margin: EdgeInsets.only(
                                   left: 15,
+                                  
                                   right: index == eventList.length - 1 ? 15 : 0,
                                 ),
                               ),

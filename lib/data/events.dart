@@ -7,7 +7,7 @@ List<Event> eventList = [
       location: 'Yoga Studio KL',
       date: '5',
       day: 'Tuesday',
-      time: '6:00p.m.-7:30p.m.',
+      time: '2:30pm-4:00pm',
       image: 'lib/assets/images/events/event01.png',
       month: 'Dec',
       eventHighlights: [
@@ -67,7 +67,7 @@ List<Event> eventList = [
       location: 'Botanical Garden',
       date: '10',
       day: 'Sunday',
-      time: '7:00a.m.-9:00a.m.',
+      time: '7:00am-9:00am',
       image: 'lib/assets/images/events/event04.png',
       month: 'Dec',
       eventHighlights: [
@@ -107,7 +107,7 @@ List<Event> eventList = [
       location: 'Wellness Center',
       date: '13',
       day: 'Tuesday',
-      time: '7:00p.m.-8:30p.m.',
+      time: '7:00pm-8:30pm',
       image: 'lib/assets/images/events/event06.png',
       month: 'Jan',
       eventHighlights: [
@@ -127,7 +127,7 @@ List<Event> eventList = [
       location: 'Sunway Pyramid',
       date: '8',
       day: 'Monday',
-      time: '8:00a.m.-1:00p.m.',
+      time: '8:00am-1:00pm',
       image: 'lib/assets/images/events/event07.png',
       month: 'Jan',
       eventHighlights: [
@@ -144,10 +144,10 @@ List<Event> eventList = [
   Event(
       name: 'Nourish Your Soul',
       description: 'Mindful Eating Workshop',
-      location: 'Health&Wellness Hub',
+      location: 'Wellness Hub',
       date: '18',
       day: 'Sunday',
-      time: '11:00a.m.-1:00p.m.',
+      time: '11:00am-1:00pm',
       image: 'lib/assets/images/events/event08.png',
       month: 'Jan',
       eventHighlights: [

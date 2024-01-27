@@ -97,6 +97,7 @@ flutter:
     - lib/assets/tflite/
     - lib/assets/tflite_new/
     - lib/assets/lottie/
+    - lib/assets/images/events/
 
   # assets:
   #   - images/a_dot_burr.jpeg
