@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:provider/provider.dart';
@@ -23,15 +24,14 @@ class CallPageState extends State<CallPage> {
   @override
   void dispose() {
     super.dispose();
-
-    callController = null;
+    // callController = null;
   }
 
   @override
   Widget build(BuildContext context) {
     var provider = Provider.of<UserProvider>(context, listen: false);
     String userName = (provider.userProviderData!.firstName).toString();
-    String localUserID = (provider.userProviderData!.uid).toString();
+    String localUserID = FirebaseAuth.instance.currentUser!.uid;
 
     return SafeArea(
       child: zego.ZegoUIKitPrebuiltCall(
@@ -47,7 +47,6 @@ class CallPageState extends State<CallPage> {
           /// support minimizing
           ..topMenuBarConfig.isVisible = true
           ..topMenuBarConfig.buttons = [
-            zego.ZegoMenuBarButtonName.minimizingButton,
             zego.ZegoMenuBarButtonName.showMemberListButton,
           ]
           ..avatarBuilder = customAvatarBuilder
@@ -56,8 +55,6 @@ class CallPageState extends State<CallPage> {
           ..onOnlySelfInRoom = (context) {
             if (zego.PrebuiltCallMiniOverlayPageState.idle !=
                 zego.ZegoUIKitPrebuiltCallMiniOverlayMachine().state()) {
-              /// now is minimizing state, not need to navigate, just switch to idle
-              zego.ZegoUIKitPrebuiltCallMiniOverlayMachine().switchToIdle();
             } else {
               Navigator.of(context).pop();
             }
