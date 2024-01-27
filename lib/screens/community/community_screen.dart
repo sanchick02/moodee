@@ -8,6 +8,7 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/styles.dart';
 import 'package:moodee/providers/forum_post_provider.dart';
+import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/widgets/community_widgets/community_buttons.dart';
 import 'package:moodee/widgets/community_widgets/forum_channel_card.dart';
 import 'package:moodee/widgets/community_widgets/forum_moodeeBoard_card.dart';
@@ -110,6 +111,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var _provider = Provider.of<UserProvider>(context);
+
     Widget mainContent = const Center(
       child: Text('No expense found, Start adding some!'),
     );
@@ -196,7 +199,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                     Column(
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               left: 15, right: 15, top: 3, bottom: 13),
                           child: Row(
                             children: [
@@ -230,15 +233,15 @@ class _CommunityScreenState extends State<CommunityScreen> {
                                   horizontal: 15, vertical: 0),
                               child: Row(
                                 children: [
-                                  SizedBox(
-                                    child: ClipOval(
-                                      child: Image.asset(
-                                        "lib/assets/images/face1.jpg",
-                                        width: 60,
-                                        height: 60,
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
+                                  ClipOval(
+                                    child: SizedBox(
+                                        child: Image.network(
+                                      _provider.userProviderData!.imageURL
+                                          .toString(),
+                                      width: 60,
+                                      height: 60,
+                                      fit: BoxFit.cover,
+                                    )),
                                   ),
                                   const SizedBox(
                                     width: 10,

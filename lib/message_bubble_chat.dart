@@ -91,29 +91,19 @@ class MessageBubble extends StatelessWidget {
                   // The "speech" box surrounding the message.
                   Container(
                     decoration: BoxDecoration(
-                        color: isMe
-                            ? AppColor.btnColorPrimary
-                            : AppColor.btnColorSecondary,
-                        // Only show the message bubble's "speaking edge" if first in
-                        // the chain.
-                        // Whether the "speaking edge" is on the left or right depends
-                        // on whether or not the message bubble is the current user.
-                        borderRadius: AppStyles.borderRadiusAll,
-                        boxShadow: [
-                          AppShadow.innerShadow3,
-                          AppShadow.innerShadow4
-                        ]
-                        // BorderRadius.only(
-                        //   topLeft: !isMe && isFirstInSequence
-                        //       ? Radius.zero
-                        //       : const Radius.circular(12),
-                        //   topRight: isMe && isFirstInSequence
-                        //       ? Radius.zero
-                        //       : const Radius.circular(12),
-                        //   bottomLeft: const Radius.circular(12),
-                        //   bottomRight: const Radius.circular(12),
-                        // ),
-                        ),
+                      color: isMe
+                          ? AppColor.btnColorPrimary
+                          : AppColor.btnColorSecondary,
+                      // Only show the message bubble's "speaking edge" if first in
+                      // the chain.
+                      // Whether the "speaking edge" is on the left or right depends
+                      // on whether or not the message bubble is the current user.
+                      borderRadius: AppStyles.borderRadiusAll,
+                      boxShadow: [
+                        AppShadow.innerShadow3,
+                        AppShadow.innerShadow4
+                      ],
+                    ),
                     // Set some reasonable constraints on the width of the
                     // message bubble so it can adjust to the amount of text
                     // it should show.

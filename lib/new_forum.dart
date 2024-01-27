@@ -103,7 +103,7 @@ class _NewExpenseState extends State<NewForum> {
       'caption': _captionController.text,
       'time': _currentDateTime.toString(),
       'likes': 0,
-      'userImage': '',
+      'userImage': userData.data()!['profileImageURL'],
       'userName': userData.data()!['first_name'],
       'postImage': imageUrl,
       'timestamp': timestamp,

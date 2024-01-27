@@ -7,13 +7,13 @@ User? get user => FirebaseAuth.instance.currentUser!;
 
 class UserProvider with ChangeNotifier {
   UserModel? userProviderData = UserModel(
-    uid: '',
-    firstName: '',
-    lastName: '',
-    userName: '',
-    email: '',
-    gender: '',
-  );
+      uid: '',
+      firstName: '',
+      lastName: '',
+      userName: '',
+      email: '',
+      gender: '',
+      imageURL: '');
 
   Future<void> fetchUserData() async {
     if (user != null) {
@@ -29,6 +29,7 @@ class UserProvider with ChangeNotifier {
             userProviderData!.lastName = snapshot.data()!['last_name'];
             userProviderData!.email = snapshot.data()!['email'];
             userProviderData!.gender = snapshot.data()!['gender'];
+            userProviderData!.imageURL = snapshot.data()!['profileImageURL'];
 
             print('User data fetched');
 

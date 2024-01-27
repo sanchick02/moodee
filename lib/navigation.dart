@@ -36,12 +36,6 @@ class _NavigationState extends State<Navigation> {
 
   List<Widget> pages = [];
 
-  void handlePickedImage(File pickedImage) {
-    setState(() {
-      _selectedImage = pickedImage;
-    });
-  }
-
   @override
   void initState() {
     Provider.of<UserProvider>(context, listen: false).fetchUserData().then((_) {
@@ -53,9 +47,7 @@ class _NavigationState extends State<Navigation> {
           const ChatScreen1(),
           const Bazoot_Screen(),
           const CommunityScreen(),
-          ProfileScreen(
-            onPickedImage: handlePickedImage,
-          ),
+          const ProfileScreen(),
         ];
       });
     });

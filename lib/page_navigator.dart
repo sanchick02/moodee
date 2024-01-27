@@ -55,11 +55,7 @@ navbarNavigation(BuildContext context, int? currentIndex, int? selectedIndex) {
             CommunityScreen());
         break;
       case 4:
-        navigateNextPage(context, ProfileScreen(
-          onPickedImage: (pickedImage) {
-            _selectedImage = pickedImage;
-          },
-        ));
+        navigateNextPage(context, ProfileScreen());
         break;
 
       case null:

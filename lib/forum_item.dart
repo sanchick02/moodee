@@ -72,12 +72,19 @@ class _ForumItemState extends State<ForumItem> {
                   children: [
                     SizedBox(
                       child: ClipOval(
-                        child: Image.asset(
-                          "lib/assets/images/face1.jpg",
-                          width: 60,
-                          height: 60,
-                          fit: BoxFit.cover,
-                        ),
+                        child: widget.forumPost.userImage != ''
+                            ? Image.network(
+                                widget.forumPost.userImage.toString(),
+                                width: 60,
+                                height: 60,
+                                fit: BoxFit.cover,
+                              )
+                            : Image.asset(
+                                "lib/assets/images/userAnon.png",
+                                width: 60,
+                                height: 60,
+                                fit: BoxFit.cover,
+                              ),
                       ),
                     ),
                     const SizedBox(
