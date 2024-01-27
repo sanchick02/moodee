@@ -7,7 +7,6 @@ import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
 import 'package:moodee/screens/community/audio_room.dart';
-import 'package:moodee/screens/community/group_call_screen.dart';
 import 'package:moodee/widgets/button.dart';
 
 class ForumChannelCard extends StatelessWidget {

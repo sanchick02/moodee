@@ -199,7 +199,40 @@ class TherapistDetailsScreen extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: DefaultButton(
                 press: () {
-                  Navigator.of(context).pop(); // Close the dialog
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        backgroundColor: AppColor.fontColorSecondary,
+                        scrollable: true,
+                        title: Text(
+                          'Therapist Consultation Reminder',
+                          style: AppFonts.largeMediumText,
+                        ),
+                        content: const Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Reminder has been set for you.'),
+                            Text(
+                                'You will get notified before the consultation through notifications.')
+                          ],
+                        ),
+                        actions: [
+                          DefaultButton(
+                            backgroundColor: AppColor.btnColorPrimary,
+                            text: "Okay",
+                            height: 30,
+                            fontStyle: AppFonts.smallLightTextWhite,
+                            width: double.infinity,
+                            padding: EdgeInsets.zero,
+                            press: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
                 text: "Book Consultation",
                 backgroundColor: AppColor.btnColorPrimary,
