@@ -37,7 +37,7 @@ class _NavigationState extends State<Navigation> {
     const ChatScreen1(),
     const Bazoot_Screen(),
     // const CommunityScreen(),
-    const ForumScreen(),
+    const CommunityScreen(),
     const ProfileScreen()
   ];
 

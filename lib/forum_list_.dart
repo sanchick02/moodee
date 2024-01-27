@@ -13,22 +13,16 @@ class ForumLists extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _provider = Provider.of<ForumProvider>(context, listen: false);
-
-    return ListView.builder(
-      itemCount: _provider.forumPosts.length,
-      itemBuilder: (ctx, index) => Dismissible(
-        key: ValueKey(_provider.forumPosts[index]),
-        // background: Container(
-        //   // color: Theme.of(context).colorScheme.error.withOpacity(0.75),
-        //   margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-        //   // decoration: BoxDecoration(
-        //   //   color: AppColor.fontColorSecondary,
-        //   // ),
-        // ),
-        onDismissed: (direction) {
-          // onRemovePost(_provider.forumPosts[index], context);
-        },
-        child: ForumItem(forumPost: _provider.forumPosts[index]),
+    return Column(
+      children: List.generate(
+        _provider.forumPosts.length,
+        (index) => Dismissible(
+          key: ValueKey(_provider.forumPosts[index]),
+          onDismissed: (direction) {
+            // onRemovePost(_provider.forumPosts[index], context);
+          },
+          child: ForumItem(forumPost: _provider.forumPosts[index]),
+        ),
       ),
     );
   }
