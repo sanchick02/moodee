@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/models/forum.dart';
@@ -73,7 +72,7 @@ class _ForumItemState extends State<ForumItem> {
                   children: [
                     SizedBox(
                       child: ClipOval(
-                        child: Image.asset(  
+                        child: Image.asset(
                           "lib/assets/images/face1.jpg",
                           width: 60,
                           height: 60,
@@ -81,13 +80,17 @@ class _ForumItemState extends State<ForumItem> {
                         ),
                       ),
                     ),
-                    const SizedBox(width: 10,),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                      
-                          Text("Change to User's Name", style: AppFonts.smallLightText,), // CHANGE TO USER NAME FROM FIREBASE
+                          Text(
+                            widget.forumPost.userName,
+                            style: AppFonts.smallLightText,
+                          ), // CHANGE TO USER NAME FROM FIREBASE
                           Text(
                             '${calculateTimeDifference(widget.forumPost.time)}',
                             style: AppFonts
