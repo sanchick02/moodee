@@ -4,6 +4,8 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
+import 'package:moodee/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 // A MessageBubble for showing a single chat message on the ChatScreen.
 class MessageBubble extends StatelessWidget {
@@ -46,23 +48,27 @@ class MessageBubble extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var _provider = Provider.of<UserProvider>(context);
     final theme = Theme.of(context);
 
     return Stack(
       children: [
         if (userImage != null)
           Positioned(
-            top: 15,
-            // Align user image to the right, if the message is from me.
-            right: isMe ? 0 : null,
-            child: CircleAvatar(
-              backgroundImage: NetworkImage(
-                userImage!,
-              ),
-              backgroundColor: theme.colorScheme.primary.withAlpha(180),
-              radius: 23,
-            ),
-          ),
+              top: 15,
+              // Align user image to the right, if the message is from me.
+              right: isMe ? 0 : null,
+              child: CircleAvatar(
+                backgroundImage: _provider.userProviderData!.imageURL != ''
+                    ? NetworkImage(
+                        _provider.userProviderData!.imageURL.toString(),
+                      )
+                    : const NetworkImage(
+                        "lib/assets/images/userAnon.png",
+                      ),
+                backgroundColor: theme.colorScheme.primary.withAlpha(180),
+                radius: 23,
+              )),
         Container(
           // Add some margin to the edges of the messages, to allow space for the
           // user's image.
