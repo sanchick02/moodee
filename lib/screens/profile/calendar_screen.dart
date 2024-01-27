@@ -141,6 +141,21 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 ),
                                 availableGestures: AvailableGestures.all,
                                 onDaySelected: _onDaySelected,
+                                eventLoader: (day) {
+                                  DateTime normalizedDay =
+                                      _normalizeDateTime(day);
+                                  return _remindersMap[normalizedDay] ?? [];
+                                },
+                                calendarStyle: CalendarStyle(
+                                  markerDecoration: BoxDecoration(
+                                    color: AppColor.btnColorPrimary,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  markerMargin: const EdgeInsets.symmetric(
+                                    horizontal: 0.5,
+                                    vertical: 5.5,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
