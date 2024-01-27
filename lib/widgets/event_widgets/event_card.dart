@@ -81,7 +81,8 @@ class EventCard extends StatelessWidget {
                           color: AppColor.fontColorPrimary,
                         ),
                         Container(
-                          height: 50,
+                          // height: 50,
+                          constraints: BoxConstraints(minHeight: 50),
                           width: 110,
                           padding: EdgeInsets.only(left: 5, top: 5),
                           child: Column(

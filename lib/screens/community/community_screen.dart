@@ -239,13 +239,24 @@ class _CommunityScreenState extends State<CommunityScreen> {
                                 children: [
                                   ClipOval(
                                     child: SizedBox(
-                                        child: Image.network(
-                                      _provider.userProviderData!.imageURL
-                                          .toString(),
-                                      width: 60,
-                                      height: 60,
-                                      fit: BoxFit.cover,
-                                    )),
+                                      child: _provider
+                                                  .userProviderData!.imageURL !=
+                                              ''
+                                          ? Image.network(
+                                              _provider
+                                                  .userProviderData!.imageURL
+                                                  .toString(),
+                                              width: 60,
+                                              height: 60,
+                                              fit: BoxFit.cover,
+                                            )
+                                          : Image.asset(
+                                              "lib/assets/images/userAnon.png",
+                                              width: 60,
+                                              height: 60,
+                                              fit: BoxFit.cover,
+                                            ),
+                                    ),
                                   ),
                                   const SizedBox(
                                     width: 10,

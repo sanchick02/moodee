@@ -51,7 +51,7 @@ class _ForumItemState extends State<ForumItem> {
         horizontal: 10,
       ),
       child: Card(
-        color: Colors.white,
+        color: Colors.transparent,
         elevation: 0,
         child: Container(
           constraints: const BoxConstraints(minHeight: 50),

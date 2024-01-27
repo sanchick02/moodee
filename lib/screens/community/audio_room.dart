@@ -1,118 +1,25 @@
-// import 'package:flutter/material.dart';
-// import 'package:moodee/presets/colors.dart';
-// import 'package:moodee/presets/fonts.dart';
-// import 'package:zego_uikit_prebuilt_live_audio_room/zego_uikit_prebuilt_live_audio_room.dart';
-
-// class AudioRoom extends StatelessWidget {
-//   final String roomID;
-//   final bool isHost;
-
-//   const AudioRoom({Key? key, required this.roomID, this.isHost = false})
-//       : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//       child: Stack(
-//         children: [
-//           ZegoUIKitPrebuiltLiveAudioRoom(
-//             appID:
-//                 1690259054, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
-//             appSign:
-//                 "b9ad1f1db84175c098827915a48866145c30e8010e0dd5c9010eac8482d52290", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
-//             userID: 'user_id',
-//             userName: 'user_name',
-//             roomID: roomID,
-//             config: isHost
-//                 ? ZegoUIKitPrebuiltLiveAudioRoomConfig.host()
-//                 : ZegoUIKitPrebuiltLiveAudioRoomConfig.audience()
-//               ..seatConfig.showSoundWaveInAudioMode = false
-//               // ..userAvatarUrl = 'your_avatar_url'
-//               ..background = background()
-//               ..layoutConfig.rowConfigs = [
-//                 ZegoLiveAudioRoomLayoutRowConfig(
-//                     count: 3,
-//                     alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
-//                 ZegoLiveAudioRoomLayoutRowConfig(
-//                     count: 3,
-//                     alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround)
-//               ]
-//               ..bottomMenuBarConfig = ZegoBottomMenuBarConfig(
-//                 maxCount: 5,
-//                 hostButtons: [
-//                   ZegoMenuBarButtonName.toggleMicrophoneButton,
-//                   ZegoMenuBarButtonName.showMemberListButton,
-//                 ],
-//                 speakerButtons: [
-//                   ZegoMenuBarButtonName.toggleMicrophoneButton,
-//                   ZegoMenuBarButtonName.showMemberListButton,
-//                 ],
-//               ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-
-//   Widget background() {
-//     return Stack(
-//       children: [
-//         Image.asset(
-//           "lib/assets/images/meshGrad1.png",
-//           fit: BoxFit.cover,
-//           height: double.infinity,
-//           width: double.infinity,
-//         ),
-//         Column(
-//           children: [
-//             AppBar(
-//               backgroundColor: Colors.transparent,
-//               title: Image.asset(
-//                 "lib/assets/images/Logo.png",
-//                 width: 120,
-//               ),
-//               centerTitle: true,
-//               leading: IconButton(
-//                 onPressed: () {
-//                   // Navigator.pop(context);
-//                 },
-//                 icon: Image.asset(
-//                   "lib/assets/icons/arrow_back_gray_small.png",
-//                   width: 30,
-//                 ),
-//               ),
-//             ),
-//             Positioned(
-//               top: 10 + 20,
-//               left: 10,
-//               child: Text(
-//                 "Live Audio Room ID: $roomID",
-//                 overflow: TextOverflow.ellipsis,
-//                 style: AppFonts.smallLightText,
-//               ),
-//             )
-//           ],
-//         ),
-//       ],
-//     );
-//   }
-// }
-
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:moodee/layout_model.dart';
 import 'package:moodee/presets/fonts.dart';
 
 // Package imports:
 import 'package:zego_uikit_prebuilt_live_audio_room/zego_uikit_prebuilt_live_audio_room.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:moodee/providers/user_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart' as zego;
 
 class AudioRoom extends StatefulWidget {
   final String roomID;
   final bool isHost;
+  final LayoutMode layoutMode;
 
   const AudioRoom({
     Key? key,
     required this.roomID,
     this.isHost = false,
+    this.layoutMode = LayoutMode.defaultLayout,
   }) : super(key: key);
 
   @override
@@ -124,94 +31,94 @@ class AudioRoomState extends State<AudioRoom> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          return ZegoUIKitPrebuiltLiveAudioRoom(
-            appID:
-                1690259054, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
-            appSign:
-                "b9ad1f1db84175c098827915a48866145c30e8010e0dd5c9010eac8482d52290", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
-            userID: 'user_id',
-            userName: 'user_name',
-            roomID: widget.roomID,
-            controller: liveController,
-            config: (widget.isHost
-                ? ZegoUIKitPrebuiltLiveAudioRoomConfig.host()
-                : ZegoUIKitPrebuiltLiveAudioRoomConfig.audience())
+    var provider = Provider.of<UserProvider>(context, listen: false);
+    String userName = (provider.userProviderData!.firstName).toString();
+    String localUserID = FirebaseAuth.instance.currentUser!.uid;
 
-              // ..takeSeatIndexWhenJoining =
-              //     widget.isHost ? getHostSeatIndex() : -1
-              // ..hostSeatIndexes = getLockSeatIndex()
-              ..layoutConfig.rowConfigs = [
-                ZegoLiveAudioRoomLayoutRowConfig(
-                    count: 3,
-                    alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
-                ZegoLiveAudioRoomLayoutRowConfig(
-                    count: 3,
-                    alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
-                ZegoLiveAudioRoomLayoutRowConfig(
-                    count: 3,
-                    alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
-                ZegoLiveAudioRoomLayoutRowConfig(
-                    count: 3,
-                    alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
-              ]
-              // ..seatConfig = getSeatConfig()
-              ..background = background()
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return ZegoUIKitPrebuiltLiveAudioRoom(
+          appID:
+              1690259054, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
+          appSign:
+              "b9ad1f1db84175c098827915a48866145c30e8010e0dd5c9010eac8482d52290", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
+          userID: localUserID,
+          userName: userName,
+          roomID: widget.roomID,
+          controller: liveController,
+          config: (widget.isHost
+              ? ZegoUIKitPrebuiltLiveAudioRoomConfig.host()
+              : ZegoUIKitPrebuiltLiveAudioRoomConfig.audience())
+            ..takeSeatIndexWhenJoining = widget.isHost ? getHostSeatIndex() : -1
+            ..hostSeatIndexes = getLockSeatIndex()
+            ..layoutConfig = getLayoutConfig()
+            // ..layoutConfig.rowConfigs = [
+            //   ZegoLiveAudioRoomLayoutRowConfig(
+            //       count: 3,
+            //       alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
+            //   ZegoLiveAudioRoomLayoutRowConfig(
+            //       count: 3,
+            //       alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
+            //   ZegoLiveAudioRoomLayoutRowConfig(
+            //       count: 3,
+            //       alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
+            //   ZegoLiveAudioRoomLayoutRowConfig(
+            //       count: 3,
+            //       alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
+            // ]
+            // ..seatConfig = getSeatConfig()
+            ..background = background()
 
-              // ..userAvatarUrl = 'https://robohash.org/$localUserID.png'
-              ..onUserCountOrPropertyChanged = (List<ZegoUIKitUser> users) {
-                debugPrint(
-                    'onUserCountOrPropertyChanged:${users.map((e) => e.toString())}');
-              }
-              ..onSeatClosed = () {
-                debugPrint('on seat closed');
-              }
-              ..onSeatsOpened = () {
-                debugPrint('on seat opened');
-              }
-              ..onSeatsChanged = (
-                Map<int, ZegoUIKitUser> takenSeats,
-                List<int> untakenSeats,
-              ) {
-                debugPrint(
-                    'on seats changed, taken seats:$takenSeats, untaken seats:$untakenSeats');
-              }
-              ..onSeatTakingRequested = (ZegoUIKitUser audience) {
-                debugPrint('on seat taking requested, audience:$audience');
-              }
-              ..onSeatTakingRequestCanceled = (ZegoUIKitUser audience) {
-                debugPrint(
-                    'on seat taking request canceled, audience:$audience');
-              }
-              ..onInviteAudienceToTakeSeatFailed = () {
-                debugPrint('on invite audience to take seat failed');
-              }
-              ..onSeatTakingInviteRejected = () {
-                debugPrint('on seat taking invite rejected');
-              }
-              ..onSeatTakingRequestFailed = () {
-                debugPrint('on seat taking request failed');
-              }
-              ..onSeatTakingRequestRejected = () {
-                debugPrint('on seat taking request rejected');
-              }
-              ..onHostSeatTakingInviteSent = () {
-                debugPrint('on host seat taking invite sent');
-              }
+            // ..userAvatarUrl = 'https://robohash.org/$localUserID.png'
+            ..onUserCountOrPropertyChanged = (List<ZegoUIKitUser> users) {
+              debugPrint(
+                  'onUserCountOrPropertyChanged:${users.map((e) => e.toString())}');
+            }
+            ..onSeatClosed = () {
+              debugPrint('on seat closed');
+            }
+            ..onSeatsOpened = () {
+              debugPrint('on seat opened');
+            }
+            ..onSeatsChanged = (
+              Map<int, ZegoUIKitUser> takenSeats,
+              List<int> untakenSeats,
+            ) {
+              debugPrint(
+                  'on seats changed, taken seats:$takenSeats, untaken seats:$untakenSeats');
+            }
+            ..onSeatTakingRequested = (ZegoUIKitUser audience) {
+              debugPrint('on seat taking requested, audience:$audience');
+            }
+            ..onSeatTakingRequestCanceled = (ZegoUIKitUser audience) {
+              debugPrint('on seat taking request canceled, audience:$audience');
+            }
+            ..onInviteAudienceToTakeSeatFailed = () {
+              debugPrint('on invite audience to take seat failed');
+            }
+            ..onSeatTakingInviteRejected = () {
+              debugPrint('on seat taking invite rejected');
+            }
+            ..onSeatTakingRequestFailed = () {
+              debugPrint('on seat taking request failed');
+            }
+            ..onSeatTakingRequestRejected = () {
+              debugPrint('on seat taking request rejected');
+            }
+            ..onHostSeatTakingInviteSent = () {
+              debugPrint('on host seat taking invite sent');
+            }
 
-              /// WARNING: will override prebuilt logic
-              // ..onSeatClicked = (int index, ZegoUIKitUser? user) {
-              //   debugPrint(
-              //       'on seat clicked, index:$index, user:${user.toString()}');
-              // }
+            /// WARNING: will override prebuilt logic
+            // ..onSeatClicked = (int index, ZegoUIKitUser? user) {
+            //   debugPrint(
+            //       'on seat clicked, index:$index, user:${user.toString()}');
+            // }
 
-              /// WARNING: will override prebuilt logic
-              ..onMemberListMoreButtonPressed = onMemberListMoreButtonPressed,
-          );
-        },
-      ),
+            /// WARNING: will override prebuilt logic
+            ..onMemberListMoreButtonPressed = onMemberListMoreButtonPressed,
+        );
+      },
     );
   }
 
@@ -228,7 +135,6 @@ class AudioRoomState extends State<AudioRoom> {
   //     canControl: widget.isHost,
   //   );
   // }
-
   Widget background() {
     return Stack(
       children: [
@@ -249,13 +155,15 @@ class AudioRoomState extends State<AudioRoom> {
               ),
               centerTitle: true,
             ),
-            Positioned(
-              top: 10 + 20,
-              left: 10,
-              child: Text(
-                "Live Audio Room ID: ${widget.roomID}",
-                overflow: TextOverflow.ellipsis,
-                style: AppFonts.smallLightText,
+            Spacer(),
+            Container(
+              margin: EdgeInsets.only(top: 10 + 20, bottom: 55),
+              child: Center(
+                child: Text(
+                  "Live Audio Room ID: ${widget.roomID}",
+                  overflow: TextOverflow.ellipsis,
+                  style: AppFonts.smallLightText,
+                ),
               ),
             )
           ],
@@ -283,6 +191,81 @@ class AudioRoomState extends State<AudioRoom> {
   //       );
   // }
 
+  ZegoLiveAudioRoomLayoutConfig getLayoutConfig() {
+    final config = ZegoLiveAudioRoomLayoutConfig();
+    switch (widget.layoutMode) {
+      case LayoutMode.defaultLayout:
+        break;
+      case LayoutMode.full:
+        config.rowSpacing = 5;
+        config.rowConfigs = [
+          ZegoLiveAudioRoomLayoutRowConfig(
+            count: 4,
+            alignment: ZegoLiveAudioRoomLayoutAlignment.spaceBetween,
+          ),
+          ZegoLiveAudioRoomLayoutRowConfig(
+            count: 4,
+            alignment: ZegoLiveAudioRoomLayoutAlignment.spaceBetween,
+          ),
+          ZegoLiveAudioRoomLayoutRowConfig(
+            count: 4,
+            alignment: ZegoLiveAudioRoomLayoutAlignment.spaceBetween,
+          ),
+          ZegoLiveAudioRoomLayoutRowConfig(
+            count: 4,
+            alignment: ZegoLiveAudioRoomLayoutAlignment.spaceBetween,
+          ),
+        ];
+        break;
+      case LayoutMode.hostTopCenter:
+        config.rowConfigs = [
+          ZegoLiveAudioRoomLayoutRowConfig(
+            count: 1,
+            alignment: ZegoLiveAudioRoomLayoutAlignment.center,
+          ),
+          ZegoLiveAudioRoomLayoutRowConfig(
+            count: 3,
+            alignment: ZegoLiveAudioRoomLayoutAlignment.spaceBetween,
+          ),
+          ZegoLiveAudioRoomLayoutRowConfig(
+            count: 3,
+            alignment: ZegoLiveAudioRoomLayoutAlignment.spaceBetween,
+          ),
+          ZegoLiveAudioRoomLayoutRowConfig(
+            count: 2,
+            alignment: ZegoLiveAudioRoomLayoutAlignment.spaceEvenly,
+          ),
+        ];
+        break;
+      case LayoutMode.hostCenter:
+        config.rowSpacing = 5;
+        config.rowConfigs = [
+          ZegoLiveAudioRoomLayoutRowConfig(
+            count: 3,
+            alignment: ZegoLiveAudioRoomLayoutAlignment.spaceBetween,
+          ),
+          ZegoLiveAudioRoomLayoutRowConfig(
+            count: 3,
+            alignment: ZegoLiveAudioRoomLayoutAlignment.spaceBetween,
+          ),
+          ZegoLiveAudioRoomLayoutRowConfig(
+            count: 3,
+            alignment: ZegoLiveAudioRoomLayoutAlignment.spaceBetween,
+          ),
+        ];
+        break;
+      case LayoutMode.fourPeoples:
+        config.rowConfigs = [
+          ZegoLiveAudioRoomLayoutRowConfig(
+            count: 4,
+            alignment: ZegoLiveAudioRoomLayoutAlignment.spaceBetween,
+          ),
+        ];
+        break;
+    }
+    return config;
+  }
+
   Widget avatarBuilder(
     BuildContext context,
     Size size,
@@ -297,21 +280,21 @@ class AudioRoomState extends State<AudioRoom> {
     );
   }
 
-  // int getHostSeatIndex() {
-  //   if (widget.layoutMode == LayoutMode.hostCenter) {
-  //     return 4;
-  //   }
+  int getHostSeatIndex() {
+    if (widget.layoutMode == LayoutMode.hostCenter) {
+      return 4;
+    }
 
-  //   return 0;
-  // }
+    return 0;
+  }
 
-  // List<int> getLockSeatIndex() {
-  //   if (widget.layoutMode == LayoutMode.hostCenter) {
-  //     return [4];
-  //   }
+  List<int> getLockSeatIndex() {
+    if (widget.layoutMode == LayoutMode.hostCenter) {
+      return [4];
+    }
 
-  //   return [0];
-  // }
+    return [0];
+  }
 
   void onMemberListMoreButtonPressed(ZegoUIKitUser user) {
     showModalBottomSheet(
