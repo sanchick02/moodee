@@ -5,17 +5,18 @@ import 'package:moodee/models/forum.dart';
 
 class ForumProvider with ChangeNotifier {
   List<ForumPost> forumPosts = [];
-  final user = FirebaseAuth.instance.currentUser;
 
   Future<void> fetchUserData() async {
-    if (user != null) {
+    if (FirebaseAuth.instance.currentUser != null) {
       try {
-        QuerySnapshot userPostsSnapshot = await FirebaseFirestore.instance
-            .collection('forums')
-            .doc(user!.uid)
-            .collection('users_posts')
-            .get();
+        // Get the reference to your collection
+        CollectionReference userForumCollection =
+            FirebaseFirestore.instance.collection('forums10');
 
+        // Query the documents within the collection
+        QuerySnapshot userPostsSnapshot = await userForumCollection.get();
+
+        // Extract data from the documents
         List<ForumPost> fetchedPosts = userPostsSnapshot.docs.map((doc) {
           return ForumPost(
             uid: doc['uid'],
@@ -29,7 +30,11 @@ class ForumProvider with ChangeNotifier {
           );
         }).toList();
 
+        // Update the list of forum posts
         forumPosts = fetchedPosts;
+
+        // Notify listeners about the change in data
+        notifyListeners();
       } catch (e) {
         print(e.toString());
       }

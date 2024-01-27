@@ -9,7 +9,10 @@ import 'package:moodee/models/forum.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/styles.dart';
+import 'package:moodee/providers/forum_post_provider.dart';
+import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/widgets/button.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 final formatted = DateFormat.yMd();
@@ -33,7 +36,7 @@ class NewForum extends StatefulWidget {
 class _NewExpenseState extends State<NewForum> {
   final _captionController = TextEditingController();
   final _amountController = TextEditingController();
-  DateTime? _currentDateTime = DateTime.now();
+  final _currentDateTime = DateTime.now();
   File? _pickedImageFile;
 
   @override
@@ -91,12 +94,10 @@ class _NewExpenseState extends State<NewForum> {
     // get image url
     final imageUrl = await ref.getDownloadURL();
 
-    final userForumCollection = FirebaseFirestore.instance
-        .collection('forums')
-        .doc(currentUser.uid)
-        .collection('users_posts');
+    final userForumCollection =
+        FirebaseFirestore.instance.collection('forums10').doc(postId);
 
-    await userForumCollection.add({
+    await userForumCollection.set({
       'uid': currentUser.uid,
       'pid': postId,
       'caption': _captionController.text,
@@ -110,7 +111,8 @@ class _NewExpenseState extends State<NewForum> {
     Navigator.pop(context);
     setState(() {
       _pickedImageFile = null;
-
+      _captionController.clear();
+      _amountController.clear();
       // update new forum post
       widget.onAddExpense(ForumPost(
           uid: currentUser.uid,
@@ -127,7 +129,6 @@ class _NewExpenseState extends State<NewForum> {
   void _pickedImage() async {
     final pickedImage = await ImagePicker().pickImage(
       source: ImageSource.gallery,
-  
     );
     if (pickedImage == null) {
       return;
@@ -135,6 +136,16 @@ class _NewExpenseState extends State<NewForum> {
     setState(() {
       _pickedImageFile = File(pickedImage.path);
     });
+  }
+
+  @override
+  void initState() {
+    Provider.of<ForumProvider>(context, listen: false)
+        .fetchUserData()
+        .then((_) {
+      setState(() {});
+    });
+    super.initState();
   }
 
   @override

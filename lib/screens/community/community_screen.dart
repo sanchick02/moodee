@@ -7,6 +7,7 @@ import 'package:moodee/new_forum.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/styles.dart';
+import 'package:moodee/providers/forum_post_provider.dart';
 import 'package:moodee/widgets/community_widgets/community_buttons.dart';
 import 'package:moodee/widgets/community_widgets/forum_channel_card.dart';
 import 'package:moodee/widgets/community_widgets/forum_moodeeBoard_card.dart';
@@ -15,6 +16,7 @@ import 'package:moodee/models/forum.dart';
 import 'package:moodee/presets/shadow.dart';
 
 import 'package:moodee/widgets/topbar_logo_notif.dart';
+import 'package:provider/provider.dart';
 
 class CommunityScreen extends StatefulWidget {
   const CommunityScreen({
@@ -66,6 +68,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
   void _addExpense(ForumPost forumPost) {
     setState(() {
       _registeredExpenses.add(forumPost);
+      // use time to sort
+      _registeredExpenses.sort((a, b) => b.time.compareTo(a.time));
     });
   }
 
@@ -87,6 +91,21 @@ class _CommunityScreenState extends State<CommunityScreen> {
         },
       ),
     ));
+  }
+
+  @override
+  void initState() {
+    Provider.of<ForumProvider>(context, listen: false)
+        .fetchUserData()
+        .then((_) {
+      setState(() {
+        _registeredExpenses;
+        // Sorting logic based on the time attribute
+        // _registeredExpenses.sort((a, b) => b.time.compareTo(a.time));
+      });
+    });
+
+    super.initState();
   }
 
   @override
