@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/presets/colors.dart';
@@ -8,8 +9,27 @@ import 'package:moodee/chat_messages.dart';
 import 'package:moodee/new_message_chat.dart';
 import 'package:moodee/page_navigator.dart';
 
-class ChatScreen1 extends StatelessWidget {
+class ChatScreen1 extends StatefulWidget {
   const ChatScreen1({super.key});
+
+  @override
+  State<ChatScreen1> createState() => _ChatScreen1State();
+}
+
+class _ChatScreen1State extends State<ChatScreen1> {
+  void setupPushNotifications() async {
+    final fcm = FirebaseMessaging.instance;
+    await fcm.requestPermission();
+    final token = await fcm.getToken();
+    print("FirebaseMessaging token: $token");
+    fcm.subscribeToTopic('chat');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    setupPushNotifications();
+  }
 
   @override
   Widget build(BuildContext context) {
