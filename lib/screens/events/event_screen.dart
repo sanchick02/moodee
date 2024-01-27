@@ -14,20 +14,28 @@ class EventScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      // bottomNavigationBar: CustomNavigationBar(
-      //   selectedIndex: 1,
-      //   onDestinationSelected: (index) {
-      //     navbarNavigation(context, 1, index);
-      //   },
-      // ),
-      body: const SafeArea(
+      body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              TopBarLogoNotif(),
-              ScreenTitle(title: "Events Nearby"),
-              SizedBox(height: 15),
-              EventsAll(),
+              const TopBarLogoNotif(),
+              Row(
+                children: [
+                  const SizedBox(width: 5),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Image.asset(
+                      "lib/assets/icons/arrow_back_gray_small.png",
+                      width: 30,
+                    ),
+                  ),
+                  const ScreenTitle(title: "Events Nearby"),
+                ],
+              ),
+              const SizedBox(height: 15),
+              const EventsAll(),
             ],
           ),
         ),

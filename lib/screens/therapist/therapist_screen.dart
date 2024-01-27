@@ -13,18 +13,26 @@ class TherapistScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      // bottomNavigationBar: CustomNavigationBar(
-      //   selectedIndex: 1,
-      //   onDestinationSelected: (index) {
-      //     navbarNavigation(context, 1, index);
-      //   },
-      // ),
-      body: const SafeArea(
+      body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               TopBarLogoNotif(),
-              ScreenTitle(title: "Therapist"),
+              Row(
+                children: [
+                  const SizedBox(width: 5),
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Image.asset(
+                      "lib/assets/icons/arrow_back_gray_small.png",
+                      width: 30,
+                    ),
+                  ),
+                  ScreenTitle(title: "Therapist"),
+                ],
+              ),
               SizedBox(height: 15),
               TherapistAll(),
             ],
