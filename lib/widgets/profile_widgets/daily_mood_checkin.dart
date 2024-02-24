@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodee/presets/fonts.dart';
-import 'package:moodee/presets/styles.dart';
 
+// ignore: must_be_immutable
 class DailyMoodCheckIn extends StatelessWidget {
   DailyMoodCheckIn({
     super.key,

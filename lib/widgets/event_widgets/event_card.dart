@@ -7,6 +7,7 @@ import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
 import 'package:moodee/screens/events/event_details.dart';
 
+// ignore: must_be_immutable
 class EventCard extends StatelessWidget {
   EventCard({
     super.key,

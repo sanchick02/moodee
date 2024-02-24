@@ -31,6 +31,7 @@ class _SignUpFormState extends State<SignUpForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  DateTime selectedDate = DateTime.now();
 
   void _signUp() async {
     String firstName = _firstNameController.text;
@@ -40,6 +41,8 @@ class _SignUpFormState extends State<SignUpForm> {
     String confirmPassword = _confirmPasswordController.text;
     final genderMale = isSelected[0];
     String gender = '';
+    String dateOfBirth = selectedDate.toLocal().toString().split(' ')[0];
+    String age = (DateTime.now().year - selectedDate.year).toString();
 
     // close keyboard
     FocusScope.of(context).unfocus();
@@ -66,6 +69,8 @@ class _SignUpFormState extends State<SignUpForm> {
           'date_joined': DateTime.now(),
           'last_login': DateTime.now(),
           'profileImageURL': '',
+          'date_of_birth': dateOfBirth,
+          'age': age,
         },
       ).then(
         (value) => navigateNextPage(
@@ -87,8 +92,6 @@ class _SignUpFormState extends State<SignUpForm> {
       );
     }
   }
-
-  DateTime selectedDate = DateTime.now();
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
