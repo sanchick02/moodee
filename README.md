@@ -4,6 +4,8 @@ Moodee, our pioneering mental health app redefining mental health care accessibi
 
 ## Application Overview
 
+YouTube Video Link: [https://youtu.be/zFLTuYzq2FU?si=sYf2cLLqwjtHo6um](https://youtu.be/zFLTuYzq2FU?si=sYf2cLLqwjtHo6um)
+
 The World Health Organization underscores the crucial role of mental health in overall well-being, yet a significant treatment gap exists globally, particularly in low and middle-income countries due to stigma and fragmented support services. To address these challenges, there's a need to combat stigma, advocate for mental health as a human right, and develop unified, accessible platforms. Enter Moodee, a pioneering mental health app designed to break down access barriers, foster community support, and provide tools for proactive self-care, aiming to ensure everyone can access the support they need to thrive.
 
 Moodee aligns its mission with three United Nations' Sustainable Development Goals (SDGs) to promote a healthier and more inclusive society. Firstly, it supports SDG 3 by bridging the gap in mental health support, offering accessible services through therapist matching and community forums. Secondly, Moodee contributes to SDG 4 by promoting mental health education and awareness through tools like mood tracking and guided meditation, fostering proactive mental health care. Lastly, it aligns with SDG 10 by prioritizing accessibility to mental health services, especially for marginalized groups, ensuring inclusivity and support for all individuals.
