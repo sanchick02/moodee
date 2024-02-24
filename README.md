@@ -10,6 +10,12 @@ Moodee aligns its mission with three United Nations' Sustainable Development Goa
 
 Moodee offers a comprehensive suite of features to empower users in managing their mental well-being effectively. These include therapist matching and booking, AI mood tracking with facial recognition, guided meditation, curated stories and music playlists, and a vibrant community platform called MoodeeHouse, which features voice channels for discussion sessions hosted by therapists, speakers, and counselors, along with MoodeeBoard, support forums for user-generated posts and discussions. Additionally, users can discover nearby group therapy events. With its user-friendly interface and diverse features, Moodee aims to break down barriers to access, foster community support, and provide tools for proactive self-care, thereby enabling individuals to take control of their mental well-being.
 
+## Getting Started
+1. Download the source code folder and unzip
+2. Open the source code folder on your preferred IDE (Visual Studio Code Recommended)
+3. Run the source code on any physical / virtual device, online documentation
+4. Start navigating and using the application's features.
+
 ## Moodee Mobile App Features:
 - Personalised Contents 
 - AI Mood Tracker with Facial Recognition
@@ -58,8 +64,8 @@ Moodee offers a comprehensive suite of features to empower users in managing the
 - UUID (Utility) - **uuid:** ^4.3.3
 - Intl (Internationalization) - **intl:** ^0.18.1
 
-## App Screenshots
-- 
+## App Screenshot
+![Screenshot 1](lib/apps/App Collage.png)
 
 ## Contributors
 - [Sanjivrajah Murali](https://github.com/sanchick02)
