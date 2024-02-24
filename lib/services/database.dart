@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 class DatabaseService {
   // final String uid;
@@ -25,7 +24,7 @@ class DatabaseService {
 
       Map<DateTime?, List<String>> remindersMap = {};
 
-      querySnapshot.docs.forEach((doc) {
+      for (var doc in querySnapshot.docs) {
         DateTime? date = (doc['date'] as Timestamp).toDate();
 
         // Extract the title from the document
@@ -39,7 +38,7 @@ class DatabaseService {
           // If it doesn't exist, create a new list with the title
           remindersMap[date] = [title];
         }
-      });
+      }
 
       return remindersMap;
     } catch (e) {
@@ -47,5 +46,4 @@ class DatabaseService {
       return {};
     }
   }
-
 }

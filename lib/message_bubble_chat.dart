@@ -55,20 +55,25 @@ class MessageBubble extends StatelessWidget {
       children: [
         if (userImage != null)
           Positioned(
-              top: 15,
-              // Align user image to the right, if the message is from me.
-              right: isMe ? 0 : null,
-              child: CircleAvatar(
-                backgroundImage: _provider.userProviderData!.imageURL != ''
-                    ? NetworkImage(
-                        _provider.userProviderData!.imageURL.toString(),
-                      )
-                    : const NetworkImage(
-                        "lib/assets/images/userAnon.png",
-                      ),
-                backgroundColor: theme.colorScheme.primary.withAlpha(180),
-                radius: 23,
-              )),
+            top: 15,
+            // Align user image to the right, if the message is from me.
+            right: isMe ? 0 : null,
+            child: ClipOval(
+              child: _provider.userProviderData!.imageURL != ''
+                  ? Image.network(
+                      _provider.userProviderData!.imageURL.toString(),
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    )
+                  : Image.asset(
+                      "lib/assets/images/userAnon.png",
+                      width: 50,
+                      height: 50,
+                      fit: BoxFit.cover,
+                    ),
+            ),
+          ),
         Container(
           // Add some margin to the edges of the messages, to allow space for the
           // user's image.

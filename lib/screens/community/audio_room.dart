@@ -39,9 +39,9 @@ class AudioRoomState extends State<AudioRoom> {
       builder: (context, constraints) {
         return ZegoUIKitPrebuiltLiveAudioRoom(
           appID:
-              1690259054, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
+              1219890953, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
           appSign:
-              "b9ad1f1db84175c098827915a48866145c30e8010e0dd5c9010eac8482d52290", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
+              "25cbdff363ade1f5cdd36af15761cb81e89f10968619cfe88fc4a3595dbc5149", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
           userID: localUserID,
           userName: userName,
           roomID: widget.roomID,
@@ -52,21 +52,6 @@ class AudioRoomState extends State<AudioRoom> {
             ..takeSeatIndexWhenJoining = widget.isHost ? getHostSeatIndex() : -1
             ..hostSeatIndexes = getLockSeatIndex()
             ..layoutConfig = getLayoutConfig()
-            // ..layoutConfig.rowConfigs = [
-            //   ZegoLiveAudioRoomLayoutRowConfig(
-            //       count: 3,
-            //       alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
-            //   ZegoLiveAudioRoomLayoutRowConfig(
-            //       count: 3,
-            //       alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
-            //   ZegoLiveAudioRoomLayoutRowConfig(
-            //       count: 3,
-            //       alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
-            //   ZegoLiveAudioRoomLayoutRowConfig(
-            //       count: 3,
-            //       alignment: ZegoLiveAudioRoomLayoutAlignment.spaceAround),
-            // ]
-            // ..seatConfig = getSeatConfig()
             ..background = background()
 
             // ..userAvatarUrl = 'https://robohash.org/$localUserID.png'
@@ -122,19 +107,6 @@ class AudioRoomState extends State<AudioRoom> {
     );
   }
 
-  // Widget foreground(BoxConstraints constraints) {
-  //   return Container();
-
-  //   return simpleMediaPlayer(
-  //     canControl: widget.isHost,
-  //     liveController: liveController,
-  //   );
-
-  //   return advanceMediaPlayer(
-  //     constraints: constraints,
-  //     canControl: widget.isHost,
-  //   );
-  // }
   Widget background() {
     return Stack(
       children: [
@@ -155,9 +127,9 @@ class AudioRoomState extends State<AudioRoom> {
               ),
               centerTitle: true,
             ),
-            Spacer(),
+            const Spacer(),
             Container(
-              margin: EdgeInsets.only(top: 10 + 20, bottom: 55),
+              margin: const EdgeInsets.only(top: 10 + 20, bottom: 55),
               child: Center(
                 child: Text(
                   "Live Audio Room ID: ${widget.roomID}",
@@ -171,25 +143,6 @@ class AudioRoomState extends State<AudioRoom> {
       ],
     );
   }
-
-  // ZegoLiveAudioRoomSeatConfig getSeatConfig() {
-  //   if (widget.layoutMode == LayoutMode.hostTopCenter) {
-  //     return ZegoLiveAudioRoomSeatConfig(
-  //       backgroundBuilder: (
-  //         BuildContext context,
-  //         Size size,
-  //         ZegoUIKitUser? user,
-  //         Map<String, dynamic> extraInfo,
-  //       ) {
-  //         return Container(color: Colors.grey);
-  //       },
-  //     );
-  //   }
-
-  //   return ZegoLiveAudioRoomSeatConfig(
-  //       // avatarBuilder: avatarBuilder,
-  //       );
-  // }
 
   ZegoLiveAudioRoomLayoutConfig getLayoutConfig() {
     final config = ZegoLiveAudioRoomLayoutConfig();

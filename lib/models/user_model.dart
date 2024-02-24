@@ -6,6 +6,8 @@ class UserModel {
   String email;
   String gender;
   String imageURL;
+  String dob;
+  String age;
 
   UserModel({
     required this.uid,
@@ -15,5 +17,7 @@ class UserModel {
     required this.email,
     required this.gender,
     required this.imageURL,
+    required this.dob,
+    required this.age,
   });
 }

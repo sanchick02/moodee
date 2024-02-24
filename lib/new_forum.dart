@@ -10,7 +10,6 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/styles.dart';
 import 'package:moodee/providers/forum_post_provider.dart';
-import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
@@ -50,6 +49,7 @@ class _NewExpenseState extends State<NewForum> {
     final enteredAmount = double.tryParse(_amountController.text);
     final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
 
+    // ignore: unnecessary_null_comparison
     if (_captionController.text.trim().isEmpty || amountIsInvalid == null) {
       showDialog(
         context: context,

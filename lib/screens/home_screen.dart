@@ -42,20 +42,19 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    
   }
 
   @override
   Widget build(BuildContext context) {
-    var _provider = Provider.of<UserProvider>(context, listen: false);
+    var provider = Provider.of<UserProvider>(context, listen: false);
 
-    if (_provider.userProviderData == '') {
+    if (provider.userProviderData == '') {
       return const Center(
         child: CircularProgressIndicator(),
       );
     }
 
-    String name = _provider.userProviderData!.firstName.toString();
+    String name = provider.userProviderData!.firstName.toString();
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
       body: Stack(
@@ -77,7 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Good Day, $name!",
                           style: AppFonts.largeMediumText,
                         ),
-                        
                       ],
                     ),
                   ),
@@ -185,7 +183,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                 index: index,
                                 margin: EdgeInsets.only(
                                   left: 15,
-                                  
                                   right: index == eventList.length - 1 ? 15 : 0,
                                 ),
                               ),
@@ -208,8 +205,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         DefaultButton(
                           text: "See All",
                           press: () {
-                            navigateNextPage(
-                                context, const TherapistScreen()); // not working
+                            navigateNextPage(context,
+                                const TherapistScreen()); // not working
                           },
                           backgroundColor: AppColor.btnColorPrimary,
                           height: 35,

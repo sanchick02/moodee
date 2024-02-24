@@ -40,10 +40,11 @@ class _ForumItemState extends State<ForumItem> {
     String imageUrl = ''; // You should replace this with the actual URL
 
     // If the image path is not null or empty, construct the URL
+    // ignore: unnecessary_null_comparison
     if (widget.forumPost.postImage != null &&
         widget.forumPost.postImage.isNotEmpty) {
       // Assuming your storage bucket URL is 'https://your_storage_bucket_url.com'
-      imageUrl = '${widget.forumPost.postImage}';
+      imageUrl = widget.forumPost.postImage;
     }
 
     return Container(
@@ -99,7 +100,7 @@ class _ForumItemState extends State<ForumItem> {
                             style: AppFonts.smallLightText,
                           ), // CHANGE TO USER NAME FROM FIREBASE
                           Text(
-                            '${calculateTimeDifference(widget.forumPost.time)}',
+                            calculateTimeDifference(widget.forumPost.time),
                             style: AppFonts
                                 .extraSmallLightText, // Adjusted font size
                           ),

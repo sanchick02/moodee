@@ -13,7 +13,9 @@ class UserProvider with ChangeNotifier {
       userName: '',
       email: '',
       gender: '',
-      imageURL: '');
+      imageURL: '',
+      dob: '',
+      age: '');
 
   Future<void> fetchUserData() async {
     if (user != null) {
@@ -30,6 +32,8 @@ class UserProvider with ChangeNotifier {
             userProviderData!.email = snapshot.data()!['email'];
             userProviderData!.gender = snapshot.data()!['gender'];
             userProviderData!.imageURL = snapshot.data()!['profileImageURL'];
+            userProviderData!.dob = snapshot.data()!['date_of_birth'];
+            userProviderData!.age = snapshot.data()!['age'];
 
             print('User data fetched');
 

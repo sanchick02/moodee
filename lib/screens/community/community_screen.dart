@@ -151,8 +151,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
                         const SizedBox(width: 10),
                         Expanded(
                           flex: 4,
-                          child: filterButton(
-                              "Forum Channels", isSelected = false, (category) {
+                          child: filterButton("moodeeHouse", isSelected = false,
+                              (category) {
                             setState(() {
                               selectedCategory = category;
                             });
@@ -175,14 +175,14 @@ class _CommunityScreenState extends State<CommunityScreen> {
               ),
               Column(
                 children: [
-                  if (selectedCategory == "Forum Channels") ...[
+                  if (selectedCategory == "moodeeHouse") ...[
                     Padding(
                       padding: const EdgeInsets.only(
                           left: 15, right: 15, top: 3, bottom: 13),
                       child: Row(
                         children: [
                           Text(
-                            "Forum Channels",
+                            "moodeeHouse",
                             style: AppFonts.normalRegularText,
                           )
                         ],
@@ -299,12 +299,12 @@ class _CommunityScreenState extends State<CommunityScreen> {
                       child: Row(
                         children: [
                           Text(
-                            "Forum Channels",
+                            "moodeeHouse",
                             style: AppFonts.normalRegularText,
                           ),
                           const Spacer(),
                           seeAllButton(
-                            "Forum Channels",
+                            "moodeeHouse",
                             (category) {
                               setState(() {
                                 selectedCategory = category;

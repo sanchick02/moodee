@@ -199,7 +199,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           style: AppFonts.largeMediumText,
                         ),
                         Text(
-                          "Age: 24",
+                          "Age: ${provider.userProviderData!.age}",
                           style: AppFonts.smallLightText,
                         ),
                         const SizedBox(height: 5),

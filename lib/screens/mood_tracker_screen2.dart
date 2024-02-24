@@ -11,7 +11,6 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/mood_tracker_widgets/circular_progress_indicator.dart';
-import 'package:moodee/widgets/topbar_logo_notif.dart';
 
 class MoodTrakcerScreen2 extends StatefulWidget {
   const MoodTrakcerScreen2({Key? key}) : super(key: key);
@@ -91,7 +90,6 @@ class _MoodTrakcerScreen2State extends State<MoodTrakcerScreen2> {
   void logMood() async {
     final currentUser = FirebaseAuth.instance.currentUser!;
     String emoji = '';
-    String emojiAsset = '';
     setState(() {
       isLoading = true;
     });
@@ -106,6 +104,7 @@ class _MoodTrakcerScreen2State extends State<MoodTrakcerScreen2> {
       // Capture image immediately
       final image = await cameraController!.takePicture();
 
+      // ignore: unnecessary_null_comparison
       if (image == null) {
         return;
       } else {
@@ -129,22 +128,22 @@ class _MoodTrakcerScreen2State extends State<MoodTrakcerScreen2> {
       // get image url
       final imageUrl = await ref.getDownloadURL();
 
-      if (output == '0 happy') {
-        output = 'happy';
-        emoji = '😁';
-        emojiAsset = 'lib/assets/images/emojiHappy.png';
-      } else if (output == '2 angry') {
-        output = 'angry';
-        emoji = '😡';
-        emojiAsset = 'lib/assets/images/emojiAngry.png';
-      } else if (output == '1 sad') {
-        output = 'sad';
-        emoji = '😢';
-        emojiAsset = 'lib/assets/images/emojiSad.png';
-      } else if (output == '4 neutral') {
-        output = 'neutral';
-        emoji = '😐';
-      }
+      // if (output == '0 happy') {
+      //   output = 'happy';
+      //   emoji = '😁';
+      //   emojiAsset = 'lib/assets/images/emojiHappy.png';
+      // } else if (output == '2 angry') {
+      //   output = 'angry';
+      //   emoji = '😡';
+      //   emojiAsset = 'lib/assets/images/angry.png';
+      // } else if (output == '1 sad') {
+      //   output = 'sad';
+      //   emoji = '😢';
+      //   emojiAsset = 'lib/assets/images/sad.png';
+      // } else if (output == '4 neutral') {
+      //   output = 'neutral';
+      //   emoji = '😐';
+      // }
 
 // Assuming currentUser.uid is the user's unique identifier
       final userMoodsCollection = FirebaseFirestore.instance
@@ -229,7 +228,7 @@ class _MoodTrakcerScreen2State extends State<MoodTrakcerScreen2> {
                 isCaptured
                     ? Column(
                         children: [
-                          SizedBox(height: 40),
+                          const SizedBox(height: 40),
                           Column(
                             children: [
                               Text(
@@ -281,10 +280,22 @@ class _MoodTrakcerScreen2State extends State<MoodTrakcerScreen2> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      Image.asset(
-                                        "lib/assets/images/emojiHappy.png",
-                                        width: 120,
-                                      ),
+                                      // output == '0 happy'
+                                      //     ? Image.asset(
+                                      //         'lib/assets/images/emojiHappy.png',
+                                      //         width: 120,
+                                      //       )
+                                      //     : output == '1 sad'
+                                      //         ? Image.asset(
+                                      //             'lib/assets/images/Sad.png',
+                                      //             width: 120,
+                                      //           )
+                                      //         : output == ' 2 angry'
+                                      //             ? Image.asset(
+                                      //                 'lib/assets/images/emojiHappy.png',
+                                      //                 width: 120,
+                                      //               )
+                                      //             : Container(),
                                       // SizedBox(width: 10),
                                       Text(
                                         output,
@@ -296,7 +307,7 @@ class _MoodTrakcerScreen2State extends State<MoodTrakcerScreen2> {
                               ),
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 15,
                           ),
                           Padding(
@@ -318,7 +329,7 @@ class _MoodTrakcerScreen2State extends State<MoodTrakcerScreen2> {
                       )
                     : Column(
                         children: [
-                          SizedBox(height: 40),
+                          const SizedBox(height: 40),
                           Column(
                             children: [
                               Text(
@@ -390,10 +401,22 @@ class _MoodTrakcerScreen2State extends State<MoodTrakcerScreen2> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      Image.asset(
-                                        "lib/assets/images/emojiHappy.png",
-                                        width: 120,
-                                      ),
+                                      // output == '0 happy'
+                                      //     ? Image.asset(
+                                      //         'lib/assets/images/emojiHappy.png',
+                                      //         width: 120,
+                                      //       )
+                                      //     : output == '1 sad'
+                                      //         ? Image.asset(
+                                      //             'lib/assets/images/Sad.png',
+                                      //             width: 120,
+                                      //           )
+                                      //         : output == ' 2 angry'
+                                      //             ? Image.asset(
+                                      //                 'lib/assets/images/emojiHappy.png',
+                                      //                 width: 120,
+                                      //               )
+                                      //             : Container(),
                                       // SizedBox(width: 10),
                                       Text(
                                         output,
@@ -405,7 +428,7 @@ class _MoodTrakcerScreen2State extends State<MoodTrakcerScreen2> {
                               )
                             ],
                           ),
-                          SizedBox(height: 15),
+                          const SizedBox(height: 15),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 60),
                             child: DefaultButton(

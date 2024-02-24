@@ -8,7 +8,7 @@ class CustomNavigationBar extends StatefulWidget {
   final int selectedIndex;
   final ValueChanged<int> onDestinationSelected;
 
-  CustomNavigationBar({
+  const CustomNavigationBar({
     Key? key,
     required this.selectedIndex,
     required this.onDestinationSelected,
