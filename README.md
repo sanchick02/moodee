@@ -65,7 +65,7 @@ Moodee offers a comprehensive suite of features to empower users in managing the
 - Intl (Internationalization) - **intl:** ^0.18.1
 
 ## App Screenshot
-![Screenshot 1](lib/apps/Appcollage.png)
+![Screenshot 1](lib/apps/AppCollage.png)
 
 ## Contributors
 - [Sanjivrajah Murali](https://github.com/sanchick02)
