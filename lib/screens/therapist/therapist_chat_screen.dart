@@ -4,19 +4,19 @@ import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
-import 'package:moodee/call_page.dart';
-import 'package:moodee/chat_messages.dart';
-import 'package:moodee/new_message_chat.dart';
+import 'package:moodee/screens/therapist/therapist_call_screen.dart';
+import 'package:moodee/widgets/chat_widgets/chat_messages.dart';
+import 'package:moodee/widgets/chatbot_widgets/new_message_chat.dart';
 import 'package:moodee/page_navigator.dart';
 
-class ChatScreen1 extends StatefulWidget {
-  const ChatScreen1({super.key});
+class TherapistChatScreen extends StatefulWidget {
+  const TherapistChatScreen({super.key});
 
   @override
-  State<ChatScreen1> createState() => _ChatScreen1State();
+  State<TherapistChatScreen> createState() => _TherapistChatScreenState();
 }
 
-class _ChatScreen1State extends State<ChatScreen1> {
+class _TherapistChatScreenState extends State<TherapistChatScreen> {
   void setupPushNotifications() async {
     final fcm = FirebaseMessaging.instance;
     await fcm.requestPermission();

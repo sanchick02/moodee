@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart' as zego;
-import 'common.dart';
+import '../../common.dart';
 
 class CallPage extends StatefulWidget {
   const CallPage({super.key});

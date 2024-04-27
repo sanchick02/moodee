@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-import 'package:moodee/bazoot.dart';
-import 'package:moodee/chat_screen.dart';
+import 'package:moodee/screens/therapist/therapist_chat_screen.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
 import 'package:moodee/providers/user_provider.dart';
-import 'package:moodee/screens/chatbot/chat_screen.dart';
+import 'package:moodee/screens/chatbot/chatbot_screen.dart';
 import 'package:moodee/screens/community/community_screen.dart';
 import 'package:moodee/screens/home_screen.dart';
 import 'package:moodee/screens/profile/profile_screen.dart';
@@ -38,9 +37,9 @@ class _NavigationState extends State<Navigation> {
 
         pages = [
           const HomeScreen(),
-          const ChatScreen1(),
+          const TherapistChatScreen(),
           // const Bazoot_Screen(),
-          const ChatScreen(),
+          const ChatBotScreen(),
           const CommunityScreen(),
           const ProfileScreen(),
         ];

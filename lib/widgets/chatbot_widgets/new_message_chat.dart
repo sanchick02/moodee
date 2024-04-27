@@ -53,11 +53,7 @@ class _NewMessageState extends State<NewMessage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(
-        left: 15,
-        right: 1,
-        bottom: 14,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       child: Row(
         children: [
           Expanded(
@@ -89,18 +85,21 @@ class _NewMessageState extends State<NewMessage> {
                         borderRadius: BorderRadius.circular(999),
                         borderSide: BorderSide.none,
                       ),
+                      hintText: "Type something here...",
+                      suffixIcon: GestureDetector(
+                        onTap: _submitMessage,
+                        child: Icon(
+                          Icons.arrow_upward_outlined,
+                          color: _messageController.text.isNotEmpty
+                              ? AppColor.btnColorPrimary
+                              : const Color.fromARGB(90, 0, 0, 0),
+                        ),
+                      ),
                     ),
-                    style: AppFonts.smallRegularText,
+                    style: AppFonts.smallLightText,
                   ),
                 ],
               ),
-            ),
-          ),
-          IconButton(
-            onPressed: _submitMessage,
-            icon: Icon(
-              Icons.send,
-              color: AppColor.fontColorPrimary,
             ),
           ),
         ],

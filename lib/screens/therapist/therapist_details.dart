@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:moodee/call_page.dart';
-import 'package:moodee/chat_screen.dart';
+import 'package:moodee/screens/therapist/therapist_call_screen.dart';
+import 'package:moodee/screens/therapist/therapist_chat_screen.dart';
 import 'package:moodee/models/therapists_model.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/styles.dart';
-import 'package:moodee/screens/prev_chat_screen.dart';
 import 'package:moodee/widgets/therapist_widgets/therapist_availability_rows.dart';
 import 'package:moodee/widgets/button.dart';
 
@@ -83,7 +82,7 @@ class TherapistDetailsScreen extends StatelessWidget {
                                   text: "Message",
                                   press: () {
                                     navigateNextPage(
-                                        context, const ChatScreen1());
+                                        context, const TherapistChatScreen());
                                   },
                                   backgroundColor: AppColor.btnColorPrimary,
                                   height: 25,
