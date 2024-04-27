@@ -55,6 +55,9 @@ dependencies:
   uuid: ^4.3.3
   firebase_messaging: ^14.7.10
   intl: ^0.18.1
+  animated_text_kit: ^4.2.2
+  google_fonts: ^6.2.1
+  google_generative_ai: ^0.3.2
 
 dev_dependencies:
   flutter_test:
