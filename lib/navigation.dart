@@ -6,6 +6,7 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
 import 'package:moodee/providers/user_provider.dart';
+import 'package:moodee/screens/chatbot/chat_screen.dart';
 import 'package:moodee/screens/community/community_screen.dart';
 import 'package:moodee/screens/home_screen.dart';
 import 'package:moodee/screens/profile/profile_screen.dart';
@@ -38,7 +39,8 @@ class _NavigationState extends State<Navigation> {
         pages = [
           const HomeScreen(),
           const ChatScreen1(),
-          const Bazoot_Screen(),
+          // const Bazoot_Screen(),
+          const ChatScreen(),
           const CommunityScreen(),
           const ProfileScreen(),
         ];
