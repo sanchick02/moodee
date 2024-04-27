@@ -88,6 +88,14 @@ class AppFonts {
     // height: 0,
   );
 
+  static TextStyle smallRegularTextWhite = TextStyle(
+    fontFamily: "LeagueSpartan",
+    fontSize: 16,
+    fontWeight: FontWeight.w500, // small regular
+    color: AppColor.fontColorSecondary,
+    // height: 0,
+  );
+
   static TextStyle smallLightText = TextStyle(
     fontFamily: "LeagueSpartan",
     fontSize: 16,

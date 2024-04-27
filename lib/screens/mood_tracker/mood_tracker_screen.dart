@@ -12,16 +12,16 @@ import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/mood_tracker_widgets/circular_progress_indicator.dart';
 
-class MoodTrakcerScreen2 extends StatefulWidget {
-  const MoodTrakcerScreen2({Key? key}) : super(key: key);
+class MoodTrackerScreen extends StatefulWidget {
+  const MoodTrackerScreen({Key? key}) : super(key: key);
 
   @override
-  State<MoodTrakcerScreen2> createState() {
-    return _MoodTrakcerScreen2State();
+  State<MoodTrackerScreen> createState() {
+    return _MoodTrackerScreenState();
   }
 }
 
-class _MoodTrakcerScreen2State extends State<MoodTrakcerScreen2> {
+class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
   CameraImage? cameraImage;
   CameraController? cameraController;
   String output = '';

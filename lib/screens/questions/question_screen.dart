@@ -6,7 +6,7 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/screens/animation_screen.dart';
 import 'package:moodee/screens/home_screen.dart';
-import 'package:moodee/screens/mood_tracker_screen.dart';
+import 'package:moodee/screens/mood_tracker/mood_tracker_screen.dart';
 import 'package:moodee/widgets/button.dart';
 
 class QuestionsScreen extends StatefulWidget {

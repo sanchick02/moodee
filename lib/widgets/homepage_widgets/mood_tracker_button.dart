@@ -3,7 +3,7 @@ import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
-import 'package:moodee/screens/mood_tracker_screen2.dart';
+import 'package:moodee/screens/mood_tracker/mood_tracker_screen.dart';
 
 class MoodTrackerButton extends StatelessWidget {
   const MoodTrackerButton({
@@ -13,7 +13,7 @@ class MoodTrackerButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => navigateNextPage(context, const MoodTrakcerScreen2()),
+      onTap: () => navigateNextPage(context, const MoodTrackerScreen()),
       child: Container(
         height: 110,
         width: 110,

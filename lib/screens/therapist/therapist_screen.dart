@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/widgets/therapist_widgets/therapist_all.dart';
-import 'package:moodee/nav_bar.dart';
+import 'package:moodee/widgets/nav_bar.dart';
 import 'package:moodee/widgets/screen_title.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
 
