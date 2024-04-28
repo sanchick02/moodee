@@ -102,6 +102,7 @@ flutter:
     - lib/assets/tflite_new/
     - lib/assets/lottie/
     - lib/assets/images/events/
+    - lib/assets/images/mood_tracker/
 
   # assets:
   #   - images/a_dot_burr.jpeg
