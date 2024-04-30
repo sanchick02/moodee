@@ -44,8 +44,8 @@ class TherapyCard extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              height: 230,
-              width: 170,
+              height: MediaQuery.of(context).size.width * 0.565,
+              width: (MediaQuery.of(context).size.width / 2) - 25,
               decoration: BoxDecoration(
                 color: AppColor.btnColorSecondary,
                 borderRadius: BorderRadius.circular(30),
@@ -66,8 +66,8 @@ class TherapyCard extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  height: 180,
-                  width: 170,
+                  height: (MediaQuery.of(context).size.width / 2) - 25,
+                  width: (MediaQuery.of(context).size.width / 2) - 25,
                   decoration: BoxDecoration(
                     borderRadius: AppStyles.borderRadiusTop,
                     boxShadow: [
@@ -85,8 +85,8 @@ class TherapyCard extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  height: 180,
-                  width: 170,
+                  height: (MediaQuery.of(context).size.width / 2) - 25,
+                  width: (MediaQuery.of(context).size.width / 2) - 25,
                   padding: const EdgeInsets.only(
                     top: 50,
                     right: 15,
@@ -94,7 +94,7 @@ class TherapyCard extends StatelessWidget {
                     bottom: 15,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFFFFFF).withOpacity(0.4),
+                    color: const Color(0xfffffffff).withOpacity(0.4),
                     borderRadius: AppStyles.borderRadiusTop,
                   ),
                   child: Column(
@@ -102,24 +102,23 @@ class TherapyCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 130,
-                        height: 90,
+                        width: (MediaQuery.of(context).size.width / 2) - 50,
+                        height: (MediaQuery.of(context).size.width / 2) - 120,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
                               Text(mediaItem.title).data!,
-                              style: AppFonts.normalRegularText,
+                              style: AppFonts.normalRegularTextHeight,
                             )
                           ],
                         ),
                       ),
                       const Spacer(),
                       Text(
-                        Text(mediaItem.singerOrAuthor).data! +
-                            Text(mediaItem.sessionDurationDisplay).data!,
-                        style: AppFonts.smallLightText,
+                        "${Text(mediaItem.singerOrAuthor).data!} • ${Text(mediaItem.sessionDurationDisplay).data!}",
+                        style: AppFonts.extraSmallLightText,
                       ),
                     ],
                   ),

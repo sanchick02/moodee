@@ -15,14 +15,13 @@ class MoodTrackerButton extends StatelessWidget {
     return GestureDetector(
       onTap: () => navigateNextPage(context, const MoodTrackerScreen()),
       child: Container(
-        height: 110,
-        width: 110,
+        height: MediaQuery.of(context).size.width * 0.3,
+        width: MediaQuery.of(context).size.width * 0.3,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(20),
           color: Colors.white,
           boxShadow: [
             AppShadow.innerShadow3,
-            AppShadow.innerShadow4,
           ],
         ),
         child: Column(
@@ -31,8 +30,8 @@ class MoodTrackerButton extends StatelessWidget {
           children: [
             Image.asset(
               "lib/assets/images/moodtracker.png",
-              width: 70,
-              height: 70,
+              width: MediaQuery.of(context).size.width * 0.17,
+              height: MediaQuery.of(context).size.width * 0.17,
             ),
             Text(
               "Mood Tracker",

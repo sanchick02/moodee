@@ -17,7 +17,7 @@ class TherapistScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              TopBarLogoNotif(),
+              const TopBarLogoNotif(),
               Row(
                 children: [
                   const SizedBox(width: 5),
@@ -30,11 +30,11 @@ class TherapistScreen extends StatelessWidget {
                       width: 30,
                     ),
                   ),
-                  ScreenTitle(title: "Therapist"),
+                  const ScreenTitle(title: "Therapist"),
                 ],
               ),
-              SizedBox(height: 15),
-              TherapistAll(),
+              const SizedBox(height: 15),
+              const TherapistAll(),
             ],
           ),
         ),

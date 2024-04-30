@@ -35,7 +35,7 @@ class ForumChannelCard extends StatelessWidget {
         ),
         margin: margin,
         width: (MediaQuery.of(context).size.width) - 30,
-        height: 165,
+        constraints: const BoxConstraints(minHeight: 50),
         decoration: BoxDecoration(
           color: AppColor.fontColorSecondary,
           borderRadius: AppStyles.borderRadiusAll,
@@ -53,8 +53,8 @@ class ForumChannelCard extends StatelessWidget {
               children: [
                 Image.asset(
                   forumChannelList[index].image,
-                  width: 80,
-                  height: 80,
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  height: MediaQuery.of(context).size.width * 0.2,
                 ),
                 Container(
                   padding: const EdgeInsets.all(5),
@@ -73,7 +73,7 @@ class ForumChannelCard extends StatelessWidget {
               ],
             ),
             SizedBox(
-              width: 230,
+              width: MediaQuery.of(context).size.width * 0.6,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

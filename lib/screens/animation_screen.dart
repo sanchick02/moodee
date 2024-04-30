@@ -3,8 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:moodee/auth_widget_tree.dart';
 import 'package:moodee/page_navigator.dart';
-import 'package:moodee/presets/fonts.dart';
-import 'package:moodee/screens/auth/auth_screen.dart';
 import 'package:rive/rive.dart' as rive;
 
 class AnimationScreen extends StatelessWidget {

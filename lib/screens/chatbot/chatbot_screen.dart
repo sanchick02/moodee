@@ -1,10 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'package:moodee/providers/user_provider.dart';
@@ -72,12 +70,12 @@ class _ChatScreenState extends State<ChatBotScreen> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 30),
+            padding: const EdgeInsets.symmetric(vertical: 30),
             width: double.infinity,
-            constraints: BoxConstraints(minHeight: 50),
+            constraints: const BoxConstraints(minHeight: 50),
             decoration: BoxDecoration(
               color: AppColor.fontColorSecondary,
-              boxShadow: [AppShadow.innerShadow1],
+              boxShadow: [AppShadow.innerShadow3],
             ),
             child: Column(
               children: [

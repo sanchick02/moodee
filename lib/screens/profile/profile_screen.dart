@@ -1,12 +1,12 @@
-import 'dart:io';
+// ignore_for_file: avoid_print, avoid_types_as_parameter_names
 
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/auth_widget_tree.dart';
-import 'package:moodee/widgets/nav_bar.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
@@ -16,9 +16,6 @@ import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/profile/calendar_screen.dart';
 import 'package:moodee/services/database.dart';
 import 'package:moodee/widgets/button.dart';
-import 'package:moodee/widgets/divider_line.dart';
-import 'package:moodee/widgets/profile_widgets/calendar_widget.dart';
-import 'package:moodee/widgets/profile_widgets/daily_mood_checkin.dart';
 import 'package:moodee/widgets/toggle_switch.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +31,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final DateTime? _selectedDay = DateTime.now();
-  File? _pickedImageFile; // Move it here
+  File? _pickedImageFile;
 
   void _signOut() async {
     await FirebaseAuth.instance.signOut().then((value) => Navigator.push(
@@ -125,13 +122,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Container(
                         width: double.infinity,
-                        height: 180,
+                        height: MediaQuery.of(context).size.width * 0.6,
                         decoration: BoxDecoration(
                           color: AppColor.fontColorSecondary,
                           boxShadow: [
                             AppShadow.innerShadow3,
-                            AppShadow.innerShadow4
                           ],
+                          borderRadius: AppStyles.borderRadiusBottom,
                         ),
                       ),
                       const TopBarLogoNotif(),
@@ -143,48 +140,143 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           style: AppFonts.largeMediumText,
                         ),
                       ),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 250,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Stack(
-                              alignment: Alignment.bottomRight,
-                              children: [
-                                ClipOval(
-                                  child: provider.userProviderData!.imageURL !=
-                                          ''
-                                      ? Image.network(
-                                          provider.userProviderData!.imageURL
-                                              .toString(),
-                                          width: 150,
-                                          height: 150,
-                                          fit: BoxFit.cover,
-                                        )
-                                      : Image.asset(
-                                          "lib/assets/images/userAnon.png",
-                                          width: 150,
-                                          height: 150,
-                                          fit: BoxFit.cover,
-                                        ),
-                                ),
-                                if (provider.userProviderData!.imageURL == '')
-                                  Material(
-                                    color: AppColor.fontColorPrimary,
-                                    borderRadius: BorderRadius.circular(999),
-                                    child: IconButton(
-                                      onPressed: () {
-                                        _pickedImage();
-                                      },
-                                      icon: const Icon(Icons.camera_alt),
-                                      color: AppColor.btnColorSecondary,
-                                    ),
-                                  ),
-                              ],
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 15,
                             ),
-                          ],
-                        ),
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.3,
+                              height: 250,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const SizedBox(
+                                    height: 80,
+                                  ),
+                                  Stack(
+                                    alignment: Alignment.bottomRight,
+                                    children: [
+                                      ClipOval(
+                                        child: provider.userProviderData!
+                                                    .imageURL !=
+                                                ''
+                                            ? Image.network(
+                                                provider
+                                                    .userProviderData!.imageURL
+                                                    .toString(),
+                                                width: (MediaQuery.of(context)
+                                                            .size
+                                                            .width /
+                                                        3) -
+                                                    20,
+                                                height: (MediaQuery.of(context)
+                                                            .size
+                                                            .width /
+                                                        3) -
+                                                    20,
+                                                fit: BoxFit.cover,
+                                              )
+                                            : Image.asset(
+                                                "lib/assets/images/userAnon.png",
+                                                width: (MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.3),
+                                                height: (MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.3),
+                                                fit: BoxFit.cover,
+                                              ),
+                                      ),
+                                      if (provider.userProviderData!.imageURL ==
+                                          '')
+                                        Material(
+                                          color: AppColor.fontColorPrimary,
+                                          borderRadius:
+                                              BorderRadius.circular(999),
+                                          child: IconButton(
+                                            onPressed: () {
+                                              _pickedImage();
+                                            },
+                                            icon: const Icon(Icons.camera_alt),
+                                            color: AppColor.btnColorSecondary,
+                                          ),
+                                        ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                height: 40,
+                                width: MediaQuery.of(context).size.width * 0.55,
+                                child: Text(
+                                  "${provider.userProviderData!.firstName} ${provider.userProviderData!.lastName}",
+                                  style: AppFonts.largeMediumText,
+                                ),
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.55,
+                                child: Text(
+                                  "Taking it one day at a time.",
+                                  style: AppFonts.extraSmallLightText,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              SizedBox(
+                                height: 40,
+                                width: MediaQuery.of(context).size.width * 0.55,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    DefaultButton(
+                                      text: "Edit Profile",
+                                      press: () {},
+                                      backgroundColor: AppColor.btnColorPrimary,
+                                      height: 30,
+                                      fontStyle:
+                                          AppFonts.extraSmallLightTextWhite,
+                                      width:
+                                          (MediaQuery.of(context).size.width /
+                                              4),
+                                      padding: EdgeInsets.zero,
+                                    ),
+                                    DefaultButton(
+                                      text: "Sign Out", // CHANGED THIS
+                                      press: () {
+                                        _signOut();
+                                      },
+                                      backgroundColor: AppColor.btnColorPrimary,
+                                      height: 30,
+                                      fontStyle:
+                                          AppFonts.extraSmallLightTextWhite,
+                                      width:
+                                          (MediaQuery.of(context).size.width /
+                                              4),
+                                      padding: EdgeInsets.zero,
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 15,
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     ],
                   ),
@@ -194,257 +286,165 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         horizontal: 15, vertical: 15),
                     child: Column(
                       children: [
-                        Text(
-                          "${provider.userProviderData!.firstName} ${provider.userProviderData!.lastName}",
-                          style: AppFonts.largeMediumText,
-                        ),
-                        Text(
-                          "Age: ${provider.userProviderData!.age}",
-                          style: AppFonts.smallLightText,
-                        ),
-                        const SizedBox(height: 5),
-                        Text(
-                          "Learning, growing, and taking it one day at a time.",
-                          style: AppFonts.extraSmallLightText,
-                        ),
-                        const SizedBox(height: 15),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        const SizedBox(height: 30),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            DefaultButton(
-                              text: "Edit Profile",
-                              press: () {},
-                              backgroundColor: AppColor.btnColorPrimary,
-                              height: 30,
-                              fontStyle: AppFonts.smallLightTextWhite,
-                              width: 120,
-                              padding: EdgeInsets.zero,
+                            Text(
+                              "My Calendar",
+                              style: AppFonts.largeMediumText,
                             ),
-                            const SizedBox(width: 10),
-                            DefaultButton(
-                              text: "Sign Out", // CHANGED THIS
-                              press: () {
-                                _signOut();
-                              },
-                              backgroundColor: AppColor.btnColorPrimary,
-                              height: 30,
-                              fontStyle: AppFonts.smallLightTextWhite,
-                              width: 120,
-                              padding: EdgeInsets.zero,
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 15),
-                        Container(
-                          padding: const EdgeInsets.all(15),
-                          width: double.infinity,
-                          constraints: const BoxConstraints(minHeight: 50),
-                          decoration: BoxDecoration(
-                            color: AppColor.fontColorSecondary,
-                            borderRadius: AppStyles.borderRadiusAll,
-                            boxShadow: [
-                              AppShadow.innerShadow3,
-                              AppShadow.innerShadow4
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Daily Mood Check-In",
-                                style: AppFonts.normalRegularText,
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Expanded(
-                                    child: DailyMoodCheckIn(
-                                      day: "Mon",
-                                      image: "lib/assets/images/emojiHappy.png",
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: DailyMoodCheckIn(
-                                      day: "Tue",
-                                      image: "lib/assets/images/emojiHappy.png",
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: DailyMoodCheckIn(
-                                      day: "Wed",
-                                      image: "lib/assets/images/emojiHappy.png",
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: DailyMoodCheckIn(
-                                      day: "Thu",
-                                      image: '',
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: DailyMoodCheckIn(
-                                      day: "Fri",
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: DailyMoodCheckIn(
-                                      day: "Sat",
-                                    ),
-                                  ),
-                                  Expanded(
-                                    child: DailyMoodCheckIn(
-                                      day: "Sun",
-                                    ),
-                                  ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            GestureDetector(
+                              onTap: () =>
+                                  navigateNextPage(context, CalendarScreen()),
+                              child: _buildCustomCalendar(),
+                            ),
+                            const SizedBox(height: 20),
+                            Text(
+                              "Profile Settings",
+                              style: AppFonts.largeMediumText,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.symmetric(vertical: 5),
+                              constraints: const BoxConstraints(minHeight: 100),
+                              decoration: BoxDecoration(
+                                color: AppColor.fontColorSecondary,
+                                borderRadius: AppStyles.borderRadiusAll,
+                                boxShadow: [
+                                  AppShadow.innerShadow3,
                                 ],
                               ),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        GestureDetector(
-                          onTap: () =>
-                              navigateNextPage(context, CalendarScreen()),
-                          child: _buildCustomCalendar(),
-                        ),
-                        const SizedBox(height: 10),
-                        Container(
-                          width: double.infinity,
-                          constraints: const BoxConstraints(minHeight: 100),
-                          decoration: BoxDecoration(
-                            color: AppColor.fontColorSecondary,
-                            borderRadius: AppStyles.borderRadiusAll,
-                            boxShadow: [
-                              AppShadow.innerShadow3,
-                              AppShadow.innerShadow4
-                            ],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 15, right: 15, top: 15),
-                                child: Text(
-                                  "Profile Settings",
-                                  style: AppFonts.normalRegularText,
-                                ),
-                              ),
-                              const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15),
-                                child: DividerLine(),
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      "Push notifications",
-                                      style: AppFonts.smallLightText,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 5),
-                                    child: ToggleSwitch(
-                                      onToggle: (bool) {},
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      "Location Services",
-                                      style: AppFonts.smallLightText,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 5),
-                                    child: ToggleSwitch(
-                                      onToggle: (bool) {},
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      "Camera Access",
-                                      style: AppFonts.smallLightText,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 5),
-                                    child: ToggleSwitch(
-                                      onToggle: (bool) {},
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(left: 15),
-                                    child: Text(
-                                      "Change Password",
-                                      style: AppFonts.smallLightText,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 10),
-                                    child: IconButton(
-                                      onPressed: () {},
-                                      icon: Image.asset(
-                                        "lib/assets/icons/arrow_next_gray_small.png",
-                                        width: 30,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 15,
-                                      ),
-                                      child: Text(
-                                        "Privacy Policy",
-                                        style: AppFonts.smallLightText,
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 10),
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: Image.asset(
-                                          "lib/assets/icons/arrow_next_gray_small.png",
-                                          width: 30,
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          "Push notifications",
+                                          style: AppFonts.smallLightText,
                                         ),
                                       ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 5),
+                                        child: ToggleSwitch(
+                                          onToggle: (bool) {},
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          "Location Services",
+                                          style: AppFonts.smallLightText,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 5),
+                                        child: ToggleSwitch(
+                                          onToggle: (bool) {},
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          "Camera Access",
+                                          style: AppFonts.smallLightText,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 5),
+                                        child: ToggleSwitch(
+                                          onToggle: (bool) {},
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 15),
+                                        child: Text(
+                                          "Change Password",
+                                          style: AppFonts.smallLightText,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
+                                        child: IconButton(
+                                          onPressed: () {},
+                                          icon: Image.asset(
+                                            "lib/assets/icons/arrow_next_gray_small.png",
+                                            width: 30,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 10),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                            left: 15,
+                                          ),
+                                          child: Text(
+                                            "Privacy Policy",
+                                            style: AppFonts.smallLightText,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 10),
+                                          child: IconButton(
+                                            onPressed: () {},
+                                            icon: Image.asset(
+                                              "lib/assets/icons/arrow_next_gray_small.png",
+                                              width: 30,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -469,7 +469,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             borderRadius: AppStyles.borderRadiusAll,
             boxShadow: [
               AppShadow.innerShadow3,
-              AppShadow.innerShadow4,
             ],
           ),
           child: Column(

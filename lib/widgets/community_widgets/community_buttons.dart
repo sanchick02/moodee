@@ -15,8 +15,9 @@ Widget filterButton(String category, bool isSelected,
     backgroundColor:
         isSelected ? AppColor.btnColorPrimary : AppColor.btnColorSecondary,
     height: 35,
-    fontStyle:
-        isSelected ? AppFonts.smallLightTextWhite : AppFonts.smallLightText,
+    fontStyle: isSelected
+        ? AppFonts.extraSmallRegularTextWhite
+        : AppFonts.extraSmallRegularText,
     width: 50,
     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
   );

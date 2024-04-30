@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:moodee/presets/colors.dart';
-import 'package:moodee/presets/styles.dart';
 
 class DividerLine extends StatelessWidget {
   const DividerLine({

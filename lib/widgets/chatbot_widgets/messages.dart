@@ -62,7 +62,7 @@ class Messages extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           if (!isUser)

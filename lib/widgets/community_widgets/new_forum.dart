@@ -2,15 +2,19 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:moodee/models/forum.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
+import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
 import 'package:moodee/providers/forum_post_provider.dart';
 import 'package:moodee/widgets/button.dart';
+import 'package:moodee/widgets/community_widgets/mood_emoji.dart';
+import 'package:moodee/widgets/unordered_list.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
@@ -151,41 +155,144 @@ class _NewExpenseState extends State<NewForum> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 40, 16, 16),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          TextField(
-            cursorColor: AppColor.fontColorPrimary,
-            controller: _captionController,
-            maxLength: 500,
-            keyboardType: TextInputType.text,
-            decoration: InputDecoration(
-              label: Text(
-                'Write your post caption...',
-                style: AppFonts.smallLightText,
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            "Express How You Feel",
+            style: AppFonts.normalRegularText,
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          UnorderedList(const [
+            "Share experiences and support, avoiding hate speech or negativity.",
+            "Communicate respectfully, refraining from any form of disrespect or inflammatory language.",
+            "Foster a supportive environment by showing empathy and kindness towards others' mental health journeys.",
+          ]),
+          const SizedBox(
+            height: 5,
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+            width: double.infinity,
+            height: 90,
+            decoration: BoxDecoration(
+              color: AppColor.btnColorSecondary,
+              borderRadius: AppStyles.borderRadiusAll,
+              boxShadow: [AppShadow.innerShadow3],
+            ),
+            child: TextField(
+              cursorColor: AppColor.fontColorPrimary,
+              controller: _captionController,
+              maxLength: 500,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  'Write your post caption...',
+                  style: AppFonts.smallLightText,
+                ),
               ),
             ),
           ),
-
           const SizedBox(
-            height: 16,
+            height: 20,
           ),
-
-          // CircleAvatar(
-          //   radius: 40,
-          //   backgroundColor: Colors.grey,
-          //   foregroundImage:
-          //       _pickedImageFile != null ? FileImage(_pickedImageFile!) : null,
-          // ),
+          Text(
+            "Describe Your Current Mood",
+            style: AppFonts.normalRegularText,
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          const SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                EmojiMood(
+                  image: "lib/assets/images/claudias-part_branch/emoji1.png",
+                  mood: "Happy",
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                EmojiMood(
+                  image: "lib/assets/images/claudias-part_branch/emoji2.png",
+                  mood: "Loved",
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                EmojiMood(
+                  image: "lib/assets/images/claudias-part_branch/emoji3.png",
+                  mood: "Excited",
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                EmojiMood(
+                  image: "lib/assets/images/claudias-part_branch/emoji4.png",
+                  mood: "Emotionless",
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                EmojiMood(
+                  image: "lib/assets/images/claudias-part_branch/emoji5.png",
+                  mood: "Sad",
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                EmojiMood(
+                  image: "lib/assets/images/claudias-part_branch/emoji6.png",
+                  mood: "Tired",
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                EmojiMood(
+                  image: "lib/assets/images/claudias-part_branch/emoji7.png",
+                  mood: "Disgusted",
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                EmojiMood(
+                  image: "lib/assets/images/claudias-part_branch/emoji8.png",
+                  mood: "Anxious",
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                EmojiMood(
+                  image: "lib/assets/images/claudias-part_branch/emoji9.png",
+                  mood: "Angry",
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Text(
+            "Upload a Photo",
+            style: AppFonts.normalRegularText,
+          ),
           GestureDetector(
             onTap: () => _pickedImage(),
             child: Container(
-              margin: const EdgeInsets.only(top: 15),
+              margin: const EdgeInsets.only(top: 5),
               alignment: Alignment.center,
               width: double.infinity,
-              height: 200,
+              height: 180,
               decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.2),
+                color: AppColor.btnColorSecondary,
+                boxShadow: [AppShadow.innerShadow3],
                 borderRadius: AppStyles.borderRadiusAll,
                 image: _pickedImageFile != null
                     ? DecorationImage(
@@ -198,12 +305,20 @@ class _NewExpenseState extends State<NewForum> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Click Here to Add Image",
-                    style: AppFonts.normalRegularText,
+                    "Click To Upload a Photo",
+                    style: TextStyle(
+                      fontFamily: "LeagueSpartan",
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300, // normal regular
+                      color: AppColor.fontColorPrimary,
+                    ),
                   ),
-                  Text(
-                    "(Image preview will be shown here)",
-                    style: AppFonts.smallLightText,
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Image.asset(
+                    "lib/assets/images/claudias-part_branch/image.png",
+                    width: 65,
                   ),
                 ],
               ),
@@ -224,21 +339,6 @@ class _NewExpenseState extends State<NewForum> {
                   height: 40,
                   fontStyle: AppFonts.smallLightTextWhite,
                   width: 200,
-                  padding: EdgeInsets.zero,
-                ),
-              ),
-              const SizedBox(width: 15),
-              Expanded(
-                flex: 2,
-                child: DefaultButton(
-                  text: "Cancel",
-                  press: () {
-                    Navigator.pop(context);
-                  },
-                  backgroundColor: AppColor.btnColorSecondary,
-                  height: 40,
-                  fontStyle: AppFonts.smallLightText,
-                  width: 100,
                   padding: EdgeInsets.zero,
                 ),
               ),

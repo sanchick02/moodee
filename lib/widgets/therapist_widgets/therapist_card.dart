@@ -46,11 +46,11 @@ class TherapistCard extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              height: 230,
-              width: 170,
+              height: MediaQuery.of(context).size.width * 0.565,
+              width: (MediaQuery.of(context).size.width / 2) - 25,
               decoration: BoxDecoration(
                 color: AppColor.btnColorSecondary,
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   AppShadow.innerShadow3,
                   AppShadow.innerShadow4,
@@ -93,8 +93,8 @@ class TherapistCard extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  height: 180,
-                  width: 170,
+                  height: (MediaQuery.of(context).size.width / 2) - 25,
+                  width: (MediaQuery.of(context).size.width / 2) - 25,
                   decoration: BoxDecoration(
                     borderRadius: AppStyles.borderRadiusTop,
                     boxShadow: [
@@ -106,17 +106,17 @@ class TherapistCard extends StatelessWidget {
                     borderRadius: AppStyles.borderRadiusTop,
                     child: Image.asset(
                       therapistList[index].imageCard,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
                 Container(
-                  height: 180,
-                  width: 170,
+                  height: (MediaQuery.of(context).size.width / 2) - 15,
+                  width: (MediaQuery.of(context).size.width / 2) - 25,
                   padding: const EdgeInsets.only(
                     top: 50,
                     right: 15,
-                    left: 10,
+                    left: 15,
                   ),
                   decoration: const BoxDecoration(
                     borderRadius: AppStyles.borderRadiusTop,
@@ -126,7 +126,7 @@ class TherapistCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 130,
+                        width: 140,
                         height: 90,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -138,7 +138,7 @@ class TherapistCard extends StatelessWidget {
                             ),
                             Text(
                               Text(therapistList[index].title).data!,
-                              style: AppFonts.smallLightText,
+                              style: AppFonts.extraSmallLightText,
                             ),
                             Row(
                               children: [

@@ -112,7 +112,6 @@ class MessageBubble extends StatelessWidget {
                       borderRadius: AppStyles.borderRadiusAll,
                       boxShadow: [
                         AppShadow.innerShadow3,
-                        AppShadow.innerShadow4
                       ],
                     ),
                     // Set some reasonable constraints on the width of the
