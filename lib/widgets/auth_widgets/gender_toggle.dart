@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
@@ -71,22 +72,32 @@ class GenderToggleState extends State<GenderToggle> {
             );
     }
 
-    return Container(
-      height: double.infinity,
-      decoration: BoxDecoration(
-        color: isSelected ? AppColor.btnColorPrimary : Color(0xffF6F6F6),
-        borderRadius: borderRadius,
-        boxShadow: [AppShadow.innerShadow1], // not done yet
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15),
-        child: Text(
-          label,
-          style: isSelected
-              ? AppFonts.smallLightTextWhite
-              : AppFonts.smallLightText,
+    return Stack(
+      children: [
+        Container(
+          height: double.infinity,
+          width: ((MediaQuery.of(context).size.width / 2) - 40) / 2,
+          decoration: BoxDecoration(
+            color: isSelected
+                ? AppColor.btnColorPrimary
+                : AppColor.btnColorSecondary,
+            borderRadius: borderRadius,
+            boxShadow: [
+              AppShadow.innerShadow3,
+            ],
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
+            child: Text(
+              textAlign: TextAlign.center,
+              label,
+              style: isSelected
+                  ? AppFonts.smallLightTextWhite
+                  : AppFonts.smallLightText,
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

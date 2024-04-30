@@ -8,8 +8,11 @@ import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
+import 'package:moodee/presets/styles.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/events/event_screen.dart';
+import 'package:moodee/screens/therapist/therapist_call_screen.dart';
+import 'package:moodee/screens/therapist/therapist_chat_screen.dart';
 import 'package:moodee/screens/therapist/therapist_screen.dart';
 import 'package:moodee/screens/therapy/therapy_screen.dart';
 import 'package:moodee/widgets/button.dart';
@@ -67,10 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 20),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
                           "Good Day, $name!",
@@ -93,56 +96,266 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 30),
                   Container(
-                    // Carousel
-                    height: 180,
-                    width: 370,
-                    margin: const EdgeInsets.symmetric(horizontal: 15),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: CarouselSlider(
-                        items: carouselImageUrls.map((imageUrl) {
-                          return Stack(children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(30),
-                              child: Image.asset(
-                                imageUrl,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  AppShadow.innerShadow1,
-                                ],
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                            ),
-                          ]);
-                        }).toList(),
-                        options: CarouselOptions(
-                          autoPlayInterval: const Duration(seconds: 2),
-                          autoPlay: true,
-                          height: 180,
-                          aspectRatio: 2.0,
-                          viewportFraction: 1.0,
-                          onPageChanged: (index, reason) {
-                            setState(() {
-                              carouselCurrentIndex = index;
-                            });
-                          },
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Today's Mood Stats",
+                          style: AppFonts.largeMediumText,
                         ),
-                      ),
+                        DefaultButton(
+                          text: "View Mood Report",
+                          press: () {},
+                          backgroundColor: AppColor.btnColorPrimary,
+                          height: 35,
+                          fontStyle: AppFonts.extraSmallLightTextWhite,
+                          width: 130,
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 8),
+                        ),
+                      ],
                     ),
+                  ),
+                  const SizedBox(height: 15),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: (MediaQuery.of(context).size.width / 4 - 15),
+                          height: MediaQuery.of(context).size.width * 0.35,
+                          padding: const EdgeInsets.only(bottom: 5),
+                          decoration: BoxDecoration(
+                            color: const Color(0xffFCFFD6),
+                            borderRadius: AppStyles.borderRadiusAll,
+                            boxShadow: [AppShadow.innerShadow3],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "lib/assets/images/claudias-part_branch/afternoon.png",
+                                width: MediaQuery.of(context).size.width * 0.13,
+                              ),
+                              const Spacer(),
+                              Image.asset(
+                                "lib/assets/images/claudias-part_branch/emoji1.png",
+                                width: MediaQuery.of(context).size.width * 0.1,
+                              ),
+                              const Spacer(),
+                              Text(
+                                "Happy",
+                                style: AppFonts.smallLightText,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: (MediaQuery.of(context).size.width / 4 - 15),
+                          height: MediaQuery.of(context).size.width * 0.35,
+                          padding: const EdgeInsets.only(bottom: 5),
+                          decoration: BoxDecoration(
+                            color: const Color(0xffDBFFD5),
+                            borderRadius: AppStyles.borderRadiusAll,
+                            boxShadow: [AppShadow.innerShadow3],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "lib/assets/images/claudias-part_branch/morning.png",
+                                width: MediaQuery.of(context).size.width * 0.13,
+                              ),
+                              const Spacer(),
+                              Image.asset(
+                                "lib/assets/images/claudias-part_branch/emoji8.png",
+                                width: MediaQuery.of(context).size.width * 0.1,
+                              ),
+                              const Spacer(),
+                              Text(
+                                "Anxious",
+                                style: AppFonts.smallLightText,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: (MediaQuery.of(context).size.width / 4 - 15),
+                          height: MediaQuery.of(context).size.width * 0.35,
+                          padding: const EdgeInsets.only(bottom: 5),
+                          decoration: BoxDecoration(
+                            color: const Color(0xffFFEAD9),
+                            borderRadius: AppStyles.borderRadiusAll,
+                            boxShadow: [AppShadow.innerShadow3],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "lib/assets/images/claudias-part_branch/afternoon.png",
+                                width: MediaQuery.of(context).size.width * 0.13,
+                              ),
+                              const Spacer(),
+                              Image.asset(
+                                "lib/assets/images/claudias-part_branch/emoji1.png",
+                                width: MediaQuery.of(context).size.width * 0.10,
+                              ),
+                              const Spacer(),
+                              Text(
+                                "Happy",
+                                style: AppFonts.smallLightText,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          width: (MediaQuery.of(context).size.width / 4 - 15),
+                          height: MediaQuery.of(context).size.width * 0.35,
+                          padding: const EdgeInsets.only(bottom: 5),
+                          decoration: BoxDecoration(
+                            color: const Color(0xffD5EBFF),
+                            borderRadius: AppStyles.borderRadiusAll,
+                            boxShadow: [AppShadow.innerShadow3],
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "lib/assets/images/claudias-part_branch/night.png",
+                                width: MediaQuery.of(context).size.width * 0.13,
+                              ),
+                              const Spacer(),
+                              Image.asset(
+                                "lib/assets/images/claudias-part_branch/plus.png",
+                                width: MediaQuery.of(context).size.width * 0.08,
+                              ),
+                              const Spacer(),
+                              Text(
+                                "Add",
+                                style: AppFonts.smallLightText,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Stack(
+                    alignment: Alignment.bottomRight,
+                    children: [
+                      Column(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Meet Your Therapist",
+                                  style: AppFonts.largeMediumText,
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 15),
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.width * 0.5,
+                            decoration: BoxDecoration(
+                              borderRadius: AppStyles.borderRadiusAll,
+                              boxShadow: [AppShadow.innerShadow3],
+                            ),
+                            child: Stack(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Image.asset(
+                                    "lib/assets/images/meshGrad1.png",
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
+                                  ),
+                                ),
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 15),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Dr. Sheryl",
+                                        style: AppFonts.normalRegularTextHeight,
+                                      ),
+                                      Text(
+                                        "Therapist",
+                                        style: AppFonts.smallLightText,
+                                      ),
+                                      Text(
+                                        "@ Calm Minds Therapy Clinic",
+                                        style: AppFonts.extraSmallLightText,
+                                      ),
+                                      const SizedBox(
+                                        height: 10,
+                                      ),
+                                      Row(
+                                        children: [
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                navigateNextPage(context,
+                                                    const TherapistChatScreen());
+                                              },
+                                              style: const ButtonStyle(
+                                                elevation:
+                                                    MaterialStatePropertyAll(0),
+                                              ),
+                                              child: Image.asset(
+                                                "lib/assets/images/claudias-part_branch/msg.png",
+                                                width: 20,
+                                              )),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          ElevatedButton(
+                                              onPressed: () {
+                                                navigateNextPage(
+                                                    context, const CallPage());
+                                              },
+                                              style: const ButtonStyle(
+                                                elevation:
+                                                    MaterialStatePropertyAll(0),
+                                              ),
+                                              child: Image.asset(
+                                                "lib/assets/images/claudias-part_branch/call.png",
+                                                width: 20,
+                                              )),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      Image.asset(
+                        "lib/assets/images/therapist1.png",
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        height: MediaQuery.of(context).size.width * 0.7,
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 20),
                   Container(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -158,7 +371,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           backgroundColor: AppColor.btnColorPrimary,
                           height: 35,
-                          fontStyle: AppFonts.smallLightTextWhite,
+                          fontStyle: AppFonts.extraSmallLightTextWhite,
                           width: 100,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 8),
@@ -194,7 +407,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: 30),
                   Container(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -210,7 +423,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           backgroundColor: AppColor.btnColorPrimary,
                           height: 35,
-                          fontStyle: AppFonts.smallLightTextWhite,
+                          fontStyle: AppFonts.extraSmallLightTextWhite,
                           width: 100,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 8),
@@ -230,7 +443,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           index: index,
                           margin: EdgeInsets.only(
                             left: 15,
-                            right: index == eventList.length - 1 ? 15 : 0,
+                            right: index == (therapistList.length - 1) ? 15 : 0,
                           ),
                         ),
                       ),
@@ -240,7 +453,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     height: 30,
                   ),
                   Container(
-                    padding: const EdgeInsets.only(left: 20, right: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -260,7 +473,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           backgroundColor: AppColor.btnColorPrimary,
                           height: 35,
-                          fontStyle: AppFonts.smallLightTextWhite,
+                          fontStyle: AppFonts.extraSmallLightTextWhite,
                           width: 100,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12, vertical: 8),
@@ -304,6 +517,53 @@ class _HomeScreenState extends State<HomeScreen> {
                           margin: const EdgeInsets.only(left: 15, right: 15),
                         ),
                       ],
+                    ),
+                  ),
+                  const SizedBox(height: 30),
+                  Container(
+                    // Carousel
+                    height: MediaQuery.of(context).size.width * 0.45,
+                    width: MediaQuery.of(context).size.width - 30,
+                    margin: const EdgeInsets.symmetric(horizontal: 15),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: CarouselSlider(
+                        items: carouselImageUrls.map((imageUrl) {
+                          return Stack(children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(20),
+                              child: Image.asset(
+                                imageUrl,
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  AppShadow.innerShadow1,
+                                ],
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                            ),
+                          ]);
+                        }).toList(),
+                        options: CarouselOptions(
+                          autoPlayInterval: const Duration(seconds: 5),
+                          autoPlay: true,
+                          height: MediaQuery.of(context).size.width * 0.45,
+                          aspectRatio: 2.0,
+                          viewportFraction: 1.0,
+                          onPageChanged: (index, reason) {
+                            setState(() {
+                              carouselCurrentIndex = index;
+                            });
+                          },
+                        ),
+                      ),
                     ),
                   ),
                   const SizedBox(

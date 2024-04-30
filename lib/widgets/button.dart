@@ -38,7 +38,7 @@ class _DefaultButtonState extends State<DefaultButton> {
             decoration: BoxDecoration(
               color: widget.backgroundColor,
               boxShadow: [
-                AppShadow.innerShadow2,
+                AppShadow.innerShadow3,
               ],
               borderRadius: BorderRadius.circular(999),
             ),

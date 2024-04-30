@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
@@ -39,12 +41,12 @@ class _TherapistChatScreenState extends State<TherapistChatScreen> {
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(vertical: 30),
+                padding: const EdgeInsets.symmetric(vertical: 30),
                 width: double.infinity,
-                constraints: BoxConstraints(minHeight: 50),
+                constraints: const BoxConstraints(minHeight: 50),
                 decoration: BoxDecoration(
                   color: AppColor.fontColorSecondary,
-                  boxShadow: [AppShadow.innerShadow1],
+                  boxShadow: [AppShadow.innerShadow3],
                 ),
                 child: Column(
                   children: [
@@ -103,8 +105,8 @@ class _TherapistChatScreenState extends State<TherapistChatScreen> {
                   ],
                 ),
               ),
-              Expanded(child: ChatMessages()),
-              NewMessage(),
+              const Expanded(child: ChatMessages()),
+              const NewMessage(),
             ],
           ),
         ));

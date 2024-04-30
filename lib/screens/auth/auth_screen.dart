@@ -21,43 +21,43 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            TopBar(
-              title: isMember ? "LOGIN" : "SIGN UP",
-              padding: isMember
-                  ? const EdgeInsets.only(right: 120)
-                  : const EdgeInsets.only(right: 100.5),
-              onBackButtonPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: Column(
-                children: [
-                  const SizedBox(height: 10),
-                  Row(
-                    children: [
-                      Text(
-                        "Already have an account?",
-                        style: AppFonts.normalRegularText,
-                      ),
-                      const Expanded(child: SizedBox()),
-                      switchForm(context),
-                    ],
-                  ),
-                  const DividerLine(),
-                  Column(
-                    children: [
-                      isMember ? const LoginForm() : const SignUpForm(),
-                    ],
-                  ),
-                ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              TopBar(
+                title: isMember ? "LOGIN" : "SIGN UP",
+                padding: EdgeInsets.all(0),
+                onBackButtonPressed: () {
+                  Navigator.pop(context);
+                },
               ),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10),
+                    Row(
+                      children: [
+                        Text(
+                          "Already have an account?",
+                          style: AppFonts.normalRegularText,
+                        ),
+                        const Expanded(child: SizedBox()),
+                        switchForm(context),
+                      ],
+                    ),
+                    const DividerLine(),
+                    Column(
+                      children: [
+                        isMember ? const LoginForm() : const SignUpForm(),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

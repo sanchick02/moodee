@@ -39,11 +39,11 @@ class EventCard extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              height: 230,
-              width: 170,
+              height: MediaQuery.of(context).size.width * 0.565,
+              width: (MediaQuery.of(context).size.width / 2) - 25,
               decoration: BoxDecoration(
                 color: AppColor.btnColorSecondary,
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(20),
                 boxShadow: [
                   AppShadow.innerShadow3,
                   AppShadow.innerShadow4,
@@ -60,14 +60,14 @@ class EventCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          padding: EdgeInsets.only(right: 5, left: 10),
-                          constraints: BoxConstraints(minWidth: 20),
+                          padding: const EdgeInsets.only(right: 5, left: 15),
+                          constraints: const BoxConstraints(minWidth: 20),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 eventList[index].month,
-                                style: AppFonts.smallLightText,
+                                style: AppFonts.extraSmallLightText,
                               ),
                               Text(
                                 eventList[index].date,
@@ -83,15 +83,15 @@ class EventCard extends StatelessWidget {
                         ),
                         Container(
                           // height: 50,
-                          constraints: BoxConstraints(minHeight: 50),
-                          width: 110,
-                          padding: EdgeInsets.only(left: 5, top: 5),
+                          constraints: const BoxConstraints(minHeight: 50),
+                          width: 120,
+                          padding: const EdgeInsets.only(left: 5, top: 5),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
                                 eventList[index].day,
-                                style: AppFonts.smallLightText,
+                                style: AppFonts.extraSmallLightText,
                               ),
                               Text(
                                 eventList[index].time,
@@ -109,8 +109,8 @@ class EventCard extends StatelessWidget {
             Stack(
               children: [
                 Container(
-                  height: 180,
-                  width: 170,
+                  height: (MediaQuery.of(context).size.width / 2) - 25,
+                  width: (MediaQuery.of(context).size.width / 2) - 25,
                   decoration: BoxDecoration(
                     borderRadius: AppStyles.borderRadiusTop,
                     boxShadow: [
@@ -126,25 +126,25 @@ class EventCard extends StatelessWidget {
                           eventList[index].image,
                           fit: BoxFit.cover,
                           width: double.infinity,
-                          opacity: const AlwaysStoppedAnimation(0.7),
+                          opacity: const AlwaysStoppedAnimation(0.9),
                         ),
                         Image.asset(
                           "lib/assets/images/meshGrad1.png",
                           width: double.infinity,
                           fit: BoxFit.cover,
-                          opacity: const AlwaysStoppedAnimation(0.7),
+                          opacity: const AlwaysStoppedAnimation(0.6),
                         ),
                       ],
                     ),
                   ),
                 ),
                 Container(
-                  height: 180,
-                  width: 170,
+                  height: (MediaQuery.of(context).size.width / 2) - 25,
+                  width: (MediaQuery.of(context).size.width / 2) - 25,
                   padding: const EdgeInsets.only(
                     top: 50,
                     right: 15,
-                    left: 10,
+                    left: 15,
                   ),
                   decoration: const BoxDecoration(
                     borderRadius: AppStyles.borderRadiusTop,
@@ -154,8 +154,8 @@ class EventCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(
-                        width: 130,
-                        height: 110,
+                        width: (MediaQuery.of(context).size.width / 2) - 35,
+                        height: (MediaQuery.of(context).size.width / 2) - 100,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,7 +178,7 @@ class EventCard extends StatelessWidget {
               ],
             ),
             Container(
-              width: 170,
+              width: (MediaQuery.of(context).size.width / 2) - 25,
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

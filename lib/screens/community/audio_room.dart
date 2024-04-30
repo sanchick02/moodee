@@ -8,7 +8,6 @@ import 'package:zego_uikit_prebuilt_live_audio_room/zego_uikit_prebuilt_live_aud
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart' as zego;
 
 class AudioRoom extends StatefulWidget {
   final String roomID;

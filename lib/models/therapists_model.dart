@@ -1,13 +1,14 @@
-import 'package:moodee/models/therapist_availability_model.dart';
-
 class Therapist {
   final String name;
   final String image;
   final String title;
   final String rating;
   final String imageCard;
-  final List<String> achievements;
-  final List<TherapistAvailability> availability;
+  final String experience;
+  final String workplace;
+  final String aboutThisTherapist;
+  final List<Map<String, dynamic>> areaOfExpertise;
+  final List<String> availability;
 
   Therapist({
     required this.name,
@@ -15,7 +16,10 @@ class Therapist {
     required this.title,
     required this.rating,
     required this.imageCard,
-    required this.achievements,
+    required this.experience,
+    required this.workplace,
     required this.availability,
+    required this.areaOfExpertise,
+    required this.aboutThisTherapist,
   });
 }

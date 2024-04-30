@@ -30,18 +30,18 @@ class PhotoCard extends StatelessWidget {
           children: [
             Image.asset(
               eventImage,
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
               width: double.infinity,
+              height: double.infinity,
             ),
             Container(
               height: double.infinity,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.transparent,
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(20),
                 boxShadow: [
-                  AppShadow.innerShadow1,
-                  AppShadow.innerShadow2,
+                  AppShadow.innerShadow3,
                 ],
               ),
             ),

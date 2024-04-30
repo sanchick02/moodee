@@ -9,26 +9,16 @@ List<ForumChannel> forumChannelList = [
   ForumChannel(
     image: "lib/assets/images/therapist2profile.png",
     title:
-        "Mindful Moments: Navigating Mental Wellness Together with Sheryl 🧘‍♀️😶‍🌫️",
+        "Anxiety Allies Unite: John's Strategies for Overcoming Everyday Challenges 😥🎤",
   ),
   ForumChannel(
     image: "lib/assets/images/therapist3profile.png",
     title:
-        "Mindful Moments: Navigating Mental Wellness Together with Sheryl 🧘‍♀️😶‍🌫️",
+        "Mind Matters Lounge: Exploring the Depths of Mental Wellness by Monica",
   ),
   ForumChannel(
     image: "lib/assets/images/therapist4profile.png",
     title:
-        "Mindful Moments: Navigating Mental Wellness Together with Sheryl 🧘‍♀️😶‍🌫️",
-  ),
-  ForumChannel(
-    image: "lib/assets/images/user1.png",
-    title:
-        "Mindful Moments: Navigating Mental Wellness Together with Sheryl 🧘‍♀️😶‍🌫️",
-  ),
-  ForumChannel(
-    image: "lib/assets/images/user2.png",
-    title:
-        "Mindful Moments: Navigating Mental Wellness Together with Sheryl 🧘‍♀️😶‍🌫️",
+        "Resilience Roundtable: Strength in Every Struggle You Have - A Casual Talk with Eric",
   ),
 ];

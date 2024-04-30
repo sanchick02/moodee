@@ -32,29 +32,34 @@ class TopBar extends StatelessWidget {
             AppShadow.innerShadow2,
           ]),
       child: Padding(
-        padding: const EdgeInsets.only(left: 15),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        padding: const EdgeInsets.only(left: 15, right: 15),
+        child: Stack(
+          alignment: Alignment.centerLeft,
           children: [
             BackButtonTop(onBackButtonPressed: onBackButtonPressed),
-            Padding(
-              padding: padding,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 20),
-                    child: Image.asset(
-                      "lib/assets/images/Logo.png",
-                      width: 100,
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: padding,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 20),
+                        child: Image.asset(
+                          "lib/assets/images/Logo.png",
+                          width: 100,
+                        ),
+                      ),
+                      Text(
+                        title,
+                        style: AppFonts.heading1,
+                      ),
+                    ],
                   ),
-                  Text(
-                    title,
-                    style: AppFonts.heading1,
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),

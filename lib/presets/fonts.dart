@@ -33,6 +33,13 @@ class AppFonts {
     height: 1,
   );
 
+  static TextStyle heading4 = TextStyle(
+    fontFamily: "LeagueSpartan",
+    fontSize: 28,
+    fontWeight: FontWeight.w500,
+    color: AppColor.fontColorPrimary,
+  );
+
   static TextStyle largeMediumText = TextStyle(
     fontFamily: "LeagueSpartan",
     fontSize: 24,
@@ -132,6 +139,14 @@ class AppFonts {
     fontSize: 13,
     fontWeight: FontWeight.w400, // small light gray
     color: AppColor.fontColorPrimary,
+    // height: 0,
+  );
+
+  static TextStyle extraSmallRegularTextWhite = TextStyle(
+    fontFamily: "LeagueSpartan",
+    fontSize: 13,
+    fontWeight: FontWeight.w400, // small light gray
+    color: AppColor.fontColorSecondary,
     // height: 0,
   );
 }

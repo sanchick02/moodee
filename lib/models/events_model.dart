@@ -9,6 +9,7 @@ class Event {
   final String image;
   final List<String> eventHighlights;
   final List<String> eventImages;
+  final String moodCategory;
 
   Event(
       {required this.name,
@@ -20,5 +21,6 @@ class Event {
       required this.image,
       required this.month,
       required this.eventHighlights,
-      required this.eventImages});
+      required this.eventImages,
+      required this.moodCategory});
 }

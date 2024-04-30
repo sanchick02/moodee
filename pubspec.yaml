@@ -81,6 +81,8 @@ dev_dependencies:
   zego_uikit_prebuilt_live_audio_room: ^2.18.1
   timeago: ^3.6.0
   lottie: ^2.7.0
+  flutter_polls: ^0.1.6
+  dropdown_button2: ^2.3.8
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -102,6 +104,8 @@ flutter:
     - lib/assets/tflite_new/
     - lib/assets/lottie/
     - lib/assets/images/events/
+    - lib/assets/images/questionnaire/
+    - lib/assets/images/claudias-part_branch/
 
   # assets:
   #   - images/a_dot_burr.jpeg

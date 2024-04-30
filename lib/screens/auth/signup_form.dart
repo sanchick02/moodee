@@ -1,13 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
-import 'package:flutter/widgets.dart';
-import 'package:moodee/data/questions.dart';
+import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
-import 'package:moodee/screens/questions/question_screen.dart';
+import 'package:moodee/screens/questions/questionnaire_screen.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/auth_widgets/formfield.dart';
 import 'package:moodee/widgets/auth_widgets/gender_toggle.dart';
@@ -75,9 +76,7 @@ class _SignUpFormState extends State<SignUpForm> {
       ).then(
         (value) => navigateNextPage(
           context,
-          const QuestionsScreen(
-            questions: questionsList,
-          ),
+          const QuestionnaireScreen()
         ),
       );
     } on FirebaseAuthException catch (error) {
@@ -123,75 +122,61 @@ class _SignUpFormState extends State<SignUpForm> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-              child: CustomFormField(
-                controller: _firstNameController,
-                label: "First Name",
-                keyboardType: TextInputType.name,
-                obscureText: false,
-                width: 165,
-              ),
+            CustomFormField(
+              controller: _firstNameController,
+              label: "First Name",
+              keyboardType: TextInputType.name,
+              obscureText: false,
+              width: (MediaQuery.of(context).size.width / 2) - 40,
             ),
-            const SizedBox(width: 10),
-            Expanded(
-              child: CustomFormField(
-                controller: _lastNameController,
-                label: "Last Name",
-                keyboardType: TextInputType.name,
-                obscureText: false,
-                width: 165,
-              ),
+            const Spacer(),
+            CustomFormField(
+              controller: _lastNameController,
+              label: "Last Name",
+              keyboardType: TextInputType.name,
+              obscureText: false,
+              width: (MediaQuery.of(context).size.width / 2) - 40,
             ),
           ],
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Gender",
-                      style: AppFonts.normalRegularText,
-                    ),
-                    StatefulBuilder(
-                      builder: (context, setState) {
-                        return Stack(
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: AppColor.btnColorSecondary,
-                                boxShadow: [
-                                  AppShadow.innerShadow3,
-                                ],
-                                borderRadius: BorderRadius.circular(999),
-                              ),
-                            ),
-                            GenderToggle(
-                              onPressed: (index) {
-                                setState(() {
-                                  for (int buttonIndex = 0;
-                                      buttonIndex < isSelected.length;
-                                      buttonIndex++) {
-                                    isSelected[buttonIndex] =
-                                        (buttonIndex == index);
-                                  }
-                                });
-                              },
-                              isSelected: isSelected,
-                            ),
-                          ],
-                        );
-                      },
-                    ), // ToggleButtons(
-                  ],
-                ),
+            Padding(
+              padding: const EdgeInsets.only(top: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Gender",
+                    style: AppFonts.normalRegularText,
+                  ),
+                  StatefulBuilder(
+                    builder: (context, setState) {
+                      return Stack(
+                        children: [
+                          GenderToggle(
+                            onPressed: (index) {
+                              setState(() {
+                                for (int buttonIndex = 0;
+                                    buttonIndex < isSelected.length;
+                                    buttonIndex++) {
+                                  isSelected[buttonIndex] =
+                                      (buttonIndex == index);
+                                }
+                              });
+                            },
+                            isSelected: isSelected,
+                          ),
+                        ],
+                      );
+                    },
+                  ), // ToggleButtons(
+                ],
               ),
             ),
-            Expanded(
-                child: Padding(
+            const Spacer(),
+            Padding(
               padding: const EdgeInsets.only(top: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -201,7 +186,7 @@ class _SignUpFormState extends State<SignUpForm> {
                     style: AppFonts.normalRegularText,
                   ),
                   SizedBox(
-                    width: double.infinity,
+                    width: (MediaQuery.of(context).size.width / 2) - 40,
                     height: 55,
                     child: Stack(
                       children: [
@@ -241,7 +226,7 @@ class _SignUpFormState extends State<SignUpForm> {
                   ),
                 ],
               ),
-            ))
+            )
           ],
         ),
         CustomFormField(
