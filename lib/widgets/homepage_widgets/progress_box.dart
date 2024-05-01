@@ -73,8 +73,8 @@ class ProgressBox extends StatelessWidget {
                     ],
                   ),
                   SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.15,
-                    height: MediaQuery.of(context).size.width * 0.15,
+                    width: MediaQuery.of(context).size.width * 0.13,
+                    height: MediaQuery.of(context).size.width * 0.13,
                     child: CircularProgressIndicator(
                       strokeWidth: 4,
                       backgroundColor: const Color(0xff252525).withOpacity(0.1),

@@ -325,7 +325,7 @@ class _NewExpenseState extends State<NewForum> {
             ),
           ),
           const SizedBox(
-            height: 30,
+            height: 20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

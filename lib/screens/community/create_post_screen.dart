@@ -96,7 +96,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                 ),
               ),
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 15),
