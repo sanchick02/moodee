@@ -27,183 +27,192 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: Stack(
-          children: [
-            Image.asset(
-              "lib/assets/images/meshGrad1.png",
-              fit: BoxFit.cover,
-              height: double.infinity,
-              width: double.infinity,
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                const SizedBox(height: 20),
-                SizedBox(
-                  height: 80,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      "lib/assets/images/questionnaire/moodee_logo.png",
-                      width: MediaQuery.of(context).size.width - 60,
+        child: SingleChildScrollView(
+          child: Stack(
+            children: [
+              Image.asset(
+                "lib/assets/images/meshGrad1.png",
+                fit: BoxFit.cover,
+                height: double.infinity,
+                width: double.infinity,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    height: 80,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        "lib/assets/images/questionnaire/moodee_logo.png",
+                        width: MediaQuery.of(context).size.width - 60,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width - 60,
-                  child: Text(
-                    "Over the last 2 weeks, how often have you been bothered by the following problem?",
-                    style: AppFonts.normalRegularTextHeight,
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                SizedBox(
-                  height: 280,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Image.asset(
-                      currentQuestion['img'],
-                      width: 250,
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width - 60,
+                    child: Text(
+                      "Over the last 2 weeks, how often have you been bothered by the following problem?",
+                      style: AppFonts.normalRegularTextHeight,
+                      textAlign: TextAlign.center,
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 30, right: 30, top: 15),
-                  child: Column(
-                    children: [
-                      Text(
-                        currentQuestion['Question'],
-                        style: TextStyle(
-                          fontFamily: "LeagueSpartan",
-                          fontSize: 30,
-                          fontWeight: FontWeight.w500,
-                          color: AppColor.fontColorPrimary,
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    height: 280,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        currentQuestion['img'],
+                        width: 250,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 30, right: 30, top: 15),
+                    child: Column(
+                      children: [
+                        Text(
+                          currentQuestion['Question'],
+                          style: TextStyle(
+                            fontFamily: "LeagueSpartan",
+                            fontSize: 25,
+                            fontWeight: FontWeight.w500,
+                            color: AppColor.fontColorPrimary,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      Column(
-                        children: [
-                          if (currentQuestion['button1'] != null)
-                            DefaultButton(
-                              text: Text(currentQuestion['button1']).data!,
-                              backgroundColor: AppColor.btnColorSecondary,
-                              height: 40,
-                              width: double.infinity,
-                              fontStyle: AppFonts.normalRegularText,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 8),
-                              press: () {
-                                _handleButtonPress(currentQuestion['button1']);
-                              },
-                            ),
-                          const SizedBox(height: 15),
-                          if (currentQuestion['button2'] != null)
-                            DefaultButton(
-                              text: Text(currentQuestion['button2']).data!,
-                              backgroundColor: AppColor.btnColorSecondary,
-                              height: 40,
-                              width: double.infinity,
-                              fontStyle: AppFonts.normalRegularText,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 8),
-                              press: () {
-                                _handleButtonPress(currentQuestion['button2']);
-                              },
-                            ),
-                          const SizedBox(height: 15),
-                          if (currentQuestion['button3'] != null)
-                            DefaultButton(
-                              text: Text(currentQuestion['button3']).data!,
-                              backgroundColor: AppColor.btnColorSecondary,
-                              height: 40,
-                              width: double.infinity,
-                              fontStyle: AppFonts.normalRegularText,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 8),
-                              press: () {
-                                _handleButtonPress(currentQuestion['button3']);
-                              },
-                            ),
-                          const SizedBox(height: 15),
-                          if (currentQuestion['button4'] != null)
-                            DefaultButton(
-                              text: Text(currentQuestion['button4']).data!,
-                              backgroundColor: AppColor.btnColorSecondary,
-                              height: 40,
-                              width: double.infinity,
-                              fontStyle: AppFonts.normalRegularText,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 8),
-                              press: () {
-                                _handleButtonPress(currentQuestion['button4']);
-                              },
-                            ),
-                          const SizedBox(height: 15),
-                          if (currentQuestion['button5'] != null &&
-                              !isFirstQuestion)
-                            Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                DefaultButton(
-                                  text: Text(currentQuestion['button5']).data!,
-                                  backgroundColor: AppColor.btnColorSecondary,
-                                  height: 40,
-                                  width: double.infinity,
-                                  fontStyle: AppFonts.normalRegularText,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 8),
-                                  press: () {
-                                    _handleButtonPress(
-                                        currentQuestion['button5']);
-                                  },
-                                ),
-                              ],
-                            ),
-                          // Button 5 with image for the first question only
-                          if (currentQuestion['button5'] != null &&
-                              isFirstQuestion)
-                            Stack(
-                              alignment: Alignment.center,
-                              children: [
-                                DefaultButton(
-                                  text: Text(currentQuestion['button5']).data!,
-                                  backgroundColor: AppColor.btnColorSecondary,
-                                  height: 40,
-                                  width: double.infinity,
-                                  fontStyle: AppFonts.normalRegularText,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 8),
-                                  press: () {
-                                    // _handleButtonPress(
-                                    //   currentQuestion['button5'],
-                                    // );
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return const MoodTrackerScreen();
-                                      },
-                                    );
-                                  },
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 140),
-                                  child: Image.asset(
-                                    "lib/assets/icons/scanner.png",
-                                    width: 25,
+                        const SizedBox(height: 20),
+                        Column(
+                          children: [
+                            if (currentQuestion['button1'] != null)
+                              DefaultButton(
+                                text: Text(currentQuestion['button1']).data!,
+                                backgroundColor: AppColor.btnColorSecondary,
+                                height: 40,
+                                width: double.infinity,
+                                fontStyle: AppFonts.normalRegularText,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 8),
+                                press: () {
+                                  _handleButtonPress(
+                                      currentQuestion['button1']);
+                                },
+                              ),
+                            const SizedBox(height: 15),
+                            if (currentQuestion['button2'] != null)
+                              DefaultButton(
+                                text: Text(currentQuestion['button2']).data!,
+                                backgroundColor: AppColor.btnColorSecondary,
+                                height: 40,
+                                width: double.infinity,
+                                fontStyle: AppFonts.normalRegularText,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 8),
+                                press: () {
+                                  _handleButtonPress(
+                                      currentQuestion['button2']);
+                                },
+                              ),
+                            const SizedBox(height: 15),
+                            if (currentQuestion['button3'] != null)
+                              DefaultButton(
+                                text: Text(currentQuestion['button3']).data!,
+                                backgroundColor: AppColor.btnColorSecondary,
+                                height: 40,
+                                width: double.infinity,
+                                fontStyle: AppFonts.normalRegularText,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 8),
+                                press: () {
+                                  _handleButtonPress(
+                                      currentQuestion['button3']);
+                                },
+                              ),
+                            const SizedBox(height: 15),
+                            if (currentQuestion['button4'] != null)
+                              DefaultButton(
+                                text: Text(currentQuestion['button4']).data!,
+                                backgroundColor: AppColor.btnColorSecondary,
+                                height: 40,
+                                width: double.infinity,
+                                fontStyle: AppFonts.normalRegularText,
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 8),
+                                press: () {
+                                  _handleButtonPress(
+                                      currentQuestion['button4']);
+                                },
+                              ),
+                            const SizedBox(height: 15),
+                            if (currentQuestion['button5'] != null &&
+                                !isFirstQuestion)
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  DefaultButton(
+                                    text:
+                                        Text(currentQuestion['button5']).data!,
+                                    backgroundColor: AppColor.btnColorSecondary,
+                                    height: 40,
+                                    width: double.infinity,
+                                    fontStyle: AppFonts.normalRegularText,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 8),
+                                    press: () {
+                                      _handleButtonPress(
+                                          currentQuestion['button5']);
+                                    },
                                   ),
-                                ),
-                              ],
-                            ),
-                        ],
-                      ),
-                    ],
+                                ],
+                              ),
+                            // Button 5 with image for the first question only
+                            if (currentQuestion['button5'] != null &&
+                                isFirstQuestion)
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  DefaultButton(
+                                    text:
+                                        Text(currentQuestion['button5']).data!,
+                                    backgroundColor: AppColor.btnColorSecondary,
+                                    height: 40,
+                                    width: double.infinity,
+                                    fontStyle: AppFonts.normalRegularText,
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 12, vertical: 8),
+                                    press: () {
+                                      // _handleButtonPress(
+                                      //   currentQuestion['button5'],
+                                      // );
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return const MoodTrackerScreen();
+                                        },
+                                      );
+                                    },
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 140),
+                                    child: Image.asset(
+                                      "lib/assets/icons/scanner.png",
+                                      width: 25,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
