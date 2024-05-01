@@ -1,3 +1,5 @@
+import 'package:moodee/models/testimonial_model.dart';
+
 class Therapist {
   final String name;
   final String image;
@@ -9,6 +11,7 @@ class Therapist {
   final String aboutThisTherapist;
   final List<Map<String, dynamic>> areaOfExpertise;
   final List<String> availability;
+  final List<Testimonial> testimonial;
 
   Therapist({
     required this.name,
@@ -21,5 +24,6 @@ class Therapist {
     required this.availability,
     required this.areaOfExpertise,
     required this.aboutThisTherapist,
+    required this.testimonial,
   });
 }

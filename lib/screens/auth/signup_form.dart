@@ -72,12 +72,16 @@ class _SignUpFormState extends State<SignUpForm> {
           'profileImageURL': '',
           'date_of_birth': dateOfBirth,
           'age': age,
+          'therapist_id': '',
+          'is_therapist': false,
+          'reserved_event_id': '',
+          'wishlist_event_id': '',
+          'mood_report_id': '',
+          'mood_category_id': '',
+          'community_id': '',
         },
       ).then(
-        (value) => navigateNextPage(
-          context,
-          const QuestionnaireScreen()
-        ),
+        (value) => navigateNextPage(context, const QuestionnaireScreen()),
       );
     } on FirebaseAuthException catch (error) {
       if (error.code == 'email-already-in-use') {
