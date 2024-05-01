@@ -4,6 +4,7 @@ import 'package:moodee/models/events_model.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/styles.dart';
+import 'package:moodee/screens/events/ticket.dart';
 import 'package:moodee/widgets/event_widgets/photo_card.dart';
 import 'package:moodee/widgets/button.dart';
 
@@ -211,40 +212,62 @@ class EventDetailsScreen extends StatelessWidget {
               child: DefaultButton(
                 press: () {
                   showDialog(
-                    context: context,
+                    context: context, 
                     builder: (BuildContext context) {
                       return AlertDialog(
                         backgroundColor: AppColor.fontColorSecondary,
                         scrollable: true,
-                        title: Text(
-                          'Event Reminder',
-                          style: AppFonts.largeMediumText,
+                        title: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'All Done!',
+                              style: AppFonts.largeMediumText,
+                            ),
+                            IconButton(onPressed: () {
+                              Navigator.of(context).pop();
+                            }, 
+                            icon: Icon(Icons.close)
+                            ),
+                          ],
                         ),
                         content: const Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Reminder has been set for you.'),
-                            Text('You will get notified before the event.')
+                            Text('View your ticket by clicking the button below.'),
+                            Text(''),
+                            Text('Note: You will get notified before the event.',
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                            ),
                           ],
                         ),
                         actions: [
                           DefaultButton(
-                            backgroundColor: AppColor.btnColorPrimary,
-                            text: "Okay",
-                            height: 30,
-                            fontStyle: AppFonts.smallLightTextWhite,
-                            width: double.infinity,
+                            text: 'View Your Ticket', 
+                            backgroundColor: AppColor.btnColorPrimary, 
+                            height: 30, 
+                            fontStyle: AppFonts.smallLightTextWhite, 
+                            width: double.infinity, 
                             padding: EdgeInsets.zero,
                             press: () {
-                              Navigator.of(context).pop();
+                              Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => TicketScreen(
+                                index: index,
+                                eventList: eventList,
+                                eventImage: eventImage,
+                              ),
+                              ),
+                              );
                             },
                           ),
                         ],
                       );
-                    },
-                  );
+                    });
                 },
-                text: "Remind Me",
+                text: "Reserve Your Ticket",
                 backgroundColor: AppColor.btnColorPrimary,
                 height: 40,
                 fontStyle: AppFonts.normalRegularTextWhite,

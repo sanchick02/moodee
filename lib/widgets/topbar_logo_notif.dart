@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/screens/notifications_screen.dart';
+import 'package:moodee/screens/wishlist/wishlist.dart';
 
 class TopBarLogoNotif extends StatelessWidget {
   const TopBarLogoNotif({
@@ -18,6 +19,15 @@ class TopBarLogoNotif extends StatelessWidget {
             width: 100,
           ),
           const Spacer(),
+          IconButton(onPressed: () {
+            navigateNextPage(context, const Wishlist());
+          }, 
+          icon: const Icon (
+            Icons.favorite_border_sharp,
+            size: 30,
+          ),
+          ),
+
           IconButton(
             onPressed: () {
               navigateNextPage(context, const NotificationsScreen());
