@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:moodee/data/therapists.dart';
+import 'package:moodee/providers/therapist_provider.dart';
 import 'package:moodee/widgets/therapist_widgets/therapist_card.dart';
+import 'package:provider/provider.dart';
 
 class TherapistAll extends StatelessWidget {
   const TherapistAll({
@@ -9,19 +11,21 @@ class TherapistAll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<TherapistProvider>(context);
+
     final rowWidgets = <Widget>[];
-    for (int i = 0; i < therapistList.length; i += 2) {
-      final card1 = i < therapistList.length
+    for (int i = 0; i < provider.therapistsList.length; i += 2) {
+      final card1 = i < provider.therapistsList.length
           ? TherapistCard(
-              therapistList: therapistList,
+              therapistList: provider.therapistsList,
               index: i,
               margin: const EdgeInsets.only(left: 15),
             )
           : Container();
-      final card2 = (i + 1) < therapistList.length
+      final card2 = (i + 1) < provider.therapistsList.length
           ? TherapistCard(
               index: i + 1,
-              therapistList: therapistList,
+              therapistList: provider.therapistsList,
               margin: const EdgeInsets.only(right: 15),
             )
           : Container();

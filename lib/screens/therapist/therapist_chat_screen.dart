@@ -1,15 +1,21 @@
 // ignore_for_file: avoid_print
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
+import 'package:moodee/providers/therapist_provider.dart';
+import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/therapist/therapist_call_screen.dart';
 import 'package:moodee/widgets/chat_widgets/chat_messages.dart';
 import 'package:moodee/widgets/chatbot_widgets/new_message_chat.dart';
 import 'package:moodee/page_navigator.dart';
+import 'package:provider/provider.dart';
+
+User auth = FirebaseAuth.instance.currentUser!;
 
 class TherapistChatScreen extends StatefulWidget {
   const TherapistChatScreen({super.key});
@@ -35,6 +41,10 @@ class _TherapistChatScreenState extends State<TherapistChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var therapistProvider = Provider.of<TherapistProvider>(context);
+    var userProvider = Provider.of<UserProvider>(context);
+    String usersTherapistId = userProvider.userProviderData!.therapist_id;
+
     return Scaffold(
         backgroundColor: AppColor.backgroundColor,
         body: SafeArea(
@@ -57,7 +67,10 @@ class _TherapistChatScreenState extends State<TherapistChatScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Sheryl",
+                            therapistProvider.therapistsList
+                                .firstWhere(
+                                    (element) => element.id == usersTherapistId)
+                                .name,
                             style: AppFonts.heading3Height,
                           ),
                           Text(
@@ -81,7 +94,10 @@ class _TherapistChatScreenState extends State<TherapistChatScreen> {
                               height: 200,
                               width: 200,
                               child: Image.asset(
-                                "lib/assets/images/therapist1profile.png",
+                                therapistProvider.therapistsList
+                                    .firstWhere((element) =>
+                                        element.id == usersTherapistId)
+                                    .image,
                                 fit: BoxFit.fill,
                               ),
                             ),

@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, avoid_types_as_parameter_names
 import 'dart:io';
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -23,6 +24,7 @@ import 'package:moodee/widgets/topbar_logo_notif.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -76,10 +78,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     await Firebase.initializeApp();
 
     final therapistCollection = _firestore.collection('therapists');
+    const random = Uuid();
 
     for (var therapist in therapists) {
       // No need for toJson() if your class directly provides properties
       final therapistData = {
+        'id': random.v4(),
         'name': therapist.name,
         'image': therapist.image,
         'title': therapist.title,
@@ -286,7 +290,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     DefaultButton(
                                       text: "Edit Profile",
                                       press: () {
-                                        uploadTherapists(therapistList);
+                                        // uploadTherapists(therapistList);
                                       },
                                       backgroundColor: AppColor.btnColorPrimary,
                                       height: 30,

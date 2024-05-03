@@ -79,6 +79,7 @@ class _SignUpFormState extends State<SignUpForm> {
           'mood_report_id': '',
           'mood_category_id': '',
           'community_id': '',
+          'therapist_datetime': '',
         },
       ).then(
         (value) => navigateNextPage(context, const QuestionnaireScreen()),

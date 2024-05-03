@@ -15,7 +15,10 @@ class UserProvider with ChangeNotifier {
       gender: '',
       imageURL: '',
       dob: '',
-      age: '');
+      age: '',
+      isTherapist: false,
+      therapist_id: '',
+      therapist_datetime: '');
 
   Future<void> fetchUserData() async {
     if (user != null) {
@@ -34,7 +37,10 @@ class UserProvider with ChangeNotifier {
             userProviderData!.imageURL = snapshot.data()!['profileImageURL'];
             userProviderData!.dob = snapshot.data()!['date_of_birth'];
             userProviderData!.age = snapshot.data()!['age'];
-
+            userProviderData!.isTherapist = snapshot.data()!['is_therapist'];
+            userProviderData!.therapist_id = snapshot.data()!['therapist_id'];
+            userProviderData!.therapist_datetime =
+                snapshot.data()!['therapist_datetime'];
             print('User data fetched');
 
             print(userProviderData!.uid);
