@@ -135,7 +135,6 @@ class _PlayerWidgetState<T extends MediaItem> extends State<PlayerWidget<T>>
                   ],
                 ),
               ),
-
               Text(widget.mediaItem.instructions),
               Text(
                 widget.mediaItem.title,
@@ -147,7 +146,6 @@ class _PlayerWidgetState<T extends MediaItem> extends State<PlayerWidget<T>>
                 style: AppFonts.smallLightText,
               ),
               const SizedBox(height: 30),
-
               ValueListenableBuilder(
                 valueListenable: _player,
                 builder: (context, value, _) {

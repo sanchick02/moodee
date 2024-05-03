@@ -6,5 +6,5 @@ abstract class MediaItem {
   int get duration;
   String get instructions;
   String get sessionDurationDisplay;
-  
+  String get trackId;
 }

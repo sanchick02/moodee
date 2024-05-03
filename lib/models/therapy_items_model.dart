@@ -15,6 +15,8 @@ class MusicItem implements MediaItem {
   final String instructions;
   @override
   final String sessionDurationDisplay;
+  @override
+  final String trackId;
 
   MusicItem(
       {required this.therapyType,
@@ -23,7 +25,8 @@ class MusicItem implements MediaItem {
       required this.singerOrAuthor,
       required this.duration,
       required this.instructions,
-      required this.sessionDurationDisplay});
+      required this.sessionDurationDisplay,
+      required this.trackId});
 }
 
 class MeditationItem implements MediaItem {
@@ -41,6 +44,8 @@ class MeditationItem implements MediaItem {
   final String instructions;
   @override
   final String sessionDurationDisplay;
+  @override
+  final String trackId;
 
   MeditationItem(
       {required this.therapyType,
@@ -49,7 +54,8 @@ class MeditationItem implements MediaItem {
       required this.singerOrAuthor,
       required this.duration,
       required this.instructions,
-      required this.sessionDurationDisplay});
+      required this.sessionDurationDisplay,
+      required this.trackId});
 }
 
 class StoryItem implements MediaItem {
@@ -67,6 +73,8 @@ class StoryItem implements MediaItem {
   final String instructions;
   @override
   final String sessionDurationDisplay;
+  @override
+  final String trackId;
 
   StoryItem(
       {required this.therapyType,
@@ -75,5 +83,6 @@ class StoryItem implements MediaItem {
       required this.singerOrAuthor,
       required this.duration,
       required this.instructions,
-      required this.sessionDurationDisplay});
+      required this.sessionDurationDisplay,
+      required this.trackId});
 }

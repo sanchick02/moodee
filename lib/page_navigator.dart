@@ -1,17 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:moodee/data/therapy_lists.dart';
 import 'package:moodee/models/media_item_model.dart';
+import 'package:moodee/models/therapy_items_model.dart';
 import 'package:moodee/screens/chatbot/chatbot_screen.dart';
 import 'package:moodee/screens/community/community_screen.dart';
 import 'package:moodee/screens/profile/profile_screen.dart';
-import 'package:moodee/screens/therapy/therapy_player_screen.dart';
+import 'package:moodee/screens/therapy/music_player.dart';
 import 'package:moodee/screens/home_screen.dart';
 import 'package:moodee/screens/therapy/therapy_screen.dart';
-
-// to be reused as a navigator for switching pages
-File? _selectedImage;
 
 navigateNextPage(BuildContext context, Widget nextPage) {
   Navigator.push(
@@ -21,10 +17,19 @@ navigateNextPage(BuildContext context, Widget nextPage) {
 }
 
 void navigateToPlayer(BuildContext context, MediaItem mediaItem) {
+  MediaItem media = mediaItem;
+  List<MediaItem> list = [];
+  if (mediaItem is MusicItem) {
+    list = musicList;
+  } else if (mediaItem is MeditationItem) {
+    list = meditationList;
+  } else if (mediaItem is StoryItem) {
+    list = storyList;
+  }
   Navigator.push(
     context,
     MaterialPageRoute(
-      builder: (context) => TherapyPlayerScreen(mediaItem: mediaItem),
+      builder: (context) => MusicPlayer(mediaItem: media, mediaList: list),
     ),
   );
 }

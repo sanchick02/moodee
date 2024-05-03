@@ -69,11 +69,11 @@ class _TherapyScreenState extends State<TherapyScreen> {
                     const SizedBox(width: 10),
                     Expanded(
                         flex: 2,
-                        child: filterButton("Music", isSelected = false)),
+                        child: filterButton("Relax", isSelected = false)),
                     const SizedBox(width: 10),
                     Expanded(
                         flex: 2,
-                        child: filterButton("Stories", isSelected = false)),
+                        child: filterButton("Sleep", isSelected = false)),
                   ],
                 ),
               ),
@@ -84,13 +84,13 @@ class _TherapyScreenState extends State<TherapyScreen> {
                       mediaItem: meditationList[0],
                       index: 0,
                     )
-                  ] else if (selectedCategory == "Music") ...[
+                  ] else if (selectedCategory == "Relax") ...[
                     // Widget for "Therapy2" category
                     TherapyFiltered(
                       mediaItem: musicList[0],
                       index: 0,
                     )
-                  ] else if (selectedCategory == "Stories") ...[
+                  ] else if (selectedCategory == "Sleep") ...[
                     // Widget for "Therapy2" category
                     TherapyFiltered(
                       mediaItem: storyList[0],
@@ -103,7 +103,7 @@ class _TherapyScreenState extends State<TherapyScreen> {
                       child: Row(
                         children: [
                           Text(
-                            "Featured Meditation",
+                            "Be Mindful",
                             style: AppFonts.normalRegularText,
                           ),
                           const Spacer(),
@@ -136,11 +136,11 @@ class _TherapyScreenState extends State<TherapyScreen> {
                       child: Row(
                         children: [
                           Text(
-                            "Featured Music",
+                            "Get Some Rest",
                             style: AppFonts.normalRegularText,
                           ),
                           const Spacer(),
-                          seeAllButton("Music"),
+                          seeAllButton("Relax"),
                         ],
                       ),
                     ),
@@ -168,11 +168,11 @@ class _TherapyScreenState extends State<TherapyScreen> {
                       child: Row(
                         children: [
                           Text(
-                            "Featured Stories",
+                            "Good Night",
                             style: AppFonts.normalRegularText,
                           ),
                           const Spacer(),
-                          seeAllButton("Stories"),
+                          seeAllButton("Sleep"),
                         ],
                       ),
                     ),

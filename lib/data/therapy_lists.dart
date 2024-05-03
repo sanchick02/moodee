@@ -9,7 +9,8 @@ List<MeditationItem> meditationList = [
       singerOrAuthor: "moodee",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: "2mins"),
+      sessionDurationDisplay: "2mins",
+      trackId: "1TQXIltqoZ5XXyfCbAeSQQ"),
   MeditationItem(
       therapyType: "Meditation",
       image: "lib/assets/images/med2.jpg",
@@ -17,7 +18,8 @@ List<MeditationItem> meditationList = [
       singerOrAuthor: "moodee",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: "8mins"),
+      sessionDurationDisplay: "8mins",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   MeditationItem(
       therapyType: "Meditation",
       image: "lib/assets/images/med3.jpg",
@@ -25,7 +27,8 @@ List<MeditationItem> meditationList = [
       singerOrAuthor: "moodee",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: "15mins"),
+      sessionDurationDisplay: "15mins",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   MeditationItem(
       therapyType: "Meditation",
       image: "lib/assets/images/med4.jpg",
@@ -33,7 +36,8 @@ List<MeditationItem> meditationList = [
       singerOrAuthor: "moodee",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: "10mins"),
+      sessionDurationDisplay: "10mins",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   MeditationItem(
       therapyType: "Meditation",
       image: "lib/assets/images/med5.jpg",
@@ -41,7 +45,8 @@ List<MeditationItem> meditationList = [
       singerOrAuthor: "moodee",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: "5mins"),
+      sessionDurationDisplay: "5mins",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   MeditationItem(
       therapyType: "Meditation",
       image: "lib/assets/images/med6.jpg",
@@ -49,7 +54,8 @@ List<MeditationItem> meditationList = [
       singerOrAuthor: "moodee",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: "8mins"),
+      sessionDurationDisplay: "8mins",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   MeditationItem(
       therapyType: "Meditation",
       image: "lib/assets/images/med7.jpg",
@@ -57,7 +63,8 @@ List<MeditationItem> meditationList = [
       singerOrAuthor: "moodee",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: "16mins"),
+      sessionDurationDisplay: "16mins",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   MeditationItem(
       therapyType: "Meditation",
       image: "lib/assets/images/med8.jpg",
@@ -65,7 +72,8 @@ List<MeditationItem> meditationList = [
       singerOrAuthor: "moodee",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: "10mins"),
+      sessionDurationDisplay: "10mins",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
 ];
 
 // Music
@@ -77,7 +85,8 @@ List<MusicItem> musicList = [
       singerOrAuthor: "Coldplay",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: ""),
+      sessionDurationDisplay: "",
+      trackId: "4HTigs5BP4B7wnFfIx4X1f"),
   MusicItem(
       therapyType: "Music",
       image: "lib/assets/images/music2.jpg",
@@ -85,7 +94,8 @@ List<MusicItem> musicList = [
       singerOrAuthor: "Ed Sheeran",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: ""),
+      sessionDurationDisplay: "",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   MusicItem(
       therapyType: "Music",
       image: "lib/assets/images/music3.png",
@@ -93,7 +103,8 @@ List<MusicItem> musicList = [
       singerOrAuthor: "Billie Eilish",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: ""),
+      sessionDurationDisplay: "",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   MusicItem(
       therapyType: "Music",
       image: "lib/assets/images/music4.jpg",
@@ -101,7 +112,8 @@ List<MusicItem> musicList = [
       singerOrAuthor: "Ed Sheeran",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: ""),
+      sessionDurationDisplay: "",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   MusicItem(
       therapyType: "Music",
       image: "lib/assets/images/music5.png",
@@ -109,7 +121,8 @@ List<MusicItem> musicList = [
       singerOrAuthor: "Taylor Swift",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: ""),
+      sessionDurationDisplay: "",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   MusicItem(
       therapyType: "Music",
       image: "lib/assets/images/music6.jpg",
@@ -117,7 +130,8 @@ List<MusicItem> musicList = [
       singerOrAuthor: "Lauv",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: ""),
+      sessionDurationDisplay: "",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   MusicItem(
       therapyType: "Music",
       image: "lib/assets/images/music7.jpg",
@@ -125,7 +139,8 @@ List<MusicItem> musicList = [
       singerOrAuthor: "Coldplay",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: ""),
+      sessionDurationDisplay: "",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   MusicItem(
       therapyType: "Music",
       image: "lib/assets/images/music8.jpg",
@@ -133,7 +148,8 @@ List<MusicItem> musicList = [
       singerOrAuthor: "Coldplay",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: ""),
+      sessionDurationDisplay: "",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
 ];
 
 // Stories
@@ -145,7 +161,8 @@ List<StoryItem> storyList = [
       singerOrAuthor: "Rick Carson",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: ""),
+      sessionDurationDisplay: "",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   StoryItem(
       therapyType: "Story",
       image: "lib/assets/images/story2.jpg",
@@ -153,7 +170,8 @@ List<StoryItem> storyList = [
       singerOrAuthor: "Amanda Stern",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: ""),
+      sessionDurationDisplay: "",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   StoryItem(
       therapyType: "Story",
       image: "lib/assets/images/story3.jpg",
@@ -161,7 +179,8 @@ List<StoryItem> storyList = [
       singerOrAuthor: "Gray Melin",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: ""),
+      sessionDurationDisplay: "",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   StoryItem(
       therapyType: "Story",
       image: "lib/assets/images/story4.jpg",
@@ -169,7 +188,8 @@ List<StoryItem> storyList = [
       singerOrAuthor: "Anicius Manlius",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: ""),
+      sessionDurationDisplay: "",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   StoryItem(
       therapyType: "Story",
       image: "lib/assets/images/story5.jpg",
@@ -177,7 +197,8 @@ List<StoryItem> storyList = [
       singerOrAuthor: "Brian Weiss",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: ""),
+      sessionDurationDisplay: "",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   StoryItem(
       therapyType: "Story",
       image: "lib/assets/images/story6.jpg",
@@ -185,7 +206,8 @@ List<StoryItem> storyList = [
       singerOrAuthor: "David Sedaris",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: ""),
+      sessionDurationDisplay: "",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   StoryItem(
       therapyType: "Story",
       image: "lib/assets/images/story7.jpg",
@@ -193,7 +215,8 @@ List<StoryItem> storyList = [
       singerOrAuthor: "Amanda Gorman",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: ""),
+      sessionDurationDisplay: "",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
   StoryItem(
       therapyType: "Story",
       image: "lib/assets/images/story8.jpg",
@@ -201,5 +224,6 @@ List<StoryItem> storyList = [
       singerOrAuthor: "Matt Haig",
       duration: 10,
       instructions: "",
-      sessionDurationDisplay: ""),
+      sessionDurationDisplay: "",
+      trackId: "6SbFBs5pon9flXihCWlfO4"),
 ];

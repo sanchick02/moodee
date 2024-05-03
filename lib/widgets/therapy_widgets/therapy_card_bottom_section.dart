@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:moodee/data/therapy_lists.dart';
 import 'package:moodee/models/media_item_model.dart';
-import 'package:moodee/models/therapy_items_model.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/fonts.dart';
 
+// ignore: must_be_immutable
 class TherapyCardBottomSection<T extends MediaItem> extends StatefulWidget {
   TherapyCardBottomSection({
     super.key,
@@ -30,7 +29,7 @@ class _TherapyCardBottomSectionState<T extends MediaItem>
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        bottom: 5,
+        bottom: 3,
         left: 20,
       ),
       child: Column(
@@ -39,22 +38,26 @@ class _TherapyCardBottomSectionState<T extends MediaItem>
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              if (widget.mediaItem is MusicItem) ...[
-                Text(
-                  "Play Music",
-                  style: AppFonts.smallLightText,
-                ),
-              ] else if (widget.mediaItem is MeditationItem) ...[
-                Text(
-                  "Start Session",
-                  style: AppFonts.smallLightText,
-                ),
-              ] else if (widget.mediaItem is StoryItem) ...[
-                Text(
-                  "Play Story",
-                  style: AppFonts.smallLightText,
-                )
-              ],
+              Text(
+                "Play",
+                style: AppFonts.smallLightText,
+              ),
+              // if (widget.mediaItem is MusicItem) ...[
+              //   Text(
+              //     "Play Music",
+              //     style: AppFonts.smallLightText,
+              //   ),
+              // ] else if (widget.mediaItem is MeditationItem) ...[
+              //   Text(
+              //     "Start Session",
+              //     style: AppFonts.smallLightText,
+              //   ),
+              // ] else if (widget.mediaItem is StoryItem) ...[
+              //   Text(
+              //     "Play Story",
+              //     style: AppFonts.smallLightText,
+              //   )
+              // ],
               IconButton(
                 onPressed: () => navigateToPlayer(context, widget.mediaItem),
                 icon: widget.iconButtonImg,

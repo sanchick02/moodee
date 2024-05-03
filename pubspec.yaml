@@ -2,7 +2,7 @@ name: moodee
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.3 <4.0.0'
+  sdk: ">=3.2.3 <4.0.0"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -31,13 +31,12 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_inset_box_shadow: ^1.0.8
   bulleted_list: ^0.0.1+0.1a
-  rive: ^0.12.4
+  rive: ^0.13.2
   table_calendar: ^3.0.9
   firebase_core: ^2.24.2
   firebase_auth: ^4.16.0
@@ -49,7 +48,7 @@ dependencies:
   flutter_tflite: ^1.0.1
   firebase_storage: ^11.6.0
   flutter_launcher_icons: ^0.9.3
-  chat_gpt_sdk: ^2.2.8
+  chat_gpt_sdk: ^3.0.7
   dash_chat_2: ^0.0.19
   carousel_slider: ^4.2.1
   uuid: ^4.3.3
@@ -58,6 +57,13 @@ dependencies:
   animated_text_kit: ^4.2.2
   google_fonts: ^6.2.1
   google_generative_ai: ^0.3.2
+  audio_video_progress_bar: ^2.0.1
+  spotify: ^0.13.6+1
+  youtube_explode_dart: ^2.0.2
+  audioplayers: ^5.2.1
+  palette_generator: ^0.3.3+3
+  scrollable_positioned_list: ^0.3.8
+  http:
 
 dev_dependencies:
   flutter_test:
@@ -68,10 +74,10 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.2
   riverpod_generator: ^2.3.9
   build_runner: ^2.4.8
-  custom_lint: ^0.5.8
+  custom_lint: ^0.6.4
   riverpod_lint: ^2.3.7
   device_info_plus: any
   shared_preferences: any
@@ -80,7 +86,7 @@ dev_dependencies:
   zego_uikit_prebuilt_call: ^3.18.0
   zego_uikit_prebuilt_live_audio_room: ^2.18.1
   timeago: ^3.6.0
-  lottie: ^2.7.0
+  lottie: ^3.1.0
   flutter_polls: ^0.1.6
   dropdown_button2: ^2.3.8
 
@@ -89,7 +95,6 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
