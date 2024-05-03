@@ -2,6 +2,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:moodee/auth_widget_tree.dart';
 import 'package:moodee/providers/forum_post_provider.dart';
+import 'package:moodee/providers/therapist_provider.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider.value(
           value: ForumProvider(),
+        ),
+        ChangeNotifierProvider.value(
+          value: TherapistProvider(),
         ),
       ],
       child: const MaterialApp(

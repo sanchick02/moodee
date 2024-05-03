@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:moodee/providers/therapist_provider.dart';
 import 'package:moodee/screens/therapist/therapist_chat_screen.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/shadow.dart';
@@ -31,6 +32,7 @@ class _NavigationState extends State<Navigation> {
 
   @override
   void initState() {
+    Provider.of<TherapistProvider>(context, listen: false).fetchTherapistData();
     Provider.of<UserProvider>(context, listen: false).fetchUserData().then((_) {
       setState(() {
         _isLoading = false;

@@ -41,8 +41,18 @@ class _LoginFormState extends State<LoginForm> {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print("No user found for that email.");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.message ?? ' Authentication Failed'),
+          ),
+        );
       } else if (e.code == 'wrong-password') {
         print("Wrong password provided for that user.");
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(e.message ?? ' Authentication Failed'),
+          ),
+        );
       }
     }
   }

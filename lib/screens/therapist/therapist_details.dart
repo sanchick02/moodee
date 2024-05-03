@@ -1,14 +1,25 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:moodee/navigation.dart';
+import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/models/therapists_model.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
+import 'package:moodee/providers/therapist_provider.dart';
+import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/therapist/filter_button.dart';
 import 'package:moodee/widgets/outlined_button.dart';
 import 'package:moodee/widgets/therapist_widgets/datetime_dropdown.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/therapist_widgets/review_card.dart';
+import 'package:provider/provider.dart';
+
+bool condition = false;
+
+User? user = FirebaseAuth.instance.currentUser;
 
 class TherapistDetailsScreen extends StatefulWidget {
   const TherapistDetailsScreen({
@@ -27,16 +38,7 @@ class TherapistDetailsScreen extends StatefulWidget {
 class _TherapistDetailsScreenState extends State<TherapistDetailsScreen> {
   String selectedCategory = "Therapist's Information";
   bool isSelected = false;
-
-  final List<String> items = [
-    "10 May 2024, 9AM",
-    "10 May 2024, 11AM",
-    "10 May 2024, 1PM",
-    "11 May 2024, 9AM",
-    "11 May 2024, 11AM",
-    "11 May 2024, 1PM",
-  ];
-
+  bool dateSelected = false;
   String? selectedValue;
 
   Color _getColorByIndex(int index) {
@@ -49,8 +51,188 @@ class _TherapistDetailsScreenState extends State<TherapistDetailsScreen> {
     return colors[index % colors.length];
   }
 
+  void bookTherapist() async {
+    if (dateSelected == false) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: AppColor.fontColorSecondary,
+            scrollable: true,
+            title: Text(
+              'Select a Date and Time',
+              style: AppFonts.largeMediumText,
+              textAlign: TextAlign.center,
+            ),
+            content: Column(
+              children: [
+                Text(
+                  'Please select a date and time for your consultation.',
+                  style: AppFonts.smallLightText,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+            actions: [
+              DefaultButton(
+                backgroundColor: AppColor.btnColorPrimary,
+                text: "Okay",
+                height: 30,
+                fontStyle: AppFonts.smallLightTextWhite,
+                width: double.infinity,
+                padding: EdgeInsets.zero,
+                press: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+      return;
+    }
+
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: AppColor.fontColorSecondary,
+            scrollable: true,
+            title: Text(
+              'Therapist Consultation Reminder',
+              style: AppFonts.largeMediumText,
+              textAlign: TextAlign.center,
+            ),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Reminder has been set for you.',
+                  style: AppFonts.smallLightText,
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  'You will get notified before the consultation.',
+                  style: AppFonts.smallLightText,
+                  textAlign: TextAlign.center,
+                )
+              ],
+            ),
+            actions: [
+              DefaultButton(
+                backgroundColor: AppColor.btnColorPrimary,
+                text: "Okay",
+                height: 30,
+                fontStyle: AppFonts.smallLightTextWhite,
+                width: double.infinity,
+                padding: EdgeInsets.zero,
+                press: () async {
+                  await FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(user!.uid)
+                      .update({
+                    'therapist_id': widget.therapistList[widget.index].id,
+                    'is_therapist': true,
+                    'therapist_datetime': selectedValue,
+                  }).then((value) =>
+                          navigateNextPage(context, const Navigation()));
+                },
+              ),
+            ],
+          );
+        });
+  }
+
+  void cancelTherapist() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            backgroundColor: AppColor.fontColorSecondary,
+            scrollable: true,
+            title: Text(
+              'Therapist Consultation Cancellation',
+              style: AppFonts.largeMediumText,
+              textAlign: TextAlign.center,
+            ),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'Are you sure to cancel it?',
+                  style: AppFonts.smallLightText,
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  'You can find a new therapist if you wish later.',
+                  style: AppFonts.smallLightText,
+                  textAlign: TextAlign.center,
+                )
+              ],
+            ),
+            actions: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Row(
+                  children: [
+                    DefaultButton(
+                      backgroundColor: AppColor.btnColorPrimary,
+                      text: "Okay",
+                      height: 30,
+                      fontStyle: AppFonts.smallLightTextWhite,
+                      width: MediaQuery.of(context).size.width * 0.33,
+                      padding: EdgeInsets.zero,
+                      press: () async {
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(user!.uid)
+                            .update({
+                          'therapist_id': '',
+                          'is_therapist': false,
+                          'therapist_datetime': '',
+                        }).then((value) =>
+                                navigateNextPage(context, const Navigation()));
+                      },
+                    ),
+                    const Spacer(),
+                    OutlinedDefaultButton(
+                      text: "No",
+                      height: 30,
+                      fontStyle: AppFonts.smallLightText,
+                      width: MediaQuery.of(context).size.width * 0.33,
+                      padding: EdgeInsets.zero,
+                      press: () {
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
+  }
+
+  @override
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<TherapistProvider>(context, listen: false);
+    var userProvider = Provider.of<UserProvider>(context, listen: false);
+
+    Widget cancel = OutlinedDefaultButton(
+      press: () {
+        cancelTherapist();
+      },
+      text: "Cancel This Therapist",
+      height: 40,
+      fontStyle: AppFonts.normalRegularText,
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 8,
+      ),
+    );
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -152,61 +334,26 @@ class _TherapistDetailsScreenState extends State<TherapistDetailsScreen> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: DefaultButton(
-                    press: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            backgroundColor: AppColor.fontColorSecondary,
-                            scrollable: true,
-                            title: Text(
-                              'Therapist Consultation Reminder',
-                              style: AppFonts.largeMediumText,
-                              textAlign: TextAlign.center,
-                            ),
-                            content: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Reminder has been set for you.',
-                                  style: AppFonts.smallLightText,
-                                  textAlign: TextAlign.center,
-                                ),
-                                Text(
-                                  'You will get notified before the consultation.',
-                                  style: AppFonts.smallLightText,
-                                  textAlign: TextAlign.center,
-                                )
-                              ],
-                            ),
-                            actions: [
-                              DefaultButton(
-                                backgroundColor: AppColor.btnColorPrimary,
-                                text: "Okay",
-                                height: 30,
-                                fontStyle: AppFonts.smallLightTextWhite,
-                                width: double.infinity,
-                                padding: EdgeInsets.zero,
-                                press: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    text: "Make an Appointment",
-                    backgroundColor: AppColor.btnColorPrimary,
-                    height: 40,
-                    fontStyle: AppFonts.normalRegularTextWhite,
-                    width: double.infinity,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
+                Visibility(
+                  visible: userProvider.userProviderData!.isTherapist == false,
+                  replacement: const SizedBox.shrink(),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: DefaultButton(
+                      press: () {
+                        bookTherapist();
+                      },
+                      text: "Make an Appointment",
+                      backgroundColor: dateSelected
+                          ? AppColor.btnColorPrimary
+                          : AppColor.backgroundColor,
+                      height: 40,
+                      fontStyle: AppFonts.normalRegularTextWhite,
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
                     ),
                   ),
                 ),
@@ -255,27 +402,47 @@ class _TherapistDetailsScreenState extends State<TherapistDetailsScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Consultation Availability",
-                          style: AppFonts.normalRegularText,
-                        ),
-                        Container(
-                          width: double.infinity,
-                          height: 70,
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          decoration: BoxDecoration(
-                            color: AppColor.fontColorPrimary.withOpacity(0.05),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(10)),
+                        Visibility(
+                          visible: userProvider.userProviderData!.isTherapist ==
+                              false,
+                          replacement: Text(
+                            "Your Consultation Session is on ${userProvider.userProviderData!.therapist_datetime}",
+                            style: AppFonts.normalRegularText,
                           ),
-                          child: DateTimeDropdown(
-                            items: items,
-                            selectedValue: selectedValue,
-                            onValueChanged: (String? value) {
-                              setState(() {
-                                selectedValue = value;
-                              });
-                            },
+                          child: Visibility(
+                            visible:
+                                userProvider.userProviderData!.isTherapist ==
+                                    false,
+                            child: Text(
+                              "Consultation Availability",
+                              style: AppFonts.normalRegularText,
+                            ),
+                          ),
+                        ),
+                        Visibility(
+                          visible: userProvider.userProviderData!.isTherapist ==
+                              false,
+                          child: Container(
+                            width: double.infinity,
+                            height: 70,
+                            padding: const EdgeInsets.symmetric(horizontal: 15),
+                            decoration: BoxDecoration(
+                              color:
+                                  AppColor.fontColorPrimary.withOpacity(0.05),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(10)),
+                            ),
+                            child: DateTimeDropdown(
+                              items: provider
+                                  .therapistsList[widget.index].availability,
+                              selectedValue: selectedValue,
+                              onValueChanged: (String? value) {
+                                setState(() {
+                                  selectedValue = value;
+                                  dateSelected = true;
+                                });
+                              },
+                            ),
                           ),
                         ),
                       ],
@@ -386,76 +553,10 @@ class _TherapistDetailsScreenState extends State<TherapistDetailsScreen> {
                   const SizedBox(height: 20),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: OutlinedDefaultButton(
-                      press: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              backgroundColor: AppColor.fontColorSecondary,
-                              scrollable: true,
-                              title: Text(
-                                'Are You Sure?',
-                                style: AppFonts.largeMediumText,
-                                textAlign: TextAlign.center,
-                              ),
-                              content: Column(
-                                children: [
-                                  Text(
-                                    'Click confirm to cancel this therapist. ',
-                                    style: AppFonts.smallLightText,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                  Text(
-                                    'You may choose another therapist from the list again on your homepage or the therapist list. ',
-                                    style: AppFonts.smallLightText,
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ],
-                              ),
-                              actions: [
-                                Row(
-                                  children: [
-                                    DefaultButton(
-                                      backgroundColor: AppColor.btnColorPrimary,
-                                      text: "Confirm Cancel",
-                                      height: 30,
-                                      fontStyle: AppFonts.smallLightTextWhite,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.33,
-                                      padding: EdgeInsets.zero,
-                                      press: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                    const Spacer(),
-                                    OutlinedDefaultButton(
-                                      text: "No",
-                                      height: 30,
-                                      fontStyle: AppFonts.smallLightText,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.33,
-                                      padding: EdgeInsets.zero,
-                                      press: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    )
-                                  ],
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      text: "Cancel This Therapist",
-                      height: 40,
-                      fontStyle: AppFonts.normalRegularText,
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
-                      ),
-                    ),
+                    child:
+                        (!userProvider.userProviderData!.isTherapist == false)
+                            ? cancel
+                            : const SizedBox(),
                   ),
                 ],
               ),
@@ -471,30 +572,15 @@ class _TherapistDetailsScreenState extends State<TherapistDetailsScreen> {
                           "Testimonials and Reviews",
                           style: AppFonts.normalRegularText,
                         ),
-                        const ReviewCard(
-                          name: "Angelina Hall",
-                          image: "lib/assets/images/user1.png",
-                          time: "3 months ago",
-                          rating: 5.0,
-                          caption:
-                              """Embarking on the therapeutic journey with Sheryl has been nothing short of life-changing. Their unwavering dedication to my well-being, coupled with a profound understanding of human psychology, has provided me with invaluable insights and tools to navigate life's challenges with newfound strength and clarity.
-
-From the very first session, I felt seen, heard, and understood in ways I never thought possible. Sheryl's empathetic approach and genuine commitment to my growth have created a safe and nurturing space where I can explore my deepest thoughts and emotions without fear of judgment.
-
-Through their expert guidance, I've gained a deeper understanding of myself, developed healthier coping mechanisms, and forged a path towards healing and self-acceptance.""",
-                        ),
-                        const ReviewCard(
-                          name: "Angelina Hall",
-                          image: "lib/assets/images/user1.png",
-                          time: "3 months ago",
-                          rating: 5.0,
-                          caption:
-                              """Embarking on the therapeutic journey with Sheryl has been nothing short of life-changing. Their unwavering dedication to my well-being, coupled with a profound understanding of human psychology, has provided me with invaluable insights and tools to navigate life's challenges with newfound strength and clarity.
-
-From the very first session, I felt seen, heard, and understood in ways I never thought possible. Sheryl's empathetic approach and genuine commitment to my growth have created a safe and nurturing space where I can explore my deepest thoughts and emotions without fear of judgment.
-
-Through their expert guidance, I've gained a deeper understanding of myself, developed healthier coping mechanisms, and forged a path towards healing and self-acceptance.""",
-                        ),
+                        for (var testimonial
+                            in widget.therapistList[widget.index].testimonial)
+                          ReviewCard(
+                            name: testimonial.uid,
+                            image: "lib/assets/images/user1.png",
+                            time: "3 months ago",
+                            rating: testimonial.rating,
+                            caption: testimonial.testimonialText,
+                          ),
                       ],
                     ),
                   ),

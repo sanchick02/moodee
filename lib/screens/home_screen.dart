@@ -4,15 +4,18 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/data/therapists.dart';
 import 'package:moodee/data/therapy_lists.dart';
+import 'package:moodee/models/therapists_model.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
+import 'package:moodee/providers/therapist_provider.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/events/event_screen.dart';
 import 'package:moodee/screens/therapist/therapist_call_screen.dart';
 import 'package:moodee/screens/therapist/therapist_chat_screen.dart';
+import 'package:moodee/screens/therapist/therapist_details.dart';
 import 'package:moodee/screens/therapist/therapist_screen.dart';
 import 'package:moodee/screens/therapy/therapy_screen.dart';
 import 'package:moodee/widgets/button.dart';
@@ -44,12 +47,21 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    Provider.of<TherapistProvider>(context, listen: false).fetchTherapistData();
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<UserProvider>(context, listen: false);
+    var provider = Provider.of<UserProvider>(
+      context,
+      listen: false,
+    );
+    var provider2 = Provider.of<TherapistProvider>(
+      context,
+      listen: false,
+    );
 
     if (provider.userProviderData == '') {
       return const Center(
@@ -57,7 +69,180 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
 
+    if (provider.userProviderData!.therapist_id == '') {}
+
+    String usersTherapist = provider.userProviderData!.therapist_id;
+    final int index = provider2.therapistsList
+        .indexWhere((element) => element.id == usersTherapist);
+
     String name = provider.userProviderData!.firstName.toString();
+
+    Widget hasDoctor = GestureDetector(
+      onTap: () {
+        navigateNextPage(
+            context,
+            TherapistDetailsScreen(
+                index: index, therapistList: provider2.therapistsList));
+      },
+      child: Stack(
+        alignment: Alignment.bottomRight,
+        children: [
+          Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "Meet Your Therapist",
+                      style: AppFonts.largeMediumText,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.width * 0.5,
+                decoration: BoxDecoration(
+                  borderRadius: AppStyles.borderRadiusAll,
+                  boxShadow: [AppShadow.innerShadow3],
+                ),
+                child: Stack(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset(
+                        "lib/assets/images/meshGrad1.png",
+                        fit: BoxFit.cover,
+                        width: double.infinity,
+                      ),
+                    ),
+                    Container(
+                      height: MediaQuery.of(context).size.width * 0.5,
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            provider.userProviderData!.isTherapist == true
+                                ? provider2.therapistsList
+                                    .firstWhere((element) =>
+                                        element.id == usersTherapist)
+                                    .name
+                                : "Therapist",
+                            style: AppFonts.normalRegularTextHeight,
+                          ),
+                          Text(
+                            "Therapist",
+                            style: AppFonts.smallLightText,
+                          ),
+                          Text(
+                            provider.userProviderData!.isTherapist == true
+                                ? "@ ${provider2.therapistsList.firstWhere((element) => element.id == usersTherapist).workplace}"
+                                : "Workplace",
+                            style: AppFonts.extraSmallLightText,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              ElevatedButton(
+                                  onPressed: () {
+                                    navigateNextPage(
+                                        context, const TherapistChatScreen());
+                                  },
+                                  style: const ButtonStyle(
+                                    elevation: MaterialStatePropertyAll(0),
+                                  ),
+                                  child: Image.asset(
+                                    "lib/assets/images/claudias-part_branch/msg.png",
+                                    width: 20,
+                                  )),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    navigateNextPage(context, const CallPage());
+                                  },
+                                  style: const ButtonStyle(
+                                    elevation: MaterialStatePropertyAll(0),
+                                  ),
+                                  child: Image.asset(
+                                    "lib/assets/images/claudias-part_branch/call.png",
+                                    width: 20,
+                                  )),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          Image.asset(
+            provider.userProviderData!.isTherapist == true
+                ? provider2.therapistsList
+                    .firstWhere((element) => element.id == usersTherapist)
+                    .image
+                : "lib/assets/images/therapist1.png",
+            width: MediaQuery.of(context).size.width * 0.5,
+            height: MediaQuery.of(context).size.width * 0.7,
+          ),
+        ],
+      ),
+    );
+
+    Widget noDoctor = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Book a Therapist",
+            style: AppFonts.largeMediumText,
+          ),
+          DefaultButton(
+            text: "See All",
+            press: () {
+              navigateNextPage(context, const TherapistScreen()); // not working
+            },
+            backgroundColor: AppColor.btnColorPrimary,
+            height: 35,
+            fontStyle: AppFonts.extraSmallLightTextWhite,
+            width: 100,
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          ),
+        ],
+      ),
+    );
+    const SizedBox(height: 30);
+
+    Widget noDoctor2 = SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: List.generate(
+          provider2.therapistsList.length,
+          (index) => TherapistCard(
+            therapistList: provider2.therapistsList,
+            index: index,
+            margin: EdgeInsets.only(
+              left: 15,
+              right: index == (provider2.therapistsList.length - 1) ? 15 : 0,
+            ),
+          ),
+        ),
+      ),
+    );
+
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
       body: Stack(
@@ -244,114 +429,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       ],
                     ),
                   ),
-                  Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      Column(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 15),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Meet Your Therapist",
-                                  style: AppFonts.largeMediumText,
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Container(
-                            margin: const EdgeInsets.symmetric(horizontal: 15),
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.width * 0.5,
-                            decoration: BoxDecoration(
-                              borderRadius: AppStyles.borderRadiusAll,
-                              boxShadow: [AppShadow.innerShadow3],
-                            ),
-                            child: Stack(
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.asset(
-                                    "lib/assets/images/meshGrad1.png",
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                  ),
-                                ),
-                                Container(
-                                  height:
-                                      MediaQuery.of(context).size.width * 0.5,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Dr. Sheryl",
-                                        style: AppFonts.normalRegularTextHeight,
-                                      ),
-                                      Text(
-                                        "Therapist",
-                                        style: AppFonts.smallLightText,
-                                      ),
-                                      Text(
-                                        "@ Calm Minds Therapy Clinic",
-                                        style: AppFonts.extraSmallLightText,
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        children: [
-                                          ElevatedButton(
-                                              onPressed: () {
-                                                navigateNextPage(context,
-                                                    const TherapistChatScreen());
-                                              },
-                                              style: const ButtonStyle(
-                                                elevation:
-                                                    MaterialStatePropertyAll(0),
-                                              ),
-                                              child: Image.asset(
-                                                "lib/assets/images/claudias-part_branch/msg.png",
-                                                width: 20,
-                                              )),
-                                          const SizedBox(
-                                            width: 10,
-                                          ),
-                                          ElevatedButton(
-                                              onPressed: () {
-                                                navigateNextPage(
-                                                    context, const CallPage());
-                                              },
-                                              style: const ButtonStyle(
-                                                elevation:
-                                                    MaterialStatePropertyAll(0),
-                                              ),
-                                              child: Image.asset(
-                                                "lib/assets/images/claudias-part_branch/call.png",
-                                                width: 20,
-                                              )),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      Image.asset(
-                        "lib/assets/images/therapist1.png",
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        height: MediaQuery.of(context).size.width * 0.7,
-                      ),
-                    ],
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  if (provider.userProviderData!.isTherapist == true)
+                    hasDoctor
+                  else
+                    noDoctor,
+                  if (provider.userProviderData!.isTherapist == false)
+                    noDoctor2,
+                  const SizedBox(
+                    height: 30,
                   ),
                   const SizedBox(height: 20),
                   Container(
@@ -403,50 +491,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ],
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Book a Therapist",
-                          style: AppFonts.largeMediumText,
-                        ),
-                        DefaultButton(
-                          text: "See All",
-                          press: () {
-                            navigateNextPage(context,
-                                const TherapistScreen()); // not working
-                          },
-                          backgroundColor: AppColor.btnColorPrimary,
-                          height: 35,
-                          fontStyle: AppFonts.extraSmallLightTextWhite,
-                          width: 100,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 8),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: List.generate(
-                        therapistList.length,
-                        (index) => TherapistCard(
-                          therapistList: therapistList,
-                          index: index,
-                          margin: EdgeInsets.only(
-                            left: 15,
-                            right: index == (therapistList.length - 1) ? 15 : 0,
-                          ),
-                        ),
-                      ),
                     ),
                   ),
                   const SizedBox(

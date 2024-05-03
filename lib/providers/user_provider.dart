@@ -15,7 +15,10 @@ class UserProvider with ChangeNotifier {
       gender: '',
       imageURL: '',
       dob: '',
-      age: '');
+      age: '',
+      isTherapist: false,
+      therapist_id: '',
+      therapist_datetime: '');
 
   Future<void> fetchUserData() async {
     if (user != null) {
@@ -34,7 +37,10 @@ class UserProvider with ChangeNotifier {
             userProviderData!.imageURL = snapshot.data()!['profileImageURL'];
             userProviderData!.dob = snapshot.data()!['date_of_birth'];
             userProviderData!.age = snapshot.data()!['age'];
-
+            userProviderData!.isTherapist = snapshot.data()!['is_therapist'];
+            userProviderData!.therapist_id = snapshot.data()!['therapist_id'];
+            userProviderData!.therapist_datetime =
+                snapshot.data()!['therapist_datetime'];
             print('User data fetched');
 
             print(userProviderData!.uid);
@@ -51,3 +57,7 @@ class UserProvider with ChangeNotifier {
     }
   }
 }
+
+//https://firebasestorage.googleapis.com/v0/b/moodee-acc66.appspot.com/o/user_profile_image%2Fr7C227JXDKaSU2FtuKX0tv9QGs42.jpg?alt=media&token=5c7dc9f0-f8b2-4ac4-ad39-b94e40516155
+
+// gs://moodee-acc66.appspot.com/therapist/Alicia/therapist6bg.png

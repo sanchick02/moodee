@@ -1,12 +1,15 @@
 // ignore_for_file: avoid_print, avoid_types_as_parameter_names
-
 import 'dart:io';
+import 'dart:math';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/auth_widget_tree.dart';
+import 'package:moodee/data/therapists.dart';
+import 'package:moodee/models/therapists_model.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
@@ -21,6 +24,7 @@ import 'package:moodee/widgets/topbar_logo_notif.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:uuid/uuid.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -67,6 +71,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
   }
 
+  final _firestore = FirebaseFirestore.instance;
+
+  Future<void> uploadTherapists(List<Therapist> therapists) async {
+    // Initialize Firebase if not already done
+    await Firebase.initializeApp();
+
+    final therapistCollection = _firestore.collection('therapists');
+    const random = Uuid();
+
+    for (var therapist in therapists) {
+      // No need for toJson() if your class directly provides properties
+      final therapistData = {
+        'id': random.v4(),
+        'name': therapist.name,
+        'image': therapist.image,
+        'title': therapist.title,
+        'rating': therapist.rating,
+        'imageCard': therapist.imageCard,
+        'experience': therapist.experience,
+        'workplace': therapist.workplace,
+        'aboutThisTherapist': therapist.aboutThisTherapist,
+        'areaOfExpertise': therapist.areaOfExpertise,
+        'availability': therapist.availability,
+        'testimonial': therapist.testimonial
+            .map((testimonial) => {
+                  'id': testimonial.uid,
+                  'testimonials': testimonial.testimonialText,
+                  'rating': testimonial.rating,
+                })
+            .toList(),
+      };
+
+      await therapistCollection.add(therapistData);
+    }
+
+    print("Therapist data uploaded to Firebase!");
+  }
+
   void _pickedImage() async {
     final pickedImage = await ImagePicker().pickImage(
       source: ImageSource.gallery,
@@ -80,7 +122,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final storageRef = FirebaseStorage.instance
         .ref()
         .child('user_profile_image')
-        .child(FirebaseAuth.instance.currentUser!.uid + '.jpg');
+        .child('${FirebaseAuth.instance.currentUser!.uid}.jpg');
 
     await storageRef.putFile(File(pickedImage.path));
 
@@ -90,6 +132,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
         .update({'profileImageURL': imageURL});
+
+    // Fetch updated user data
+    await Provider.of<UserProvider>(context, listen: false).fetchUserData();
 
     setState(() {
       _pickedImageFile = File(pickedImage.path);
@@ -244,7 +289,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   children: [
                                     DefaultButton(
                                       text: "Edit Profile",
-                                      press: () {},
+                                      press: () {
+                                        // uploadTherapists(therapistList);
+                                      },
                                       backgroundColor: AppColor.btnColorPrimary,
                                       height: 30,
                                       fontStyle:
