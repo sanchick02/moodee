@@ -7,6 +7,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/auth_widget_tree.dart';
+import 'package:moodee/data/questions.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
@@ -14,6 +15,7 @@ import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/profile/calendar_screen.dart';
+import 'package:moodee/screens/questions/question_screen.dart';
 import 'package:moodee/services/database.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/toggle_switch.dart';
@@ -279,6 +281,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  DefaultButton(
+                    press: () {
+                      navigateNextPage(
+                        context,
+                        const QuestionsScreen(
+                          questions: questionsList,
+                        ),
+                      );
+                    },
+                    text: "Retake Patient Health Questionnaire",
+                    backgroundColor: AppColor.btnColorPrimary,
+                    height: 40,
+                    fontStyle: AppFonts.normalRegularTextWhite,
+                    width: MediaQuery.of(context).size.width - 30,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
                   ),
                   Container(
                     width: double.infinity,

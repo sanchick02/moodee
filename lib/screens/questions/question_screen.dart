@@ -4,6 +4,7 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/screens/animation_screen.dart';
 import 'package:moodee/screens/mood_tracker/mood_tracker_screen.dart';
+import 'package:moodee/widgets/back_button_top.dart';
 import 'package:moodee/widgets/button.dart';
 
 class QuestionsScreen extends StatefulWidget {
@@ -19,6 +20,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
   int currentQuestionIndex = 0;
   // to track whether it's the first question
   bool isFirstQuestion = true;
+  int progress = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -33,12 +35,21 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
               Image.asset(
                 "lib/assets/images/meshGrad1.png",
                 fit: BoxFit.cover,
-                height: double.infinity,
-                width: double.infinity,
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
               ),
               Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  Row(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: BackButtonTop(
+                            onBackButtonPressed: () => Navigator.pop(context)),
+                      ),
+                    ],
+                  ),
                   const SizedBox(height: 20),
                   SizedBox(
                     height: 80,
@@ -59,17 +70,37 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
                   SizedBox(
-                    height: 280,
-                    child: Align(
+                    height: MediaQuery.of(context).size.width * 0.5,
+                    child: Stack(
                       alignment: Alignment.center,
-                      child: Image.asset(
-                        currentQuestion['img'],
-                        width: 250,
-                      ),
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          height: MediaQuery.of(context).size.width * 0.5,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 4,
+                            backgroundColor:
+                                const Color(0xff252525).withOpacity(0.1),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              AppColor.btnColorPrimary,
+                            ),
+                            // backgroundColor: Colors.transparent,
+                            value: progress / 9,
+                          ),
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Image.asset(
+                            currentQuestion['img'],
+                            width: MediaQuery.of(context).size.width * 0.4,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
+                  const SizedBox(height: 10),
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 30, right: 30, top: 15),
@@ -223,6 +254,7 @@ class _QuestionsScreenState extends State<QuestionsScreen> {
       isFirstQuestion = false;
       if (currentQuestionIndex < widget.questions.length - 1) {
         currentQuestionIndex++;
+        progress++;
       } else {
         navigateNextPage(context, const AnimationScreen());
       }
