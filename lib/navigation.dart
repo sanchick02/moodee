@@ -35,10 +35,28 @@ class _NavigationState extends State<Navigation> {
 
   @override
   void initState() {
-    Provider.of<TherapistProvider>(context, listen: false).fetchTherapistData();
-    Provider.of<EventsProvider>(context, listen: false).fetchEventsData();
+    Provider.of<TherapistProvider>(context, listen: false)
+        .fetchTherapistData()
+        .then((_) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+    Provider.of<EventsProvider>(context, listen: false)
+        .fetchEventsData()
+        .then((_) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
 
-    Provider.of<ForumProvider>(context, listen: false).fetchUserData();
+    Provider.of<ForumProvider>(context, listen: false)
+        .fetchUserData()
+        .then((_) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
     Provider.of<UserProvider>(context, listen: false).fetchUserData().then((_) {
       setState(() {
         _isLoading = false;
@@ -49,7 +67,6 @@ class _NavigationState extends State<Navigation> {
             mediaList: meditationList,
           ),
           const TherapistChatScreen(),
-          // const Bazoot_Screen(),
           const ChatBotScreen(),
           const CommunityScreen(),
           const ProfileScreen(),
@@ -62,6 +79,8 @@ class _NavigationState extends State<Navigation> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<UserProvider>(context, listen: false);
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColor.backgroundColor,
@@ -102,12 +121,15 @@ class _NavigationState extends State<Navigation> {
                   ),
                   label: 'Home',
                 ),
-                NavigationDestination(
-                  icon: Image.asset(
-                    "lib/assets/images/chat.png",
-                    width: 40,
+                Visibility(
+                  visible: provider.userProviderData!.isTherapist == true,
+                  child: NavigationDestination(
+                    icon: Image.asset(
+                      "lib/assets/images/chat.png",
+                      width: 40,
+                    ),
+                    label: 'Chat',
                   ),
-                  label: 'Chat',
                 ),
                 NavigationDestination(
                   icon: Image.asset(
