@@ -35,13 +35,7 @@ class _NavigationState extends State<Navigation> {
 
   @override
   void initState() {
-    Provider.of<TherapistProvider>(context, listen: false)
-        .fetchTherapistData()
-        .then((_) {
-      setState(() {
-        _isLoading = false;
-      });
-    });
+    Provider.of<TherapistProvider>(context, listen: false).fetchTherapistData();
     Provider.of<EventsProvider>(context, listen: false)
         .fetchEventsData()
         .then((_) {
@@ -79,8 +73,6 @@ class _NavigationState extends State<Navigation> {
 
   @override
   Widget build(BuildContext context) {
-    var provider = Provider.of<UserProvider>(context, listen: false);
-
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColor.backgroundColor,
@@ -121,15 +113,12 @@ class _NavigationState extends State<Navigation> {
                   ),
                   label: 'Home',
                 ),
-                Visibility(
-                  visible: provider.userProviderData!.isTherapist == true,
-                  child: NavigationDestination(
-                    icon: Image.asset(
-                      "lib/assets/images/chat.png",
-                      width: 40,
-                    ),
-                    label: 'Chat',
+                NavigationDestination(
+                  icon: Image.asset(
+                    "lib/assets/images/chat.png",
+                    width: 40,
                   ),
+                  label: 'Chat',
                 ),
                 NavigationDestination(
                   icon: Image.asset(
