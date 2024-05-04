@@ -7,13 +7,15 @@ import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:moodee/models/forum.dart';
+import 'package:moodee/navigation.dart';
+import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
 import 'package:moodee/providers/forum_post_provider.dart';
+import 'package:moodee/screens/community/community_screen.dart';
 import 'package:moodee/widgets/button.dart';
-import 'package:moodee/widgets/community_widgets/mood_emoji.dart';
 import 'package:moodee/widgets/unordered_list.dart';
 import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
@@ -41,6 +43,7 @@ class _NewExpenseState extends State<NewForum> {
   final _amountController = TextEditingController();
   final _currentDateTime = DateTime.now();
   File? _pickedImageFile;
+  String _selectedMood = ''; // Variable to hold selected mood
 
   @override
   void dispose() {
@@ -64,7 +67,7 @@ class _NewExpenseState extends State<NewForum> {
           actions: [
             TextButton(
               onPressed: () {
-                Navigator.pop(context);
+                Navigator.of(ctx).pop();
               },
               child: const Text('Okay'),
             ),
@@ -99,7 +102,7 @@ class _NewExpenseState extends State<NewForum> {
     final imageUrl = await ref.getDownloadURL();
 
     final userForumCollection =
-        FirebaseFirestore.instance.collection('forums10').doc(postId);
+        FirebaseFirestore.instance.collection('new_forum').doc(postId);
 
     await userForumCollection.set({
       'uid': currentUser.uid,
@@ -110,9 +113,9 @@ class _NewExpenseState extends State<NewForum> {
       'userImage': userData.data()!['profileImageURL'],
       'userName': userData.data()!['first_name'],
       'postImage': imageUrl,
+      'mood': _selectedMood, // Pass selected mood to Firebase
       'timestamp': timestamp,
     });
-    Navigator.pop(context);
     setState(() {
       _pickedImageFile = null;
       _captionController.clear();
@@ -126,8 +129,13 @@ class _NewExpenseState extends State<NewForum> {
           time: _currentDateTime.toString(),
           caption: _captionController.text,
           postImage: imageUrl,
-          likes: 0));
+          likes: 0,
+          mood: _selectedMood));
     });
+
+    // pop
+    Navigator.of(context)
+        .pop(); // Close the modal bottom sheet after submitting the post
   }
 
   void _pickedImage() async {
@@ -137,6 +145,7 @@ class _NewExpenseState extends State<NewForum> {
     if (pickedImage == null) {
       return;
     }
+    print("Picked image path: ${pickedImage.path}");
     setState(() {
       _pickedImageFile = File(pickedImage.path);
     });
@@ -147,7 +156,10 @@ class _NewExpenseState extends State<NewForum> {
     Provider.of<ForumProvider>(context, listen: false)
         .fetchUserData()
         .then((_) {
-      setState(() {});
+      setState(() {
+        // _registeredExpenses;
+        // _registeredExpenses.sort((a, b) => b.time.compareTo(a.time));
+      });
     });
     super.initState();
   }
@@ -192,10 +204,8 @@ class _NewExpenseState extends State<NewForum> {
               maxLength: 500,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
-                label: Text(
-                  'Write your post caption...',
-                  style: AppFonts.smallLightText,
-                ),
+                hintText: 'Write your post caption...',
+                hintStyle: AppFonts.smallLightText,
               ),
             ),
           ),
@@ -209,67 +219,43 @@ class _NewExpenseState extends State<NewForum> {
           const SizedBox(
             height: 5,
           ),
-          const SingleChildScrollView(
+          SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
-                EmojiMood(
+                _buildMoodButton(
                   image: "lib/assets/images/claudias-part_branch/emoji1.png",
                   mood: "Happy",
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                EmojiMood(
+                _buildMoodButton(
                   image: "lib/assets/images/claudias-part_branch/emoji2.png",
                   mood: "Loved",
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                EmojiMood(
+                _buildMoodButton(
                   image: "lib/assets/images/claudias-part_branch/emoji3.png",
                   mood: "Excited",
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                EmojiMood(
+                _buildMoodButton(
                   image: "lib/assets/images/claudias-part_branch/emoji4.png",
                   mood: "Emotionless",
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                EmojiMood(
+                _buildMoodButton(
                   image: "lib/assets/images/claudias-part_branch/emoji5.png",
                   mood: "Sad",
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                EmojiMood(
+                _buildMoodButton(
                   image: "lib/assets/images/claudias-part_branch/emoji6.png",
                   mood: "Tired",
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                EmojiMood(
+                _buildMoodButton(
                   image: "lib/assets/images/claudias-part_branch/emoji7.png",
                   mood: "Disgusted",
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                EmojiMood(
+                _buildMoodButton(
                   image: "lib/assets/images/claudias-part_branch/emoji8.png",
                   mood: "Anxious",
                 ),
-                SizedBox(
-                  width: 10,
-                ),
-                EmojiMood(
+                _buildMoodButton(
                   image: "lib/assets/images/claudias-part_branch/emoji9.png",
                   mood: "Angry",
                 ),
@@ -283,6 +269,7 @@ class _NewExpenseState extends State<NewForum> {
             "Upload a Photo",
             style: AppFonts.normalRegularText,
           ),
+// Inside the GestureDetector for picking image
           GestureDetector(
             onTap: () => _pickedImage(),
             child: Container(
@@ -294,36 +281,41 @@ class _NewExpenseState extends State<NewForum> {
                 color: AppColor.btnColorSecondary,
                 boxShadow: [AppShadow.innerShadow3],
                 borderRadius: AppStyles.borderRadiusAll,
-                image: _pickedImageFile != null
-                    ? DecorationImage(
+              ),
+              child: _pickedImageFile != null
+                  ? ClipRRect(
+                      borderRadius: AppStyles.borderRadiusAll,
+                      child: Image.file(
+                        _pickedImageFile!,
                         fit: BoxFit.cover,
-                        image: FileImage(_pickedImageFile!),
-                      )
-                    : null,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Click To Upload a Photo",
-                    style: TextStyle(
-                      fontFamily: "LeagueSpartan",
-                      fontSize: 20,
-                      fontWeight: FontWeight.w300, // normal regular
-                      color: AppColor.fontColorPrimary,
+                        width: double.infinity,
+                        height: double.infinity,
+                      ),
+                    )
+                  : Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Click To Upload a Photo",
+                          style: TextStyle(
+                            fontFamily: "LeagueSpartan",
+                            fontSize: 20,
+                            fontWeight: FontWeight.w300,
+                            color: AppColor.fontColorPrimary,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Image.asset(
+                          "lib/assets/images/claudias-part_branch/image.png",
+                          width: 65,
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Image.asset(
-                    "lib/assets/images/claudias-part_branch/image.png",
-                    width: 65,
-                  ),
-                ],
-              ),
             ),
           ),
+
           const SizedBox(
             height: 30,
           ),
@@ -345,6 +337,33 @@ class _NewExpenseState extends State<NewForum> {
             ],
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildMoodButton({required String image, required String mood}) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _selectedMood = mood; // Set the selected mood
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: _selectedMood == mood
+                ? Colors.blue // Change color if selected
+                : Colors.transparent,
+            width: 2,
+          ),
+        ),
+        child: Image.asset(
+          image,
+          width: 50,
+          height: 50,
+        ),
       ),
     );
   }
