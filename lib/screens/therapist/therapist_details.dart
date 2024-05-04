@@ -308,7 +308,7 @@ class _TherapistDetailsScreenState extends State<TherapistDetailsScreen> {
                                 maxWidth:
                                     MediaQuery.of(context).size.width * 0.4,
                                 maxHeight:
-                                    MediaQuery.of(context).size.width * 0.61),
+                                    MediaQuery.of(context).size.width * 0.7),
                             child: Image.asset(
                               widget.therapistList[widget.index].image,
                             ),
@@ -405,9 +405,23 @@ class _TherapistDetailsScreenState extends State<TherapistDetailsScreen> {
                         Visibility(
                           visible: userProvider.userProviderData!.isTherapist ==
                               false,
-                          replacement: Text(
-                            "Your Consultation Session is on ${userProvider.userProviderData!.therapist_datetime}",
-                            style: AppFonts.normalRegularText,
+                          replacement: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Your Consultation Session is on:",
+                                  style: AppFonts.normalRegularText,
+                                ),
+                                Text(
+                                  userProvider
+                                      .userProviderData!.therapist_datetime,
+                                  style: AppFonts.normalRegularText,
+                                ),
+                              ],
+                            ),
                           ),
                           child: Visibility(
                             visible:

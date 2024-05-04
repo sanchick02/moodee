@@ -4,7 +4,7 @@ import 'package:moodee/models/media_item_model.dart';
 import 'package:moodee/models/therapy_items_model.dart';
 import 'package:moodee/widgets/therapy_widgets/therapy_card.dart';
 
-class TherapyFiltered extends StatelessWidget {
+class TherapyFiltered extends StatefulWidget {
   const TherapyFiltered({
     super.key,
     required this.mediaItem,
@@ -15,13 +15,29 @@ class TherapyFiltered extends StatelessWidget {
   final int index;
 
   @override
+  State<TherapyFiltered> createState() => _TherapyFilteredState();
+}
+
+class _TherapyFilteredState extends State<TherapyFiltered> {
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     late List<MediaItem> mediaList;
-    if (mediaItem is MusicItem) {
+    if (widget.mediaItem is MusicItem) {
       mediaList = musicList;
-    } else if (mediaItem is MeditationItem) {
+    } else if (widget.mediaItem is MeditationItem) {
       mediaList = meditationList;
-    } else if (mediaItem is StoryItem) {
+    } else if (widget.mediaItem is StoryItem) {
       mediaList = storyList;
     }
     final rowWidgets = <Widget>[];
@@ -31,15 +47,19 @@ class TherapyFiltered extends StatelessWidget {
               mediaList[i],
               mediaItem: mediaList[i],
               margin: const EdgeInsets.only(left: 15),
+              image: mediaList[i].image,
+              title: mediaList[i].title,
+              singerOrAuthor: mediaList[i].singerOrAuthor,
             )
           : Container();
       final card2 = (i + 1) < mediaList.length
           ? TherapyCard(
               mediaList[i + 1],
               mediaItem: mediaList[i + 1],
-              margin: const EdgeInsets.only(
-                right: 15,
-              ),
+              margin: const EdgeInsets.only(right: 15),
+              image: mediaList[i + 1].image,
+              title: mediaList[i + 1].title,
+              singerOrAuthor: mediaList[i + 1].singerOrAuthor,
             )
           : Container();
 

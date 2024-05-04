@@ -73,8 +73,16 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.11.0"
+  audio_video_progress_bar:
+    dependency: "direct main"
+    description:
+      name: audio_video_progress_bar
+      sha256: ccc7d7b83d2a16c52d4a7fb332faabd1baa053fb0e4c16815aefd3945ab33b81
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   audioplayers:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: audioplayers
       sha256: c05c6147124cd63e725e861335a8b4d57300b80e6e92cea7c145c739223bbaef
@@ -1085,6 +1093,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  oauth2:
+    dependency: transitive
+    description:
+      name: oauth2
+      sha256: c4013ef62be37744efdc0861878fd9e9285f34db1f9e331cc34100d7674feb42
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.2"
   octo_image:
     dependency: transitive
     description:
@@ -1117,6 +1133,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
+  palette_generator:
+    dependency: "direct main"
+    description:
+      name: palette_generator
+      sha256: eb7082b4b97487ebc65b3ad3f6f0b7489b96e76840381ed0e06a46fe7ffd4068
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.3+3"
   path:
     dependency: transitive
     description:
@@ -1365,6 +1389,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
+  scrollable_positioned_list:
+    dependency: "direct main"
+    description:
+      name: scrollable_positioned_list
+      sha256: "1b54d5f1329a1e263269abc9e2543d90806131aa14fe7c6062a8054d57249287"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.8"
   shared_preferences:
     dependency: "direct dev"
     description:
@@ -1466,6 +1498,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.0"
+  spotify:
+    dependency: "direct main"
+    description:
+      name: spotify
+      sha256: d8effb9fa14731fe98fc5d111e0e1a0aac27b34366b5dcb8db79e6dd2219c000
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.13.6+1"
   sprintf:
     dependency: transitive
     description:
@@ -1818,6 +1858,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
+  youtube_explode_dart:
+    dependency: "direct main"
+    description:
+      name: youtube_explode_dart
+      sha256: "12d32dffd8c85927eb46f7cf7a9dfce690edfe82134c08a90529c51eba58a85c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.0"
   zego_callkit:
     dependency: transitive
     description:
