@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:moodee/data/events.dart';
+import 'package:moodee/providers/events_provider.dart';
 import 'package:moodee/widgets/event_widgets/event_card.dart';
+import 'package:provider/provider.dart';
 
 class EventsAll extends StatelessWidget {
   const EventsAll({
@@ -11,19 +13,21 @@ class EventsAll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<EventsProvider>(context, listen: false);
+
     final rowWidgets = <Widget>[];
-    for (int i = 0; i < eventList.length; i += 2) {
-      final card1 = i < eventList.length
+    for (int i = 0; i < provider.eventsList.length; i += 2) {
+      final card1 = i < provider.eventsList.length
           ? EventCard(
-              eventList: eventList,
+              eventList: provider.eventsList,
               index: i,
               margin: const EdgeInsets.only(left: 15),
             )
           : Container();
-      final card2 = (i + 1) < eventList.length
+      final card2 = (i + 1) < provider.eventsList.length
           ? EventCard(
               index: i + 1,
-              eventList: eventList,
+              eventList: provider.eventsList,
               margin: const EdgeInsets.only(
                 right: 15,
               ),

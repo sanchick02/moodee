@@ -1,4 +1,5 @@
 class Event {
+  final String id;
   final String name;
   final String description;
   final String location;
@@ -12,7 +13,8 @@ class Event {
   final String moodCategory;
 
   Event(
-      {required this.name,
+      {required this.id,
+      required this.name,
       required this.description,
       required this.location,
       required this.date,

@@ -7,6 +7,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/auth_widget_tree.dart';
+import 'package:moodee/data/events.dart';
+import 'package:moodee/models/events_model.dart';
 import 'package:moodee/models/therapists_model.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
@@ -105,6 +107,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
 
     print("Therapist data uploaded to Firebase!");
+  }
+
+  Future<void> uploadEvents(List<Event> events) async {
+    // Initialize Firebase if not already done
+    await Firebase.initializeApp();
+
+    final eventCollection = _firestore.collection('events');
+    const random = Uuid();
+
+    for (var event in events) {
+      final eventData = {
+        'id': random.v4(),
+        'name': event.name,
+        'description': event.description,
+        'location': event.location,
+        'date': event.date,
+        'day': event.day,
+        'time': event.time,
+        'image': event.image,
+        'month': event.month,
+        'moodCategory': event.moodCategory,
+        'eventHighlights': event.eventHighlights,
+        'eventImages': event.eventImages,
+      };
+
+      await eventCollection.add(eventData);
+    }
+
+    print("Event data uploaded to Firebase!");
   }
 
   void _pickedImage() async {
@@ -288,6 +319,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     DefaultButton(
                                       text: "Edit Profile",
                                       press: () {
+                                        // uploadEvents(eventList);
                                         // uploadTherapists(therapistList);
                                       },
                                       backgroundColor: AppColor.btnColorPrimary,

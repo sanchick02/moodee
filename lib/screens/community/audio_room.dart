@@ -38,9 +38,9 @@ class AudioRoomState extends State<AudioRoom> {
       builder: (context, constraints) {
         return ZegoUIKitPrebuiltLiveAudioRoom(
           appID:
-              1219890953, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
+              393523297, // Fill in the appID that you get from ZEGOCLOUD Admin Console.
           appSign:
-              "25cbdff363ade1f5cdd36af15761cb81e89f10968619cfe88fc4a3595dbc5149", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
+              "e8e6a69562053091db96aa965233270cb1ff806e224f588fcbf3897d6bd6d010", // Fill in the appSign that you get from ZEGOCLOUD Admin Console.
           userID: localUserID,
           userName: userName,
           roomID: widget.roomID,
