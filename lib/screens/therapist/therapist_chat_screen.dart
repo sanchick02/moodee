@@ -10,6 +10,7 @@ import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/providers/therapist_provider.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/therapist/therapist_call_screen.dart';
+import 'package:moodee/widgets/back_button_top.dart';
 import 'package:moodee/widgets/chat_widgets/chat_messages.dart';
 import 'package:moodee/widgets/chatbot_widgets/new_message_chat.dart';
 import 'package:moodee/page_navigator.dart';
@@ -82,12 +83,9 @@ class _TherapistChatScreenState extends State<TherapistChatScreen> {
                       leading: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          const Expanded(
-                            flex: 1,
-                            child: SizedBox(
-                                // width: 5,
-                                ),
-                          ),
+                          BackButtonTop(
+                              onBackButtonPressed: () =>
+                                  Navigator.pop(context)),
                           Expanded(
                             flex: 3,
                             child: SizedBox(
@@ -104,7 +102,7 @@ class _TherapistChatScreenState extends State<TherapistChatScreen> {
                           ),
                         ],
                       ),
-                      leadingWidth: 80,
+                      leadingWidth: 120,
                       actions: [
                         IconButton(
                             onPressed: () {

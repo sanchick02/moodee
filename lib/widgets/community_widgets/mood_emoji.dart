@@ -17,7 +17,7 @@ class EmojiMood extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: (MediaQuery.of(context).size.width / 4) - 30,
+      width: (MediaQuery.of(context).size.width / 4) - 20,
       height: ((MediaQuery.of(context).size.width / 4) - 30) * 1.25,
       decoration: BoxDecoration(
         color: AppColor.btnColorSecondary,
