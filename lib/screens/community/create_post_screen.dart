@@ -25,36 +25,36 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         time: '',
         caption: '',
         postImage: '',
-        likes: 0),
+        likes: 0,
+        mood: ''),
   ];
 
-  void _addExpense(ForumPost forumPost) {
+  void _updateForumPosts(ForumPost forumPost) {
     setState(() {
-      _registeredExpenses.add(forumPost);
-      // use time to sort
-      _registeredExpenses.sort((a, b) => b.time.compareTo(a.time));
+      // Add the new forum post to the list
+      _registeredExpenses.insert(0, forumPost);
     });
   }
 
-  void _removeExpense(ForumPost forumPost) {
-    final expenseIndex = _registeredExpenses.indexOf(forumPost);
-    _registeredExpenses.remove(forumPost);
+  // void _removeExpense(ForumPost forumPost) {
+  //   final expenseIndex = _registeredExpenses.indexOf(forumPost);
+  //   _registeredExpenses.remove(forumPost);
 
-    // Show a snackbar with an option to undo
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-      duration: const Duration(seconds: 3),
-      content: const Text('Forum Deleted'),
-      action: SnackBarAction(
-        label: 'Undo',
-        onPressed: () {
-          setState(() {
-            _registeredExpenses.insert(expenseIndex, forumPost);
-          });
-        },
-      ),
-    ));
-  }
+  //   // Show a snackbar with an option to undo
+  //   ScaffoldMessenger.of(context).clearSnackBars();
+  //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+  //     duration: const Duration(seconds: 3),
+  //     content: const Text('Forum Deleted'),
+  //     action: SnackBarAction(
+  //       label: 'Undo',
+  //       onPressed: () {
+  //         setState(() {
+  //           _registeredExpenses.insert(expenseIndex, forumPost);
+  //         });
+  //       },
+  //     ),
+  //   ));
+  // }
 
   @override
   void initState() {
@@ -63,7 +63,6 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         .then((_) {
       setState(() {
         _registeredExpenses;
-        // Sorting logic based on the time attribute
         // _registeredExpenses.sort((a, b) => b.time.compareTo(a.time));
       });
     });
@@ -95,15 +94,15 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 10,
+              const SizedBox(
+                height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15),
-                child: const ScreenTitle(title: "Create a Post"),
+              const Padding(
+                padding: EdgeInsets.only(left: 15),
+                child: ScreenTitle(title: "Create a Post"),
               ),
               NewForum(
-                onAddExpense: _addExpense,
+                onAddExpense: _updateForumPosts,
               ),
             ],
           ),
