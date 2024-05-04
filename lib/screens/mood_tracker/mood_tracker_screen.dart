@@ -16,6 +16,7 @@ import 'package:moodee/widgets/mood_tracker_widgets/camera_tracker.dart';
 import 'package:moodee/widgets/mood_tracker_widgets/circular_progress_indicator.dart';
 import 'package:moodee/widgets/mood_tracker_widgets/emoji_tracker.dart';
 import 'package:moodee/widgets/mood_tracker_widgets/pop_up_container.dart';
+import 'package:provider/provider.dart';
 
 class MoodTrackerScreen extends StatefulWidget {
   const MoodTrackerScreen({Key? key}) : super(key: key);
@@ -203,11 +204,13 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
 
   bool showPopup = false;
   MoodTypeModel? moodData; 
+  double moodIntensity = 5; 
 
-  void togglePopUp(MoodTypeModel data) {
+  void togglePopUp(MoodTypeModel data, double sliderValue) {
     setState(() {
       showPopup = !showPopup;
       moodData = data;
+      moodIntensity = moodIntensity;
     });
   }
 
@@ -262,12 +265,36 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
                           ],
                         ),
                 moodTrackerMode
-                  ? EmojiTracker(togglePopUp: togglePopUp,)
+                  ? AbsorbPointer(      // To disable the background screen
+                    absorbing: showPopup,
+                    child: EmojiTracker(togglePopUp: togglePopUp,))
                   : const CameraTracker(),
+                Padding(
+                  padding: const EdgeInsets.only(right: 10.0, left: 10, top: 20, bottom: 10),
+                  child: Column(
+                    children: [
+                      Text(
+                        'OR',
+                        style: AppFonts.smallLightText,
+                      ),
+                      const SizedBox(height: 10,),
+                      DefaultButton(
+                        text: moodTrackerMode ? 'Scan my face' : 'Describe with emojis', 
+                        press: () {
+                          //toggleMode();
+                        }, 
+                        backgroundColor: Colors.transparent, 
+                        height: 40, 
+                        fontStyle: AppFonts.largeMediumText, 
+                        width: double.infinity, 
+                        padding: const EdgeInsets.only()),
+                    ],
+                  ),
+                )
               ],
             ),
           ),
-          popUpContainer(showPopup: showPopup, moodData: moodData ??  MoodTypeModel(
+          PopUpMoodTracker(showPopup: showPopup, moodIntensity: moodIntensity, moodData: moodData ??  MoodTypeModel(
                                                                         image: 'lib/assets/images/mood_tracker/happy_emoji.png', 
                                                                         question: ['What are three things that made you smile today?', 
                                                                         'What accomplishment are you most proud of recently?',

@@ -29,7 +29,7 @@ class PopUpButton extends StatelessWidget {
             width: 1.0,       // Set border width in pixels
           ), // Set your desired background color
         ),
-        onPressed: () {}, 
+        onPressed: onPressed, 
         child: Text(
           label,
           style: style,

@@ -41,7 +41,7 @@ List<MoodTypeModel> moodTypeList = [
     type: 'Sad'),
 
   MoodTypeModel(
-    image: 'lib/assets/images/mood_tracker/loved_emoji.png', 
+    image: 'lib/assets/images/mood_tracker/tired_emoji.png', 
     question: ['Is there a specific event or memory you''d like to share or reflect on?',
     'Would you like to talk about what''s been weighing on your mind lately?',
     'What''s one small thing that could bring a bit of brightness to your day?'], 
