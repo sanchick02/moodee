@@ -10,6 +10,7 @@ import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
+import 'package:moodee/providers/events_provider.dart';
 import 'package:moodee/providers/therapist_provider.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/events/event_screen.dart';
@@ -48,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     Provider.of<TherapistProvider>(context, listen: false).fetchTherapistData();
-
+    Provider.of<EventsProvider>(context, listen: false).fetchEventsData();
     super.initState();
   }
 
@@ -59,6 +60,11 @@ class _HomeScreenState extends State<HomeScreen> {
       listen: false,
     );
     var provider2 = Provider.of<TherapistProvider>(
+      context,
+      listen: false,
+    );
+
+    var provider3 = Provider.of<EventsProvider>(
       context,
       listen: false,
     );
@@ -478,13 +484,16 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: List.generate(
-                              eventList.length,
+                              provider3.eventsList.length,
                               (index) => EventCard(
-                                eventList: eventList,
+                                eventList: provider3.eventsList,
                                 index: index,
                                 margin: EdgeInsets.only(
                                   left: 15,
-                                  right: index == eventList.length - 1 ? 15 : 0,
+                                  right:
+                                      index == provider3.eventsList.length - 1
+                                          ? 15
+                                          : 0,
                                 ),
                               ),
                             ),
