@@ -58,6 +58,12 @@ dependencies:
   animated_text_kit: ^4.2.2
   google_fonts: ^6.2.1
   google_generative_ai: ^0.3.2
+  audio_video_progress_bar: ^2.0.1
+  spotify: ^0.13.6+1
+  youtube_explode_dart: ^2.0.2
+  audioplayers: ^5.2.1
+  palette_generator: ^0.3.3+3
+  scrollable_positioned_list: ^0.3.8
 
 dev_dependencies:
   flutter_test:
@@ -107,6 +113,7 @@ flutter:
     - lib/assets/images/questionnaire/
     - lib/assets/images/claudias-part_branch/
     - lib/assets/images/claudia_therapist_branch/
+    - lib/assets/images/moodeetation-branch/
 
   # assets:
   #   - images/a_dot_burr.jpeg

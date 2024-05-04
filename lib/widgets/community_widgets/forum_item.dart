@@ -161,6 +161,10 @@ class _ForumItemState extends State<ForumItem> {
                       '$likesCount',
                       style: AppFonts.smallLightText, // Adjusted font size
                     ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    _buildMoodImage(),
                   ],
                 ),
               ],
@@ -169,5 +173,58 @@ class _ForumItemState extends State<ForumItem> {
         ),
       ),
     );
+  }
+
+  // Display mood image based on the mood
+  Widget _buildMoodImage() {
+    // Display mood image based on the mood
+    if (widget.forumPost.mood == 'Happy') {
+      return Image.asset(
+        "lib/assets/images/claudias-part_branch/emoji1.png",
+        width: 30,
+      );
+    } else if (widget.forumPost.mood == 'Loved') {
+      return Image.asset(
+        "lib/assets/images/claudias-part_branch/emoji2.png",
+        width: 30,
+      );
+    } else if (widget.forumPost.mood == 'Excited') {
+      return Image.asset(
+        "lib/assets/images/claudias-part_branch/emoji3.png",
+        width: 30,
+      );
+    } else if (widget.forumPost.mood == 'Emotionless') {
+      return Image.asset(
+        "lib/assets/images/claudias-part_branch/emoji4.png",
+        width: 30,
+      );
+    } else if (widget.forumPost.mood == 'Sad') {
+      return Image.asset(
+        "lib/assets/images/claudias-part_branch/emoji5.png",
+        width: 30,
+      );
+    } else if (widget.forumPost.mood == 'Tired') {
+      return Image.asset(
+        "lib/assets/images/claudias-part_branch/emoji6.png",
+        width: 30,
+      );
+    } else if (widget.forumPost.mood == 'Disgusted') {
+      return Image.asset(
+        "lib/assets/images/claudias-part_branch/emoji7.png",
+        width: 30,
+      );
+    } else if (widget.forumPost.mood == 'Anxious') {
+      return Image.asset(
+        "lib/assets/images/claudias-part_branch/emoji8.png",
+        width: 30,
+      );
+    } else if (widget.forumPost.mood == 'Angry') {
+      return Image.asset(
+        "lib/assets/images/claudias-part_branch/emoji9.png",
+        width: 30,
+      );
+    }
+    // Add more conditions as needed for other moods
+    return Container(); // Return an empty container as a fallback
   }
 }

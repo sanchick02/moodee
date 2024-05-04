@@ -10,20 +10,15 @@ class MusicItem implements MediaItem {
   @override
   final String singerOrAuthor;
   @override
-  final int duration;
-  @override
-  final String instructions;
-  @override
-  final String sessionDurationDisplay;
+  final String trackId;
 
-  MusicItem(
-      {required this.therapyType,
-      required this.image,
-      required this.title,
-      required this.singerOrAuthor,
-      required this.duration,
-      required this.instructions,
-      required this.sessionDurationDisplay});
+  MusicItem({
+    required this.therapyType,
+    required this.image,
+    required this.title,
+    required this.singerOrAuthor,
+    required this.trackId,
+  });
 }
 
 class MeditationItem implements MediaItem {
@@ -35,21 +30,17 @@ class MeditationItem implements MediaItem {
   final String title;
   @override
   final String singerOrAuthor;
-  @override
-  final int duration;
-  @override
-  final String instructions;
-  @override
-  final String sessionDurationDisplay;
 
-  MeditationItem(
-      {required this.therapyType,
-      required this.image,
-      required this.title,
-      required this.singerOrAuthor,
-      required this.duration,
-      required this.instructions,
-      required this.sessionDurationDisplay});
+  @override
+  final String trackId;
+
+  MeditationItem({
+    required this.therapyType,
+    required this.image,
+    required this.title,
+    required this.singerOrAuthor,
+    required this.trackId,
+  });
 }
 
 class StoryItem implements MediaItem {
@@ -61,19 +52,15 @@ class StoryItem implements MediaItem {
   final String title;
   @override
   final String singerOrAuthor;
-  @override
-  final int duration;
-  @override
-  final String instructions;
-  @override
-  final String sessionDurationDisplay;
 
-  StoryItem(
-      {required this.therapyType,
-      required this.image,
-      required this.title,
-      required this.singerOrAuthor,
-      required this.duration,
-      required this.instructions,
-      required this.sessionDurationDisplay});
+  @override
+  final String trackId;
+
+  StoryItem({
+    required this.therapyType,
+    required this.image,
+    required this.title,
+    required this.singerOrAuthor,
+    required this.trackId,
+  });
 }
