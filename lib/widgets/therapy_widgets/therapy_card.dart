@@ -84,7 +84,7 @@ class TherapyCard extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: AppStyles.borderRadiusTop,
                     child: image != null
-                        ? Image.network(
+                        ? Image.asset(
                             image!,
                             fit: BoxFit.cover,
                             width: double.infinity,

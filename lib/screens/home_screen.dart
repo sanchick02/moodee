@@ -1,13 +1,11 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/data/therapists.dart';
 import 'package:moodee/data/therapy_lists.dart';
 import 'package:moodee/models/media_item_model.dart';
 import 'package:moodee/models/therapy_items_model.dart';
-// import 'package:moodee/models/therapy_model.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
@@ -24,7 +22,6 @@ import 'package:moodee/widgets/event_widgets/event_card.dart';
 import 'package:moodee/widgets/homepage_widgets/mood_tracker_button.dart';
 import 'package:moodee/widgets/homepage_widgets/progress_box.dart';
 import 'package:moodee/widgets/therapist_widgets/therapist_card.dart';
-import 'package:moodee/widgets/therapy_widgets/art_work_image.dart';
 import 'package:moodee/widgets/therapy_widgets/therapy_card.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
 import 'package:moodee/data/events.dart';
@@ -55,11 +52,6 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
     "lib/assets/images/3.png",
     "lib/assets/images/4.png",
   ]; // List to store image URLs
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  // }
 
   final player = AudioPlayer();
   late Music music;
@@ -592,49 +584,49 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
                           meditationList[0],
                           mediaItem: meditationList[0],
                           margin: const EdgeInsets.only(left: 15),
-                          image: music.songImage,
-                          title: music.songName.toString(),
-                          singerOrAuthor: music.artistName.toString(),
+                          image: meditationList[0].image,
+                          title: meditationList[0].title,
+                          singerOrAuthor: meditationList[0].singerOrAuthor,
                         ),
                         TherapyCard(
                           meditationList[1],
                           mediaItem: meditationList[1],
                           margin: const EdgeInsets.only(left: 15),
-                          image: music.songImage,
-                          title: music.songName.toString(),
-                          singerOrAuthor: music.artistName.toString(),
+                          image: meditationList[1].image,
+                          title: meditationList[1].title,
+                          singerOrAuthor: meditationList[1].singerOrAuthor,
                         ),
                         TherapyCard(
                           musicList[0],
                           mediaItem: musicList[0],
                           margin: const EdgeInsets.only(left: 15),
-                          image: music.songImage,
-                          title: music.songName.toString(),
-                          singerOrAuthor: music.artistName.toString(),
+                          image: musicList[0].image,
+                          title: musicList[0].title,
+                          singerOrAuthor: musicList[0].singerOrAuthor,
                         ),
                         TherapyCard(
                           musicList[1],
                           mediaItem: musicList[1],
                           margin: const EdgeInsets.only(left: 15),
-                          image: music.songImage,
-                          title: music.songName.toString(),
-                          singerOrAuthor: music.artistName.toString(),
+                          image: musicList[1].image,
+                          title: musicList[1].title,
+                          singerOrAuthor: musicList[1].singerOrAuthor,
                         ),
                         TherapyCard(
                           storyList[0],
                           mediaItem: storyList[0],
                           margin: const EdgeInsets.only(left: 15),
-                          image: music.songImage,
-                          title: music.songName.toString(),
-                          singerOrAuthor: music.artistName.toString(),
+                          image: storyList[0].image,
+                          title: storyList[0].title,
+                          singerOrAuthor: storyList[0].singerOrAuthor,
                         ),
                         TherapyCard(
                           storyList[1],
                           mediaItem: storyList[1],
                           margin: const EdgeInsets.only(left: 15, right: 15),
-                          image: music.songImage,
-                          title: music.songName.toString(),
-                          singerOrAuthor: music.artistName.toString(),
+                          image: storyList[1].image,
+                          title: storyList[1].title,
+                          singerOrAuthor: storyList[1].singerOrAuthor,
                         ),
                       ],
                     ),

@@ -111,6 +111,7 @@ flutter:
     - lib/assets/images/events/
     - lib/assets/images/questionnaire/
     - lib/assets/images/claudias-part_branch/
+    - lib/assets/images/moodeetation-branch/
 
   # assets:
   #   - images/a_dot_burr.jpeg
