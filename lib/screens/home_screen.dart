@@ -1,9 +1,13 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/data/therapists.dart';
 import 'package:moodee/data/therapy_lists.dart';
+import 'package:moodee/models/media_item_model.dart';
+import 'package:moodee/models/therapy_items_model.dart';
+// import 'package:moodee/models/therapy_model.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
@@ -20,19 +24,29 @@ import 'package:moodee/widgets/event_widgets/event_card.dart';
 import 'package:moodee/widgets/homepage_widgets/mood_tracker_button.dart';
 import 'package:moodee/widgets/homepage_widgets/progress_box.dart';
 import 'package:moodee/widgets/therapist_widgets/therapist_card.dart';
+import 'package:moodee/widgets/therapy_widgets/art_work_image.dart';
 import 'package:moodee/widgets/therapy_widgets/therapy_card.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
 import 'package:moodee/data/events.dart';
 import 'package:provider/provider.dart';
+import 'package:moodee/constants/strings.dart';
+import 'package:moodee/models/music_model.dart';
+import 'package:palette_generator/palette_generator.dart';
+import 'package:spotify/spotify.dart' as spot;
+import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen<T extends MediaItem> extends StatefulWidget {
+  HomeScreen({Key? key, required this.mediaItem, required this.mediaList})
+      : super(key: key);
+
+  T mediaItem;
+  final List<T> mediaList;
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState<T>();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
   int carouselCurrentIndex = 0;
 
   List<String> carouselImageUrls = [
@@ -42,9 +56,97 @@ class _HomeScreenState extends State<HomeScreen> {
     "lib/assets/images/4.png",
   ]; // List to store image URLs
 
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
+
+  final player = AudioPlayer();
+  late Music music;
+
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
+  }
+
+  @override
   @override
   void initState() {
     super.initState();
+
+    // Find the corresponding item in the lists based on the trackId
+    late MediaItem? item;
+    if (widget.mediaItem is MeditationItem) {
+      item = meditationList.firstWhere(
+        (element) => element.trackId == widget.mediaItem.trackId,
+        orElse: () => meditationList[0],
+      );
+    } else if (widget.mediaItem is MusicItem) {
+      item = musicList.firstWhere(
+        (element) => element.trackId == widget.mediaItem.trackId,
+        orElse: () => musicList[0],
+      );
+    } else if (widget.mediaItem is StoryItem) {
+      item = storyList.firstWhere(
+        (element) => element.trackId == widget.mediaItem.trackId,
+        orElse: () => storyList[0],
+      );
+    }
+
+    // Update the music variable if the item is found
+    if (item != null) {
+      if (item is MeditationItem) {
+        music = Music(
+          trackId: item.trackId,
+          // Add other properties like songName, songImage, etc. here
+        );
+      } else if (item is MusicItem) {
+        music = Music(
+          trackId: item.trackId,
+          // Add other properties like songName, songImage, etc. here
+        );
+      } else if (item is StoryItem) {
+        music = Music(
+          trackId: item.trackId,
+          // Add other properties like songName, songImage, etc. here
+        );
+      }
+
+      final credentials = spot.SpotifyApiCredentials(
+          CustomStrings.clientId, CustomStrings.clientSecret);
+      final spotify = spot.SpotifyApi(credentials);
+
+      // Fetch additional details from Spotify
+      spotify.tracks.get(music.trackId).then((track) async {
+        String? tempSongName = track.name;
+        if (tempSongName != null) {
+          music.songName = tempSongName;
+          music.artistName = track.artists?.first.name ?? "";
+          String? image = track.album?.images?.first.url;
+          if (image != null) {
+            music.songImage = image;
+            final tempSongColor = await getImagePalette(NetworkImage(image));
+            if (tempSongColor != null) {
+              music.songColor = tempSongColor;
+            }
+          }
+          music.artistImage = track.artists?.first.images?.first.url;
+          final yt = YoutubeExplode();
+          final video = (await yt.search
+                  .search("$tempSongName ${music.artistName ?? ""}"))
+              .first;
+          final videoId = video.id.value;
+          music.duration = video.duration;
+        }
+      });
+    }
+  }
+
+  Future<Color?> getImagePalette(ImageProvider imageProvider) async {
+    final PaletteGenerator paletteGenerator =
+        await PaletteGenerator.fromImageProvider(imageProvider);
+    return paletteGenerator.dominantColor?.color;
   }
 
   @override
@@ -469,7 +571,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               TherapyScreen(
                                 mediaItem: meditationList[0],
                               ),
-                            ); // not working
+                            ); 
                           },
                           backgroundColor: AppColor.btnColorPrimary,
                           height: 35,
@@ -490,31 +592,49 @@ class _HomeScreenState extends State<HomeScreen> {
                           meditationList[0],
                           mediaItem: meditationList[0],
                           margin: const EdgeInsets.only(left: 15),
+                          image: music.songImage,
+                          title: music.songName.toString(),
+                          singerOrAuthor: music.artistName.toString(),
                         ),
                         TherapyCard(
                           meditationList[1],
                           mediaItem: meditationList[1],
                           margin: const EdgeInsets.only(left: 15),
+                          image: music.songImage,
+                          title: music.songName.toString(),
+                          singerOrAuthor: music.artistName.toString(),
                         ),
                         TherapyCard(
                           musicList[0],
                           mediaItem: musicList[0],
                           margin: const EdgeInsets.only(left: 15),
+                          image: music.songImage,
+                          title: music.songName.toString(),
+                          singerOrAuthor: music.artistName.toString(),
                         ),
                         TherapyCard(
                           musicList[1],
                           mediaItem: musicList[1],
                           margin: const EdgeInsets.only(left: 15),
+                          image: music.songImage,
+                          title: music.songName.toString(),
+                          singerOrAuthor: music.artistName.toString(),
                         ),
                         TherapyCard(
                           storyList[0],
                           mediaItem: storyList[0],
                           margin: const EdgeInsets.only(left: 15),
+                          image: music.songImage,
+                          title: music.songName.toString(),
+                          singerOrAuthor: music.artistName.toString(),
                         ),
                         TherapyCard(
                           storyList[1],
                           mediaItem: storyList[1],
                           margin: const EdgeInsets.only(left: 15, right: 15),
+                          image: music.songImage,
+                          title: music.songName.toString(),
+                          singerOrAuthor: music.artistName.toString(),
                         ),
                       ],
                     ),
@@ -577,23 +697,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-}
-
-Future<List<String>> fetchImageUrls() async {
-  List<String> imageUrls = [];
-  try {
-    // Assuming you have images stored in Firebase Storage under a certain path
-    ListResult result = await FirebaseStorage.instance
-        .ref('images')
-        .child('carousel_images')
-        .listAll();
-
-    for (Reference ref in result.items) {
-      String imageUrl = await ref.getDownloadURL();
-      imageUrls.add(imageUrl);
-    }
-  } catch (e) {
-    print('Error fetching image URLs: $e');
-  }
-  return imageUrls;
 }

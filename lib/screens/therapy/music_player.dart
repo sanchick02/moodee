@@ -2,11 +2,11 @@ import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:moodee/constants/strings.dart';
-import 'package:moodee/data/therapy_lists.dart';
 import 'package:moodee/models/media_item_model.dart';
 import 'package:moodee/models/music_model.dart';
 import 'package:moodee/models/therapy_items_model.dart';
 import 'package:moodee/presets/colors.dart';
+import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/styles.dart';
 import 'package:moodee/widgets/back_button_top.dart';
 import 'package:moodee/widgets/rounded_button.dart';
@@ -29,8 +29,12 @@ class MusicPlayer<T extends MediaItem> extends StatefulWidget {
 }
 
 class _MusicPlayerState<T extends MediaItem> extends State<MusicPlayer<T>> {
+  int currentTherapyIndex = 0;
   final player = AudioPlayer();
   late Music music;
+  bool isButtonClicked = false;
+  Map<String, List<MediaItem>> therapyLists = {};
+  bool isNewSong = false;
 
   @override
   void dispose() {
@@ -40,11 +44,69 @@ class _MusicPlayerState<T extends MediaItem> extends State<MusicPlayer<T>> {
 
   @override
   void initState() {
+    super.initState();
+    _initLists();
+    _initPlayer();
+  }
+
+  void _initLists() {
+    therapyLists = {
+      'Music': widget.mediaList.cast<MusicItem>(), // Specific casts, safe now
+      'Meditation': widget.mediaList.cast<MeditationItem>(),
+      'Story': widget.mediaList.cast<StoryItem>(),
+    };
+  }
+
+  void _onPreviousTrack() async {
+    await player.stop();
+    setState(() {
+      String currentType = widget.mediaItem.therapyType;
+      List<MediaItem>? currentList = therapyLists[currentType];
+
+      if (currentList != null) {
+        currentTherapyIndex--;
+        if (currentTherapyIndex < 0) {
+          currentTherapyIndex = currentList.length - 1; // Go to last track
+        }
+
+        _updatePlayer(currentList[currentTherapyIndex]);
+      }
+    });
+  }
+
+  void _onNextTrack() async {
+    await player.stop();
+    setState(() {
+      String currentType = widget.mediaItem.therapyType;
+      List<MediaItem>? currentList = therapyLists[currentType];
+
+      if (currentList != null) {
+        currentTherapyIndex++;
+        if (currentTherapyIndex >= currentList.length) {
+          currentTherapyIndex = 0; // Reset to first track
+        }
+
+        _updatePlayer(currentList[currentTherapyIndex]);
+      }
+    });
+  }
+
+  void _updatePlayer(MediaItem newItem) {
+    setState(() {
+      widget.mediaItem = newItem as T;
+      _initPlayer();
+      isNewSong = true;
+    });
+  }
+
+  void _initPlayer() async {
     final credentials = spot.SpotifyApiCredentials(
         CustomStrings.clientId, CustomStrings.clientSecret);
     final spotify = spot.SpotifyApi(credentials);
     music = Music(trackId: widget.mediaItem.trackId);
-    spotify.tracks.get(music.trackId).then((track) async {
+
+    try {
+      final track = await spotify.tracks.get(music.trackId);
       String? tempSongName = track.name;
       if (tempSongName != null) {
         music.songName = tempSongName;
@@ -59,18 +121,31 @@ class _MusicPlayerState<T extends MediaItem> extends State<MusicPlayer<T>> {
         }
         music.artistImage = track.artists?.first.images?.first.url;
         final yt = YoutubeExplode();
-        final video =
-            (await yt.search.search("$tempSongName ${music.artistName ?? ""}"))
-                .first;
-        final videoId = video.id.value;
-        music.duration = video.duration;
-        setState(() {});
-        var manifest = await yt.videos.streamsClient.getManifest(videoId);
-        var audioUrl = manifest.audioOnly.last.url;
-        player.play(UrlSource(audioUrl.toString()));
+        final searchResults =
+            await yt.search.search("$tempSongName ${music.artistName ?? ""}");
+
+        if (searchResults.isNotEmpty) {
+          final video = searchResults.first;
+          final videoId = video.id.value;
+          music.duration = video.duration;
+          var manifest = await yt.videos.streamsClient.getManifest(videoId);
+          var audioUrl = manifest.audioOnly.last.url;
+          player.play(UrlSource(audioUrl.toString()));
+          // Reset the button state when starting a new song
+          setState(() {
+            isButtonClicked = false;
+            isNewSong = false; // Reset the new song flag
+          });
+        } else {
+          // Move to the next track
+          _onNextTrack();
+        }
       }
-    });
-    super.initState();
+    } catch (e) {
+      // Handle exceptions here
+      _initPlayer();
+      print("Error initializing player: $e");
+    }
   }
 
   Future<Color?> getImagePalette(ImageProvider imageProvider) async {
@@ -82,8 +157,7 @@ class _MusicPlayerState<T extends MediaItem> extends State<MusicPlayer<T>> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    int currentTherapyIndex = 0;
-    bool isButtonClicked = false;
+
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
       body: SafeArea(
@@ -126,7 +200,7 @@ class _MusicPlayerState<T extends MediaItem> extends State<MusicPlayer<T>> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 22.5, right: 22.5),
+                padding: const EdgeInsets.only(left: 20, right: 20),
                 child: Column(
                   children: [
                     Row(
@@ -135,15 +209,16 @@ class _MusicPlayerState<T extends MediaItem> extends State<MusicPlayer<T>> {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              music.songName ?? '',
-                              style: textTheme.titleLarge
-                                  ?.copyWith(color: Colors.black87),
+                            SizedBox(
+                              width: MediaQuery.sizeOf(context).width - 40,
+                              child: Text(
+                                music.songName ?? '',
+                                style: AppFonts.largeMediumText,
+                              ),
                             ),
                             Text(
                               music.artistName ?? '-',
-                              style: textTheme.titleMedium
-                                  ?.copyWith(color: Colors.black45),
+                              style: AppFonts.smallRegularText,
                             ),
                           ],
                         ),
@@ -185,54 +260,10 @@ class _MusicPlayerState<T extends MediaItem> extends State<MusicPlayer<T>> {
                         width: 30,
                       ),
                       color: AppColor.btnColorSecondary,
-
-                      press: () {
-                        setState(() {
-                          currentTherapyIndex--;
-
-                          if (widget.mediaItem is MusicItem) {
-                            List<MusicItem> musicList =
-                                widget.mediaList as List<MusicItem>;
-                            if (currentTherapyIndex < 0) {
-                              currentTherapyIndex = musicList.length - 1;
-                            }
-                            MusicItem prevItem = musicList[currentTherapyIndex];
-                            widget.mediaItem = prevItem as T;
-                          } else if (widget.mediaItem is MeditationItem) {
-                            List<MeditationItem> meditationList =
-                                widget.mediaList as List<MeditationItem>;
-                            if (currentTherapyIndex < 0) {
-                              currentTherapyIndex = meditationList.length - 1;
-                            }
-                            MeditationItem prevItem =
-                                meditationList[currentTherapyIndex];
-                            widget.mediaItem = prevItem as T;
-                          } else if (widget.mediaItem is StoryItem) {
-                            List<StoryItem> storyList =
-                                widget.mediaList as List<StoryItem>;
-                            if (currentTherapyIndex < 0) {
-                              currentTherapyIndex = storyList.length - 1;
-                            }
-                            StoryItem prevItem = storyList[currentTherapyIndex];
-                            widget.mediaItem = prevItem as T;
-                          }
-
-                          //isButtonClicked = false;
-                          currentTherapyIndex = 0;
-                        });
-                        ;
-                      },
-                      // ),
+                      press: _onPreviousTrack,
                     ),
                     const SizedBox(width: 30),
                     RoundedButton(
-                      color: AppColor.fontColorPrimary,
-                      image: Image.asset(
-                        isButtonClicked
-                            ? "lib/assets/icons/player_play_icon.png"
-                            : "lib/assets/icons/player_pause_icon.png",
-                        width: 20,
-                      ),
                       press: () async {
                         if (player.state == PlayerState.playing) {
                           await player.pause();
@@ -240,9 +271,20 @@ class _MusicPlayerState<T extends MediaItem> extends State<MusicPlayer<T>> {
                           await player.resume();
                         }
                         setState(() {
-                          //isButtonClicked = !isButtonClicked;
+                          isButtonClicked = !isButtonClicked;
                         });
                       },
+                      color: AppColor.fontColorPrimary,
+                      image: (isButtonClicked ||
+                              isNewSong) // Condition for play/pause icons
+                          ? Image.asset(
+                              "lib/assets/icons/player_pause_icon.png",
+                              width: 20,
+                            )
+                          : Image.asset(
+                              "lib/assets/icons/player_play_icon.png",
+                              width: 20,
+                            ),
                     ),
                     const SizedBox(width: 30),
                     RoundedButton(
@@ -251,42 +293,7 @@ class _MusicPlayerState<T extends MediaItem> extends State<MusicPlayer<T>> {
                         width: 30,
                       ),
                       color: AppColor.btnColorSecondary,
-                      press: () {
-                        setState(() {
-                          currentTherapyIndex++;
-
-                          if (widget.mediaItem is MusicItem) {
-                            List<MusicItem> musicList =
-                                widget.mediaList as List<MusicItem>;
-                            if (currentTherapyIndex >= musicList.length) {
-                              currentTherapyIndex = 0;
-                            }
-                            MusicItem nextItem = musicList[currentTherapyIndex];
-                            widget.mediaItem = nextItem as T;
-                          } else if (widget.mediaItem is MeditationItem) {
-                            List<MeditationItem> meditationList =
-                                widget.mediaList as List<MeditationItem>;
-                            if (currentTherapyIndex >= meditationList.length) {
-                              currentTherapyIndex = 0;
-                            }
-                            MeditationItem nextItem =
-                                meditationList[currentTherapyIndex];
-                            widget.mediaItem = nextItem as T;
-                          } else if (widget.mediaItem is StoryItem) {
-                            List<StoryItem> storyList =
-                                widget.mediaList as List<StoryItem>;
-                            if (currentTherapyIndex >= storyList.length) {
-                              currentTherapyIndex = 0;
-                            }
-                            StoryItem nextItem = storyList[currentTherapyIndex];
-                            widget.mediaItem = nextItem as T;
-                          }
-
-                          //isButtonClicked = false;
-                          currentTherapyIndex = 0;
-                        });
-                        ;
-                      },
+                      press: _onNextTrack,
                     ),
                   ],
                 ),

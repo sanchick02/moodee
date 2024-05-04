@@ -38,14 +38,25 @@ navbarNavigation(BuildContext context, int? currentIndex, int? selectedIndex) {
   if (currentIndex != selectedIndex) {
     switch (selectedIndex) {
       case 0:
-        navigateNextPage(context, const HomeScreen());
+        navigateNextPage(
+          context,
+          HomeScreen(
+            mediaItem: meditationList[0],
+            mediaList: meditationList,
+          ),
+        );
         break;
       case 1:
         navigateNextPage(
-            context,
-            TherapyScreen(
-              mediaItem: meditationList[0],
-            ));
+          context,
+          HomeScreen(
+            mediaItem: meditationList[0],
+            mediaList: meditationList,
+          ),
+        );
+        // TherapyScreen(
+        //   mediaItem: meditationList[0],
+        // ));
         break;
       case 2:
         navigateNextPage(

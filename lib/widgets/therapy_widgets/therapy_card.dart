@@ -11,15 +11,21 @@ import 'package:moodee/presets/styles.dart';
 import 'package:moodee/widgets/therapy_widgets/therapy_card_bottom_section.dart';
 
 class TherapyCard extends StatelessWidget {
-  const TherapyCard(
+  TherapyCard(
     MediaItem selectedList, {
     super.key,
     required this.mediaItem,
     required this.margin,
+    required this.image,
+    required this.title,
+    required this.singerOrAuthor,
   });
 
   final MediaItem mediaItem;
   final EdgeInsets margin;
+  final String? image;
+  final String title;
+  final String singerOrAuthor;
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +83,15 @@ class TherapyCard extends StatelessWidget {
                   ),
                   child: ClipRRect(
                     borderRadius: AppStyles.borderRadiusTop,
-                    child: Image.asset(
-                      mediaItem.image,
-                      fit: BoxFit.cover,
-                      opacity: const AlwaysStoppedAnimation(0.9),
-                    ),
+                    child: image != null
+                        ? Image.network(
+                            image!,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                          )
+                        : Container(
+                            color: Colors.grey), // Placeholder if image is null
                   ),
                 ),
                 Container(
@@ -109,15 +119,15 @@ class TherapyCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              Text(mediaItem.title).data!,
-                              style: AppFonts.normalRegularTextHeight,
+                              Text(title).data!,
+                              style: AppFonts.smallRegularText,
                             )
                           ],
                         ),
                       ),
                       const Spacer(),
                       Text(
-                        "${Text(mediaItem.singerOrAuthor).data!} • ${Text(mediaItem.sessionDurationDisplay).data!}",
+                        "${Text(singerOrAuthor).data!}",
                         style: AppFonts.extraSmallLightText,
                       ),
                     ],

@@ -15,7 +15,7 @@ class PlayerLogoAndTitle extends StatelessWidget {
       alignment: Alignment.center,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 70),
+          padding: const EdgeInsets.only(top: 90),
           child: Text(
             title,
             style: AppFonts.largeMediumText,

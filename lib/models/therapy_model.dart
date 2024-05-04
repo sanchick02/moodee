@@ -1,4 +1,4 @@
-abstract class Music {
+abstract class Media {
   Duration get duration;
   String get trackId;
   String get artistName;
