@@ -11,7 +11,7 @@ class ForumProvider with ChangeNotifier {
       try {
         // Get the reference to your collection
         CollectionReference userForumCollection =
-            FirebaseFirestore.instance.collection('forums10');
+            FirebaseFirestore.instance.collection('new_forum');
 
         // Query the documents within the collection
         QuerySnapshot userPostsSnapshot = await userForumCollection.get();
@@ -27,6 +27,7 @@ class ForumProvider with ChangeNotifier {
             caption: doc['caption'],
             postImage: doc['postImage'],
             likes: doc['likes'],
+            mood: doc['mood'],
           );
         }).toList();
 

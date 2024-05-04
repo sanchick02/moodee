@@ -7,14 +7,17 @@ class ForumPost {
   String caption;
   String postImage;
   int likes;
+  String mood;
 
-  ForumPost(
-      {required this.uid,
-      required this.pid,
-      required this.userImage,
-      required this.userName,
-      required this.time,
-      required this.caption,
-      required this.postImage,
-      required this.likes});
+  ForumPost({
+    required this.uid,
+    required this.pid,
+    required this.userImage,
+    required this.userName,
+    required this.time,
+    required this.caption,
+    required this.postImage,
+    required this.likes,
+    required this.mood,
+  });
 }

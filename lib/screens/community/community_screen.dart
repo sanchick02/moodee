@@ -28,14 +28,14 @@ class CommunityScreen extends StatefulWidget {
 }
 
 class _CommunityScreenState extends State<CommunityScreen> {
-  String selectedCategory = "Community";
+  String selectedCategory = "moodeeBoard";
   bool isSelected = false;
   bool isSelectedPollAnswer1 = false;
   bool isSelectedPollAnswer2 = false;
   bool isSelectedPollAnswer3 = false;
   bool isSelectedPollAnswer4 = false;
 
-  final List<ForumPost> _registeredExpenses = [
+  List<ForumPost> _registeredExpenses = [
     ForumPost(
         uid: '',
         pid: '',
@@ -44,7 +44,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
         time: '',
         caption: '',
         postImage: '',
-        likes: 0),
+        likes: 0,
+        mood: ''),
   ];
 
   @override
@@ -53,9 +54,8 @@ class _CommunityScreenState extends State<CommunityScreen> {
         .fetchUserData()
         .then((_) {
       setState(() {
-        _registeredExpenses;
-        // Sorting logic based on the time attribute
-        // _registeredExpenses.sort((a, b) => b.time.compareTo(a.time));
+        _registeredExpenses =
+            Provider.of<ForumProvider>(context, listen: false).forumPosts;
       });
     });
 
@@ -94,7 +94,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                       children: [
                         Expanded(
                           flex: 1,
-                          child: filterButton("Community", isSelected = true,
+                          child: filterButton("moodeeBoard", isSelected = true,
                               (category) {
                             setState(() {
                               selectedCategory = category;
@@ -114,7 +114,7 @@ class _CommunityScreenState extends State<CommunityScreen> {
                         const SizedBox(width: 10),
                         Expanded(
                           flex: 1,
-                          child: filterButton("moodeeBoard", isSelected = false,
+                          child: filterButton("Community", isSelected = false,
                               (category) {
                             setState(() {
                               selectedCategory = category;
