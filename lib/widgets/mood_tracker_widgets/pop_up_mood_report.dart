@@ -9,15 +9,14 @@ import 'package:pie_chart/pie_chart.dart';
 import 'package:collection/collection.dart';
 
 class PopUpMoodReport extends StatefulWidget {
-  PopUpMoodReport({
-    super.key,
-    required this.showPopup,
-    required this.monthData,
-    // required this.month,
-    // required this.year
-    });
+  PopUpMoodReport(
+      {super.key,
+      required this.showPopup,
+      required this.monthData,
+      required this.onClose});
 
   bool showPopup;
+  final VoidCallback onClose;
   List<MoodTracker> monthData;
 
   @override
@@ -25,7 +24,6 @@ class PopUpMoodReport extends StatefulWidget {
 }
 
 class _PopUpMoodReportState extends State<PopUpMoodReport> {
-
   String month = '';
   String year = '';
   Map<String, double> moodCounts = {};
@@ -35,10 +33,13 @@ class _PopUpMoodReportState extends State<PopUpMoodReport> {
     super.initState();
     if (widget.monthData.isNotEmpty) {
       widget.monthData.forEach((moodTracker) {
-        moodCounts.update(moodTracker.type, (value) => value + 1, ifAbsent: () => 1);
+        moodCounts.update(moodTracker.type, (value) => value + 1,
+            ifAbsent: () => 1);
       });
-      month = DateFormat('MMMM').format(DateTime.parse(widget.monthData[0].date));
-      year = DateFormat('yyyy').format(DateTime.parse(widget.monthData[0].date));
+      month =
+          DateFormat('MMMM').format(DateTime.parse(widget.monthData[0].date));
+      year =
+          DateFormat('yyyy').format(DateTime.parse(widget.monthData[0].date));
     }
   }
 
@@ -56,62 +57,60 @@ class _PopUpMoodReportState extends State<PopUpMoodReport> {
             filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
             child: Center(
               // Your custom top widget here (e.g., Textfield, Dialog)
-              child: Stack(
-                children : [
-                    Container(
-                    height: 350,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        AppShadow.innerShadow1,
-                        AppShadow.innerShadow3,
-                      ], 
-                      color: Colors.white,
-                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            month + ' ' + year,
-                            style: AppFonts.largeMediumText,
-                          ),
-                          Text(
-                            'All your moods at a glance',
-                            style: AppFonts.smallLightText,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: PieChart(
-                              dataMap: moodCounts,
-                              chartValuesOptions: const ChartValuesOptions(
+              child: Stack(children: [
+                Container(
+                  height: 350,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    boxShadow: [
+                      AppShadow.innerShadow1,
+                      AppShadow.innerShadow3,
+                    ],
+                    color: Colors.white,
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20)),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          month + ' ' + year,
+                          style: AppFonts.largeMediumText,
+                        ),
+                        Text(
+                          'All your moods at a glance',
+                          style: AppFonts.smallLightText,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: PieChart(
+                            dataMap: moodCounts,
+                            chartValuesOptions: const ChartValuesOptions(
                               showChartValueBackground: false,
                               showChartValuesInPercentage: true,
                               decimalPlaces: 1,
                             ),
-                              legendOptions: const LegendOptions(
-                                legendShape: BoxShape.rectangle,
-                              ),
-                              ),
-                          )
-                        ],
-                      ),
+                            legendOptions: const LegendOptions(
+                              legendShape: BoxShape.rectangle,
+                            ),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  Positioned(
+                ),
+                Positioned(
                     top: 0,
                     right: 0,
                     child: IconButton(
                       icon: const Icon(Icons.close),
                       onPressed: () {
-                        setState(() {
-                          widget.showPopup = !widget.showPopup;
-                        });
+                        widget.onClose();
                       },
                     ))
-                ]
-              ),
+              ]),
             ),
           ),
         ),
