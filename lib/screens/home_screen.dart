@@ -5,6 +5,7 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/data/therapy_lists.dart';
 import 'package:moodee/models/media_item_model.dart';
+import 'package:moodee/models/mood_tracker.dart';
 import 'package:moodee/models/music_model.dart';
 import 'package:moodee/models/therapy_items_model.dart';
 import 'package:moodee/page_navigator.dart';
@@ -13,6 +14,7 @@ import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/presets/shadow.dart';
 import 'package:moodee/presets/styles.dart';
 import 'package:moodee/providers/events_provider.dart';
+import 'package:moodee/providers/mood_tracker_provider.dart';
 import 'package:moodee/providers/therapist_provider.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:moodee/screens/events/event_screen.dart';
@@ -26,6 +28,7 @@ import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/event_widgets/event_card.dart';
 import 'package:moodee/widgets/homepage_widgets/mood_tracker_button.dart';
 import 'package:moodee/widgets/homepage_widgets/progress_box.dart';
+import 'package:moodee/widgets/homepage_widgets/today_mood_stats.dart';
 import 'package:moodee/widgets/therapist_widgets/therapist_card.dart';
 import 'package:moodee/widgets/therapy_widgets/therapy_card.dart';
 import 'package:moodee/widgets/topbar_logo_notif.dart';
@@ -55,31 +58,18 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
     "lib/assets/images/4.png",
   ]; // List to store image URLs
 
-   final List<MoodTracker> moodData = [
+  final List<MoodTracker> moodData = [
     MoodTracker(
-      question: '', 
-      image: '',
-      type: '', 
-      answer: '', 
-      date: DateTime.now().toString(), 
-      moodIntensity: 0, 
-      moodTrackerStreak: '', 
-      timePeriod: '', 
-      userId: '')
+        question: '',
+        image: '',
+        type: '',
+        answer: '',
+        date: DateTime.now().toString(),
+        moodIntensity: 0,
+        moodTrackerStreak: '',
+        timePeriod: '',
+        userId: '')
   ];
-
-  @override
-  void initState() {
-    Provider.of<MoodTrackerProvider>(context, listen: false)
-        .fetchMoodData()
-        .then((_) {
-      setState(() {
-        moodData;
-        // Sorting logic based on the time attribute
-        // _registeredExpenses.sort((a, b) => b.time.compareTo(a.time));
-      });
-    });
-
 
   final player = AudioPlayer();
   late Music music;
@@ -94,6 +84,13 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
   void initState() {
     Provider.of<TherapistProvider>(context, listen: false).fetchTherapistData();
     Provider.of<EventsProvider>(context, listen: false).fetchEventsData();
+    Provider.of<MoodTrackerProvider>(context, listen: false)
+        .fetchMoodData()
+        .then((_) {
+      setState(() {
+        moodData;
+      });
+    });
     super.initState();
 
     // Find the corresponding item in the lists based on the trackId

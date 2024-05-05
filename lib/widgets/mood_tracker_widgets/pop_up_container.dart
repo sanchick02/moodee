@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:moodee/auth_widget_tree.dart';
 import 'package:moodee/models/mood_tracker.dart';
 import 'package:moodee/models/mood_types_model.dart';
+import 'package:moodee/navigation.dart';
 import 'package:moodee/page_navigator.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
@@ -13,7 +14,7 @@ import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/mood_tracker_widgets/pop_up_button.dart';
 
-class PopUpMoodTracker extends StatelessWidget {
+class PopUpMoodTracker extends StatefulWidget {
   PopUpMoodTracker({
     super.key,
     required this.showPopup,
@@ -21,15 +22,18 @@ class PopUpMoodTracker extends StatelessWidget {
     required this.moodIntensity,
   });
 
-  TextEditingController userInputController = TextEditingController();
-
   final bool showPopup;
   final MoodTypeModel moodData;
   final double moodIntensity;
-  
 
-  void storeMood() async{
+  @override
+  State<PopUpMoodTracker> createState() => _PopUpMoodTrackerState();
+}
 
+class _PopUpMoodTrackerState extends State<PopUpMoodTracker> {
+  TextEditingController userInputController = TextEditingController();
+
+  void storeMood() async {
     FirebaseAuth auth = FirebaseAuth.instance;
     User? user = auth.currentUser;
     String answer = userInputController.text;
@@ -44,38 +48,39 @@ class PopUpMoodTracker extends StatelessWidget {
     } else {
       timePeriod = 'Night';
     }
-    
+
     if (user != null) {
       MoodTracker myData = MoodTracker(
-        image: moodData.image,
+        image: widget.moodData.image,
         moodTrackerStreak: null,
-        type: moodData.type, 
-        question: moodData.question[0], 
+        type: widget.moodData.type,
+        question: widget.moodData.question[0],
         date: DateTime.now().toString(),
-        moodIntensity: moodIntensity,
+        moodIntensity: widget.moodIntensity,
         timePeriod: timePeriod,
         userId: user.uid,
         answer: answer,
-        );
-  // Get a Firestore instance
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  // Reference to a collection
-  CollectionReference collectionReference = firestore.collection('moods');
+      );
+      // Get a Firestore instance
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      // Reference to a collection
+      CollectionReference collectionReference = firestore.collection('moods');
 
-  DocumentReference userDocRef = collectionReference.doc(user.uid);
+      DocumentReference userDocRef = collectionReference.doc(user.uid);
 
-  CollectionReference userMoodsCollection = userDocRef.collection('user_moods');
-  // Add document with a unique ID
-  await userMoodsCollection.add(myData.toMap())
-      .then((value) => print("Data Added" + user.uid))
-      .catchError((error) => print("Failed to add data: $error"));
-}
+      CollectionReference userMoodsCollection =
+          userDocRef.collection('user_moods');
+      // Add document with a unique ID
+      await userMoodsCollection.add(myData.toMap()).then((value) {
+        navigateNextPage(context, const Navigation());
+      }).catchError((error) => print("Failed to add data: $error"));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Visibility(
-      visible: showPopup,
+      visible: widget.showPopup,
       child: Positioned(
         left: 0,
         right: 0,
@@ -94,7 +99,9 @@ class PopUpMoodTracker extends StatelessWidget {
                     AppShadow.innerShadow3,
                   ],
                   color: Colors.white,
-                  borderRadius: const BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+                  borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20)),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -111,7 +118,7 @@ class PopUpMoodTracker extends StatelessWidget {
                       ),
                       const Spacer(),
                       Text(
-                        moodData.question[0],
+                        widget.moodData.question[0],
                         style: AppFonts.normalRegularText,
                         textAlign: TextAlign.center,
                       ),
@@ -121,13 +128,13 @@ class PopUpMoodTracker extends StatelessWidget {
                         height: 90,
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(horizontal: 30),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
-                            color: Colors.white,
-                            boxShadow: [
-                              AppShadow.innerShadow4,
-                            ],
-                          ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Colors.white,
+                          boxShadow: [
+                            AppShadow.innerShadow4,
+                          ],
+                        ),
                         child: TextField(
                           controller: userInputController,
                           decoration: const InputDecoration(
@@ -139,51 +146,53 @@ class PopUpMoodTracker extends StatelessWidget {
                       Row(
                         children: [
                           PopUpButton(
-                          label: 'Submit', 
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (BuildContext context)
-                              {
-                                return AlertDialog(
-                                  backgroundColor: AppColor.fontColorSecondary,
-                                  scrollable: true,
-                                  title: Text(
-                                    'Confirmation',
-                                    style: AppFonts.largeMediumText,
-                                  ),
-                                  content: const Text(
-                                      'Mood Tracked Successfully'),
-                                  actions: [
-                                    DefaultButton(
-                                      backgroundColor: AppColor.btnColorPrimary,
-                                      text: "Okay",
-                                      height: 30,
-                                      fontStyle: AppFonts.smallLightTextWhite,
-                                      width: double.infinity,
-                                      padding: EdgeInsets.zero,
-                                      press: () {
-                                        storeMood();
-                                        navigateNextPage(context, const AuthWidgetTree());
-                                      },
-                                    ),
-                                  ],
-                                );
-                              }
-                            );
-                          },
-                          backgroundColor: AppColor.btnColorPrimary,
-                          borderColor: AppColor.btnColorPrimary,
-                          style: AppFonts.extraSmallLightTextWhite,
+                            label: 'Submit',
+                            onPressed: () {
+                              showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      backgroundColor:
+                                          AppColor.fontColorSecondary,
+                                      scrollable: true,
+                                      title: Text(
+                                        'Confirmation',
+                                        style: AppFonts.largeMediumText,
+                                      ),
+                                      content: const Text(
+                                          'Mood Tracked Successfully'),
+                                      actions: [
+                                        DefaultButton(
+                                          backgroundColor:
+                                              AppColor.btnColorPrimary,
+                                          text: "Okay",
+                                          height: 30,
+                                          fontStyle:
+                                              AppFonts.smallLightTextWhite,
+                                          width: double.infinity,
+                                          padding: EdgeInsets.zero,
+                                          press: () {
+                                            storeMood();
+                                          },
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            },
+                            backgroundColor: AppColor.btnColorPrimary,
+                            borderColor: AppColor.btnColorPrimary,
+                            style: AppFonts.extraSmallLightTextWhite,
                           ),
-                          const SizedBox(width: 15,),
+                          const SizedBox(
+                            width: 15,
+                          ),
                           PopUpButton(
-                            onPressed: () {}, 
-                            backgroundColor: Colors.white, 
-                            borderColor: Colors.black, 
+                            onPressed: () {},
+                            backgroundColor: Colors.white,
+                            borderColor: Colors.black,
                             label: 'Skip Question',
                             style: AppFonts.extraSmallRegularText,
-                            )
+                          )
                         ],
                       ),
                     ],

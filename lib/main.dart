@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:moodee/auth_widget_tree.dart';
 import 'package:moodee/providers/events_provider.dart';
 import 'package:moodee/providers/forum_post_provider.dart';
+import 'package:moodee/providers/mood_tracker_provider.dart';
 import 'package:moodee/providers/therapist_provider.dart';
 import 'package:moodee/providers/user_provider.dart';
 import 'package:firebase_core/firebase_core.dart';

@@ -52,9 +52,14 @@ class _NavigationState extends State<Navigation> {
         _isLoading = false;
       });
     });
-      Provider.of<MoodTrackerProvider>(context, listen: false).fetchMoodData();
-    super.initState();
-  }
+    Provider.of<MoodTrackerProvider>(context, listen: false)
+        .fetchMoodData()
+        .then((_) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+
     Provider.of<UserProvider>(context, listen: false).fetchUserData().then((_) {
       setState(() {
         _isLoading = false;
