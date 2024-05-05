@@ -15,7 +15,7 @@ Moodee offers a comprehensive suite of features to empower users in managing the
 ## Getting Started
 1. Download the source code folder and unzip
 2. Open the source code folder on your preferred IDE (Visual Studio Code Recommended)
-3. Run the source code on any physical / virtual device, online documentation
+3. Run the source code on any physical / virtual device, online documentation (Preferred to use Pixel 7 Pro & Pixel 8 Pro AVD).
 4. Start navigating and using the application's features.
 
 ## Moodee Mobile App Features:
@@ -72,6 +72,5 @@ Moodee offers a comprehensive suite of features to empower users in managing the
 ## Contributors
 - [Sanjivrajah Murali](https://github.com/sanchick02)
 - [Heng Claudia](https://github.com/claudiaheng13)
-- [Lim Bao Yu](https://github.com/bailey1111)
 - [Lim Chuan Zhe](https://github.com/ehznauhcmil)
 
