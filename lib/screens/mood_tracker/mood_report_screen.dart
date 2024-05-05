@@ -12,7 +12,8 @@ import 'package:moodee/widgets/mood_tracker_widgets/pop_up_mood_report.dart';
 import 'package:provider/provider.dart';
 
 class MoodReportScreen extends StatefulWidget {
-  const MoodReportScreen({super.key});
+  const MoodReportScreen({super.key, required this.name});
+  final String name;
 
   @override
   State<MoodReportScreen> createState() => _MoodReportScreenState();
@@ -113,7 +114,7 @@ class _MoodReportScreenState extends State<MoodReportScreen> {
                 ),
               ),
               Text(
-                'Hey Sam,',
+                'Hey, ' + widget.name!,
                 style: AppFonts.heading3,
               ),
               Text(
@@ -131,16 +132,14 @@ class _MoodReportScreenState extends State<MoodReportScreen> {
                       shrinkWrap: true,
                       itemCount: moodList.length,
                       itemBuilder: (context, index) {
-                          return Container(
-                            padding: EdgeInsets.symmetric(vertical: 5),
+                        return Container(
+                          padding: EdgeInsets.symmetric(vertical: 5),
+                          height: (400 / 9),
+                          child: Image.asset(
+                            moodList[index].image,
                             height: (400 / 9),
-                              
-                            child: Image.asset(
-                              moodList[index].image,
-                              height: (400 / 9) ,
-                              
-                              fit: BoxFit.contain,
-                            ),
+                            fit: BoxFit.contain,
+                          ),
                         );
                       }),
                 ),
@@ -248,12 +247,16 @@ class _MoodReportScreenState extends State<MoodReportScreen> {
                 ],
               ),
               const Spacer(),
-                Text(
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Text(
                   textAlign: TextAlign.center,
-                  'The bigger the circle, the more mood you have tracked in that particular month. Click on the dots to see more.',
+                  '''The bigger the circle, the more mood you have tracked in that particular month. 
+Click on the dots to see more.''',
                   style: AppFonts.smallLightText,
                 ),
-                const Spacer(),
+              ),
+              const Spacer(),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: DefaultButton(
@@ -272,7 +275,6 @@ class _MoodReportScreenState extends State<MoodReportScreen> {
             monthData: monthlyMoodData[selectedMonth],
             onClose: togglePopUp,
           )
-          
         ],
       ),
     );
@@ -309,6 +311,6 @@ double _calculatePositionY(String moodType, context) {
 // Calculate X-axis position based on month index
 double _calculatePositionX(int monthIndex, context) {
   // Adjust the spacing based on your preference
-  return monthIndex * ((MediaQuery.of(context).size.width - 70) / 6) +
+  return (monthIndex - 1) * ((MediaQuery.of(context).size.width - 70) / 6) +
       ((MediaQuery.of(context).size.width - 70) / 12);
 }

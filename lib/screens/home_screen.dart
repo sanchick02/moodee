@@ -423,7 +423,7 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  const TodayMoodStat(),
+                   TodayMoodStat(name: name,),
                   const SizedBox(
                     height: 10,
                   ),
