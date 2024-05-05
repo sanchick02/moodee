@@ -40,8 +40,8 @@ Moodee offers a comprehensive suite of features to empower users in managing the
   - Figma for UI/UX design for presenting the app's interface.
   - Flutter for front-end development.
   - Cloud Firestore, Firebase Storage, Firebase Authentication, Firebase Cloud Messaging for backend architecture. 
-  - Incorporates APIs such as OpenAI for AI Therapist Chatbot, Agora for virtual appointments or support group meetings, and Google Maps for locating therapy sessions.
-  - Additional APIs include Firebase for push notifications, HTTP packages for backend connectivity, and Riverpod for app-wide state management.
+  - Incorporates APIs such as Gemini for AI Therapist Chatbot, ZegoCloud for virtual appointments or support group meetings, and Google Maps for locating therapy sessions.
+  - Additional APIs include Firebase Authentication for authentication, Firebase Firestore for database, Firebase Functions for push notifications, HTTP packages for backend connectivity, and Riverpod for app-wide state management.
   - Tensorflow utilized for mood tracking based on facial recognition models.
     
 
