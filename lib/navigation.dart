@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
-import 'package:moodee/providers/mood_tracker_provider.dart';
+import 'package:moodee/data/therapy_lists.dart';
+import 'package:moodee/providers/events_provider.dart';
+import 'package:moodee/providers/forum_post_provider.dart';
+import 'package:moodee/providers/therapist_provider.dart';
 import 'package:moodee/screens/therapist/therapist_chat_screen.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/shadow.dart';
@@ -10,6 +13,7 @@ import 'package:moodee/screens/chatbot/chatbot_screen.dart';
 import 'package:moodee/screens/community/community_screen.dart';
 import 'package:moodee/screens/home_screen.dart';
 import 'package:moodee/screens/profile/profile_screen.dart';
+import 'package:moodee/providers/mood_tracker_provider.dart';
 import 'package:provider/provider.dart';
 
 class Navigation extends StatefulWidget {
@@ -32,21 +36,42 @@ class _NavigationState extends State<Navigation> {
 
   @override
   void initState() {
+    Provider.of<TherapistProvider>(context, listen: false).fetchTherapistData();
+    Provider.of<EventsProvider>(context, listen: false)
+        .fetchEventsData()
+        .then((_) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+
+    Provider.of<ForumProvider>(context, listen: false)
+        .fetchUserData()
+        .then((_) {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+      Provider.of<MoodTrackerProvider>(context, listen: false).fetchMoodData();
+    super.initState();
+  }
     Provider.of<UserProvider>(context, listen: false).fetchUserData().then((_) {
       setState(() {
         _isLoading = false;
 
         pages = [
-          const HomeScreen(),
+          HomeScreen(
+            mediaItem: meditationList[0],
+            mediaList: meditationList,
+          ),
           const TherapistChatScreen(),
-          // const Bazoot_Screen(),
           const ChatBotScreen(),
           const CommunityScreen(),
           const ProfileScreen(),
         ];
       });
     });
-    Provider.of<MoodTrackerProvider>(context, listen: false).fetchMoodData();
+
     super.initState();
   }
 
