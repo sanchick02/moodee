@@ -43,28 +43,59 @@ Moodee offers a comprehensive suite of features to empower users in managing the
   - Additional APIs include Firebase for push notifications, HTTP packages for backend connectivity, and Riverpod for app-wide state management.
   - Tensorflow utilized for mood tracking based on facial recognition models.
     
+
 ## Technologies
-- Cupertino Icons (UI) -  **cupertino_icons:**  ^1.0.2
-- Firebase Core (Firebase Integration) - **firebase_core:** ^2.24.2
-- Firebase Auth (Authentication Service) - **firebase_auth:** ^4.16.0
-- Cloud Firestore (Database) - **cloud_firestore:** ^4.14.0
-- Firebase Storage (Storage Service) - **firebase_storage:** ^11.6.0
-- Firebase Messaging (Messaging Service) - **firebase_messaging:** ^14.7.10
-- Flutter Inset Box Shadow (UI) - **flutter_inset_box_shadow:** ^1.0.8
-- Bulleted List (UI) - **bulleted_list:** ^0.0.1+0.1a
-- Rive (Animation) - **rive:** ^0.12.4
-- Table Calendar (UI) - **table_calendar:** ^3.0.9
-- Provider (State Management) - **provider:** ^6.1.1
-- Camera (Device Feature) - **camera:** ^0.10.5+9
-- TFLite Flutter (Machine Learning) - **tflite_flutter:** ^0.10.1
-- Image Picker (Device Feature) - **image_picker:** ^0.8.4+4
-- Flutter TFLite (Machine Learning) - **flutter_tflite:** ^1.0.1
-- Flutter Launcher Icons (UI) - **flutter_launcher_icons:** ^0.9.3
-- ChatGPT SDK (AI Integration) - **chat_gpt_sdk:** ^2.2.8
-- Dash Chat 2 (UI) - **dash_chat_2:** ^0.0.19
-- Carousel Slider (UI) - **carousel_slider:** ^4.2.1
-- UUID (Utility) - **uuid:** ^4.3.3
-- Intl (Internationalization) - **intl:** ^0.18.1
+
+- **UI:** 
+  - Cupertino Icons: `cupertino_icons: ^1.0.2`
+  - Flutter Inset Box Shadow: `flutter_inset_box_shadow: ^1.0.8`
+  - Bulleted List: `bulleted_list: ^0.0.1+0.1a`
+  - Rive: `rive: ^0.12.4`
+  - Table Calendar: `table_calendar: ^3.0.9`
+  - Flutter Launcher Icons: `flutter_launcher_icons: ^0.9.3`
+  - Dash Chat 2: `dash_chat_2: ^0.0.19`
+  - Carousel Slider: `carousel_slider: ^4.2.1`
+  - Animated Text Kit: `animated_text_kit: ^4.2.2`
+  - Google Fonts: `google_fonts: ^6.2.1`
+
+- **Firebase Integration:** 
+  - Firebase Core: `firebase_core: ^2.24.2`
+  - Firebase Auth: `firebase_auth: ^4.16.0`
+  - Cloud Firestore: `cloud_firestore: ^4.14.0`
+  - Firebase Storage: `firebase_storage: ^11.6.0`
+  - Firebase Messaging: `firebase_messaging: ^14.7.10`
+
+- **State Management:** 
+  - Provider: `provider: ^6.1.1`
+
+- **Device Feature:** 
+  - Camera: `camera: ^0.10.5+9`
+  - Image Picker: `image_picker: ^0.8.4+4`
+
+- **Machine Learning:** 
+  - TFLite Flutter: `tflite_flutter: ^0.10.1`
+  - Flutter TFLite: `flutter_tflite: ^1.0.1`
+
+- **AI Integration:** 
+  - ChatGPT SDK: `chat_gpt_sdk: ^2.2.8`
+
+- **Utility:** 
+  - UUID: `uuid: ^4.3.3`
+
+- **Internationalization:** 
+  - Intl: `intl: ^0.18.1`
+
+- **Other:** 
+  - Google Generative AI: `google_generative_ai: ^0.3.2`
+  - Audio Video Progress Bar: `audio_video_progress_bar: ^2.0.1`
+  - Spotify: `spotify: ^0.13.6+1`
+  - YouTube Explode Dart: `youtube_explode_dart: ^2.0.2`
+  - Audioplayers: `audioplayers: ^5.2.1`
+  - Palette Generator: `palette_generator: ^0.3.3+3`
+  - Scrollable Positioned List: `scrollable_positioned_list: ^0.3.8`
+  - Pie Chart: `pie_chart: ^5.4.0`
+  - Collection: `collection: ^1.1.0`
+
 
 ## App Screenshot
 ![Screenshot 1](lib/apps/AppCollage.png)
