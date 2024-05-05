@@ -321,7 +321,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       text: "Edit Profile",
                                       press: () {
                                         // uploadEvents(eventList);
-                                        uploadTherapists(therapistList);
+                                        // uploadTherapists(therapistList);
                                       },
                                       backgroundColor: AppColor.btnColorPrimary,
                                       height: 30,
