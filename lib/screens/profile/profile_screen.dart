@@ -8,6 +8,7 @@ import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:moodee/auth_widget_tree.dart';
 import 'package:moodee/data/events.dart';
+import 'package:moodee/data/therapists.dart';
 import 'package:moodee/models/events_model.dart';
 import 'package:moodee/models/therapists_model.dart';
 import 'package:moodee/page_navigator.dart';
@@ -196,7 +197,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Container(
                         width: double.infinity,
-                        height: MediaQuery.of(context).size.width * 0.6,
+                        height: MediaQuery.of(context).size.width * 0.7,
                         decoration: BoxDecoration(
                           color: AppColor.fontColorSecondary,
                           boxShadow: [
@@ -320,7 +321,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       text: "Edit Profile",
                                       press: () {
                                         // uploadEvents(eventList);
-                                        // uploadTherapists(therapistList);
+                                        uploadTherapists(therapistList);
                                       },
                                       backgroundColor: AppColor.btnColorPrimary,
                                       height: 30,
