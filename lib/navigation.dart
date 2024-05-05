@@ -13,6 +13,7 @@ import 'package:moodee/screens/chatbot/chatbot_screen.dart';
 import 'package:moodee/screens/community/community_screen.dart';
 import 'package:moodee/screens/home_screen.dart';
 import 'package:moodee/screens/profile/profile_screen.dart';
+import 'package:moodee/providers/mood_tracker_provider.dart';
 import 'package:provider/provider.dart';
 
 class Navigation extends StatefulWidget {
@@ -51,6 +52,9 @@ class _NavigationState extends State<Navigation> {
         _isLoading = false;
       });
     });
+      Provider.of<MoodTrackerProvider>(context, listen: false).fetchMoodData();
+    super.initState();
+  }
     Provider.of<UserProvider>(context, listen: false).fetchUserData().then((_) {
       setState(() {
         _isLoading = false;
