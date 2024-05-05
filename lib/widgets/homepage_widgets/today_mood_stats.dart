@@ -12,7 +12,8 @@ import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:provider/provider.dart';
 
 class TodayMoodStat extends StatelessWidget {
-  const TodayMoodStat({super.key});
+  const TodayMoodStat({super.key, required this.name});
+  final String name;
 
   bool isToday(DateTime date) {
     final now = DateTime.now();
@@ -70,7 +71,7 @@ class TodayMoodStat extends StatelessWidget {
               DefaultButton(
                 text: 'View Mood Report',
                 press: () {
-                  navigateNextPage(context, const MoodReportScreen());
+                  navigateNextPage(context, MoodReportScreen(name: name));
                 },
                 backgroundColor: AppColor.btnColorPrimary,
                 height: 35,
@@ -91,7 +92,8 @@ class TodayMoodStat extends StatelessWidget {
                   ? MoodStats(
                       backgroundColor: const Color(0xffFCFFD6),
                       data: morningData,
-                      timeImage:  "lib/assets/images/claudias-part_branch/afternoon.png",
+                      timeImage:
+                          "lib/assets/images/claudias-part_branch/afternoon.png",
                     )
                   : const SizedBox(
                       height: 0,
@@ -102,7 +104,8 @@ class TodayMoodStat extends StatelessWidget {
                   ? MoodStats(
                       backgroundColor: const Color(0xffDBFFD5),
                       data: afternoonData,
-                      timeImage:  "lib/assets/images/claudias-part_branch/morning.png")
+                      timeImage:
+                          "lib/assets/images/claudias-part_branch/morning.png")
                   : const SizedBox(
                       height: 0,
                       width: 0,
@@ -112,7 +115,8 @@ class TodayMoodStat extends StatelessWidget {
                   ? MoodStats(
                       backgroundColor: const Color(0xffFFEAD9),
                       data: eveningData,
-                      timeImage:  "lib/assets/images/claudias-part_branch/afternoon.png")
+                      timeImage:
+                          "lib/assets/images/claudias-part_branch/afternoon.png")
                   : const SizedBox(
                       height: 0,
                       width: 0,
@@ -122,7 +126,8 @@ class TodayMoodStat extends StatelessWidget {
                   ? MoodStats(
                       backgroundColor: const Color(0xffD5EBFF),
                       data: nightData,
-                      timeImage:  "lib/assets/images/claudias-part_branch/night.png")
+                      timeImage:
+                          "lib/assets/images/claudias-part_branch/night.png")
                   : const SizedBox(
                       height: 0,
                       width: 0,
@@ -181,7 +186,10 @@ class MoodStats extends StatelessWidget {
                                 context, const MoodTrackerScreen());
                           },
                           icon: const Icon(Icons.add_circle_outline_rounded))),
-              Text(data.isNotEmpty ? data[0].type : 'Add', style: AppFonts.extraSmallLightText,)
+              Text(
+                data.isNotEmpty ? data[0].type : 'Add',
+                style: AppFonts.extraSmallLightText,
+              )
             ],
           ),
         ),
