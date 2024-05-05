@@ -1,5 +1,47 @@
 // import 'package:moodee/models/events_model.dart';
 
+
+// NOT DONE YET ! WILL DO WHEN FREE
+class EventAdditional {
+  final String id;
+  final double price;
+  final int numOfAttendees;
+  final bool isAddedToWishlist;
+  final List<String> eventDetails;
+
+  EventAdditional({
+    required this.id,
+    required this.price,
+    required this.numOfAttendees,
+    required this.isAddedToWishlist,
+    required this.eventDetails,
+  });
+}
+
+List<EventAdditional> eventList = [
+  EventAdditional(
+    id: "id",
+    price: 100,
+    numOfAttendees: 1,
+    isAddedToWishlist: false,
+    eventDetails: [],
+  ),
+  EventAdditional(
+    id: "id",
+    price: 100,
+    numOfAttendees: 1,
+    isAddedToWishlist: false,
+    eventDetails: [],
+  ),
+  EventAdditional(
+    id: "id",
+    price: 100,
+    numOfAttendees: 1,
+    isAddedToWishlist: false,
+    eventDetails: [],
+  )
+];
+
 // List<Event> eventList = [
 //   Event(
 //       id: '',
