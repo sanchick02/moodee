@@ -55,6 +55,32 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
     "lib/assets/images/4.png",
   ]; // List to store image URLs
 
+   final List<MoodTracker> moodData = [
+    MoodTracker(
+      question: '', 
+      image: '',
+      type: '', 
+      answer: '', 
+      date: DateTime.now().toString(), 
+      moodIntensity: 0, 
+      moodTrackerStreak: '', 
+      timePeriod: '', 
+      userId: '')
+  ];
+
+  @override
+  void initState() {
+    Provider.of<MoodTrackerProvider>(context, listen: false)
+        .fetchMoodData()
+        .then((_) {
+      setState(() {
+        moodData;
+        // Sorting logic based on the time attribute
+        // _registeredExpenses.sort((a, b) => b.time.compareTo(a.time));
+      });
+    });
+
+
   final player = AudioPlayer();
   late Music music;
 
@@ -378,7 +404,11 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 20),
+                  const TodayMoodStat(),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Row(
