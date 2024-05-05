@@ -53,7 +53,6 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
 
   bool spotifyDetailsFetched = false;
 
-
   List<String> carouselImageUrls = [
     "lib/assets/images/1.png",
     "lib/assets/images/2.png",
@@ -162,12 +161,10 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
         }
       });
       setState(() {
-  spotifyDetailsFetched = true;
-});
-
+        spotifyDetailsFetched = true;
+      });
     }
   }
-  
 
   Future<Color?> getImagePalette(ImageProvider imageProvider) async {
     final PaletteGenerator paletteGenerator =
@@ -190,14 +187,6 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
       context,
       listen: false,
     );
-
-    if (provider.userProviderData == '') {
-      return const Center(
-        child: CircularProgressIndicator(),
-      );
-    }
-
-    if (provider.userProviderData!.therapist_id == '') {}
 
     String usersTherapist = provider.userProviderData!.therapist_id;
     final int index = provider2.therapistsList
@@ -294,7 +283,8 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
                                 ),
                                 ElevatedButton(
                                     onPressed: () {
-                                      navigateNextPage(context, const CallPage());
+                                      navigateNextPage(
+                                          context, const CallPage());
                                     },
                                     style: const ButtonStyle(
                                       elevation: MaterialStatePropertyAll(0),
@@ -374,15 +364,18 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
       ),
     );
 
-    if (!spotifyDetailsFetched || provider.userProviderData == null || provider2.therapistsList.isEmpty || provider3.eventsList.isEmpty) {
-    // If Spotify details are not fetched or other data is still loading, show a progress indicator
-    return Scaffold(
-      backgroundColor: AppColor.backgroundColor,
-      body: const Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-  }
+    // if (!spotifyDetailsFetched ||
+    //     provider.userProviderData!.therapist_id == '' ||
+    //     provider2.therapistsList.isEmpty ||
+    //     provider3.eventsList.isEmpty) {
+    //   // If Spotify details are not fetched or other data is still loading, show a progress indicator
+    //   return Scaffold(
+    //     backgroundColor: AppColor.backgroundColor,
+    //     body: const Center(
+    //       child: CircularProgressIndicator(),
+    //     ),
+    //   );
+    // }
 
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
@@ -423,11 +416,12 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                   TodayMoodStat(name: name,),
+                  TodayMoodStat(
+                    name: name,
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
-                  
                   if (provider.userProviderData!.isTherapist == true)
                     hasDoctor
                   else

@@ -59,10 +59,11 @@ class _NavigationState extends State<Navigation> {
       });
     });
 
+    Provider.of<TherapistProvider>(context, listen: false).fetchTherapistData();
+
     Provider.of<UserProvider>(context, listen: false).fetchUserData().then((_) {
       setState(() {
         _isLoading = false;
-        
 
         pages = [
           HomeScreen(
@@ -76,24 +77,14 @@ class _NavigationState extends State<Navigation> {
         ];
       });
     });
-
     Provider.of<TherapistProvider>(context, listen: false)
         .fetchTherapistData()
         .then((_) {
       setState(() {
         _isLoading = false;
-        pages = [
-          HomeScreen(
-            mediaItem: meditationList[0],
-            mediaList: meditationList,
-          ),
-          const TherapistChatScreen(),
-          const ChatBotScreen(),
-          const CommunityScreen(),
-          const ProfileScreen(),
-        ];
       });
     });
+
     super.initState();
   }
 
@@ -103,10 +94,14 @@ class _NavigationState extends State<Navigation> {
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColor.backgroundColor,
       body: _isLoading
-          ? const Center(
+          ? Center(
               child: CircularProgressIndicator(),
             )
-          : pages[currentIndex],
+          : (pages.isNotEmpty && currentIndex < pages.length)
+              ? pages[currentIndex]
+              : Center(
+                  child: Text('No page found for currentIndex: $currentIndex'),
+                ),
       bottomNavigationBar: Stack(
         children: [
           Container(

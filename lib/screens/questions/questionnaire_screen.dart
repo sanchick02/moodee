@@ -46,7 +46,7 @@ class QuestionnaireScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        "Hey Sam,",
+                        "Hey,",
                         style: AppFonts.heading2,
                         textAlign: TextAlign.center,
                       ),
