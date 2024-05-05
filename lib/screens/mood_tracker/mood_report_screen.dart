@@ -248,6 +248,12 @@ class _MoodReportScreenState extends State<MoodReportScreen> {
                 ],
               ),
               const Spacer(),
+                Text(
+                  textAlign: TextAlign.center,
+                  'The bigger the circle, the more mood you have tracked in that particular month. Click on the dots to see more.',
+                  style: AppFonts.smallLightText,
+                ),
+                const Spacer(),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: DefaultButton(
@@ -264,7 +270,9 @@ class _MoodReportScreenState extends State<MoodReportScreen> {
           PopUpMoodReport(
             showPopup: showPopup,
             monthData: monthlyMoodData[selectedMonth],
+            onClose: togglePopUp,
           )
+          
         ],
       ),
     );
