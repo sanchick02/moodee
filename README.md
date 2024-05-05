@@ -17,6 +17,7 @@ Moodee offers a comprehensive suite of features to empower users in managing the
 2. Open the source code folder on your preferred IDE (Visual Studio Code Recommended)
 3. Run the source code on any physical / virtual device, online documentation (Preferred to use Pixel 7 Pro & Pixel 8 Pro AVD).
 4. Start navigating and using the application's features.
+5. If in any case there is an error due to a bad state, please refresh the app as the connection may not be good to retrieve data from firebase.
 
 ## Moodee Mobile App Features:
 - Personalised Contents 
