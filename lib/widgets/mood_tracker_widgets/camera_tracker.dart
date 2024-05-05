@@ -197,233 +197,189 @@ class _CameraTrackerState extends State<CameraTracker> {
 
   @override
   Widget build(BuildContext context) {
-    return 
-      isCaptured ? cameraCapturedTrue(context) : cameraCapturedFalse(context);
+    return isCaptured
+        ? cameraCapturedTrue(context)
+        : cameraCapturedFalse(context);
   }
 
   Column cameraCapturedFalse(BuildContext context) {
     return Column(
-                      children: [
-                        const SizedBox(height: 40),
-                        Column(
-                          children: [
-                            Text(
-                              "Track Your Mood",
-                              style: AppFonts.heading3,
-                            ),
-                            Text(
-                              "Look into the camera and hold still",
-                              style: AppFonts.smallLightText,
-                            ),
-                            const SizedBox(height: 30),
-                          ],
-                        ),
-                        Stack(
-                          children: [
-                            ClipOval(
-                              child: SizedBox(
-                                height:
-                                    MediaQuery.of(context).size.height * 0.3,
-                                width:
-                                    MediaQuery.of(context).size.height * 0.3,
-                                child: !cameraController!.value.isInitialized
-                                    ? Container()
-                                    : AspectRatio(
-                                        aspectRatio: cameraController!
-                                            .value.aspectRatio,
-                                        child:
-                                            CameraPreview(cameraController!),
-                                      ),
-                              ),
-                            ),
-                            SizedBox(
-                              height:
-                                  MediaQuery.of(context).size.height * 0.3,
-                              width: MediaQuery.of(context).size.height * 0.3,
-                              child: isLoading
-                                  ? CustomCircularProgressIndicator(
-                                      color: AppColor.btnColorPrimary,
-                                    )
-                                  : CustomCircularProgressIndicator(
-                                      color: Colors.transparent),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          children: [
-                            const SizedBox(height: 60),
-                            Text(
-                              "Your Mood Right Now",
-                              style: AppFonts.largeMediumText,
-                            ),
-                            const SizedBox(height: 5),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 60),
-                              child: Container(
-                                color: AppColor.fontColorPrimary,
-                                width: double.infinity,
-                                height: 0.8,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 60),
-                              child: SizedBox(
-                                width: double.infinity,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    // output == '0 happy'
-                                    //     ? Image.asset(
-                                    //         'lib/assets/images/emojiHappy.png',
-                                    //         width: 120,
-                                    //       )
-                                    //     : output == '1 sad'
-                                    //         ? Image.asset(
-                                    //             'lib/assets/images/Sad.png',
-                                    //             width: 120,
-                                    //           )
-                                    //         : output == ' 2 angry'
-                                    //             ? Image.asset(
-                                    //                 'lib/assets/images/emojiHappy.png',
-                                    //                 width: 120,
-                                    //               )
-                                    //             : Container(),
-                                    // SizedBox(width: 10),
-                                    Text(
-                                      output,
-                                      style: AppFonts.heading3Height,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 15),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 60),
-                          child: DefaultButton(
-                            press: isLoading ? null : logMood,
-                            text: "Log My Mood",
-                            backgroundColor: AppColor.btnColorPrimary,
-                            height: 40,
-                            fontStyle: AppFonts.normalRegularTextWhite,
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 8,
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
+      children: [
+        const SizedBox(height: 40),
+        Stack(
+          children: [
+            ClipOval(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * 0.3,
+                width: MediaQuery.of(context).size.height * 0.3,
+                child: !cameraController!.value.isInitialized
+                    ? Container()
+                    : AspectRatio(
+                        aspectRatio: cameraController!.value.aspectRatio,
+                        child: CameraPreview(cameraController!),
+                      ),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.3,
+              width: MediaQuery.of(context).size.height * 0.3,
+              child: isLoading
+                  ? CustomCircularProgressIndicator(
+                      color: AppColor.btnColorPrimary,
+                    )
+                  : CustomCircularProgressIndicator(color: Colors.transparent),
+            ),
+          ],
+        ),
+        Column(
+          children: [
+            const SizedBox(height: 60),
+            Text(
+              "Your Mood Right Now",
+              style: AppFonts.largeMediumText,
+            ),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60),
+              child: Container(
+                color: AppColor.fontColorPrimary,
+                width: double.infinity,
+                height: 0.8,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60),
+              child: SizedBox(
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    // output == '0 happy'
+                    //     ? Image.asset(
+                    //         'lib/assets/images/emojiHappy.png',
+                    //         width: 120,
+                    //       )
+                    //     : output == '1 sad'
+                    //         ? Image.asset(
+                    //             'lib/assets/images/Sad.png',
+                    //             width: 120,
+                    //           )
+                    //         : output == ' 2 angry'
+                    //             ? Image.asset(
+                    //                 'lib/assets/images/emojiHappy.png',
+                    //                 width: 120,
+                    //               )
+                    //             : Container(),
+                    // SizedBox(width: 10),
+                    Text(
+                      output,
+                      style: AppFonts.heading3Height,
+                    ),
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
+        const SizedBox(height: 15),
+        DefaultButton(
+          press: isLoading ? null : logMood,
+          text: "Log My Mood",
+          backgroundColor: AppColor.btnColorPrimary,
+          height: 40,
+          fontStyle: AppFonts.normalRegularTextWhite,
+          width: MediaQuery.of(context).size.width - 40,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 8,
+          ),
+        ),
+      ],
+    );
   }
 
   Column cameraCapturedTrue(BuildContext context) {
     return Column(
-                      children: [
-                        const SizedBox(height: 40),
-                        Column(
-                          children: [
-                            Text(
-                              "Track Your Mood",
-                              style: AppFonts.heading3,
-                            ),
-                            Text(
-                              "Look into the camera and hold still",
-                              style: AppFonts.smallLightText,
-                            ),
-                            const SizedBox(height: 30),
-                          ],
-                        ),
-                        ClipOval(
-                          child: SizedBox(
-                            child: Image.file(
-                              _capturedImage!,
-                              height:
-                                  MediaQuery.of(context).size.height * 0.3,
-                              width: MediaQuery.of(context).size.height * 0.3,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Column(
-                          children: [
-                            const SizedBox(height: 60),
-                            Text(
-                              "Your Mood Right Now",
-                              style: AppFonts.largeMediumText,
-                            ),
-                            const SizedBox(height: 5),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 60),
-                              child: Container(
-                                color: AppColor.fontColorPrimary,
-                                width: double.infinity,
-                                height: 0.8,
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 60),
-                              child: SizedBox(
-                                width: double.infinity,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    // output == '0 happy'
-                                    //     ? Image.asset(
-                                    //         'lib/assets/images/emojiHappy.png',
-                                    //         width: 120,
-                                    //       )
-                                    //     : output == '1 sad'
-                                    //         ? Image.asset(
-                                    //             'lib/assets/images/Sad.png',
-                                    //             width: 120,
-                                    //           )
-                                    //         : output == ' 2 angry'
-                                    //             ? Image.asset(
-                                    //                 'lib/assets/images/emojiHappy.png',
-                                    //                 width: 120,
-                                    //               )
-                                    //             : Container(),
-                                    // SizedBox(width: 10),
-                                    Text(
-                                      output,
-                                      style: AppFonts.heading3Height,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 60),
-                          child: DefaultButton(
-                            press: rescan,
-                            text: "Rescan My Face",
-                            backgroundColor: AppColor.btnColorPrimary,
-                            height: 40,
-                            fontStyle: AppFonts.normalRegularTextWhite,
-                            width: double.infinity,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 8,
-                            ),
-                          ),
-                        ),
-                      ],
-                    );
+      children: [
+        const SizedBox(height: 40),
+        ClipOval(
+          child: SizedBox(
+            child: Image.file(
+              _capturedImage!,
+              height: MediaQuery.of(context).size.height * 0.3,
+              width: MediaQuery.of(context).size.height * 0.3,
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+        Column(
+          children: [
+            const SizedBox(height: 60),
+            Text(
+              "Your Mood Right Now",
+              style: AppFonts.largeMediumText,
+            ),
+            const SizedBox(height: 5),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60),
+              child: Container(
+                color: AppColor.fontColorPrimary,
+                width: double.infinity,
+                height: 0.8,
+              ),
+            ),
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60),
+              child: SizedBox(
+                width: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    // output == '0 happy'
+                    //     ? Image.asset(
+                    //         'lib/assets/images/emojiHappy.png',
+                    //         width: 120,
+                    //       )
+                    //     : output == '1 sad'
+                    //         ? Image.asset(
+                    //             'lib/assets/images/Sad.png',
+                    //             width: 120,
+                    //           )
+                    //         : output == ' 2 angry'
+                    //             ? Image.asset(
+                    //                 'lib/assets/images/emojiHappy.png',
+                    //                 width: 120,
+                    //               )
+                    //             : Container(),
+                    // SizedBox(width: 10),
+                    Text(
+                      output,
+                      style: AppFonts.heading3Height,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 15,
+        ),
+        DefaultButton(
+          press: rescan,
+          text: "Rescan My Face",
+          backgroundColor: AppColor.btnColorPrimary,
+          height: 40,
+          fontStyle: AppFonts.normalRegularTextWhite,
+          width: MediaQuery.of(context).size.width - 40,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 8,
+          ),
+        ),
+      ],
+    );
   }
 }

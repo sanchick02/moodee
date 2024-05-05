@@ -149,4 +149,20 @@ class AppFonts {
     color: AppColor.fontColorSecondary,
     // height: 0,
   );
+
+    static TextStyle smallestLightTextWhite = TextStyle(
+    fontFamily: "LeagueSpartan",
+    fontSize: 11,
+    fontWeight: FontWeight.w300, // small light gray
+    color: AppColor.fontColorSecondary,
+    // height: 0,
+  );
+
+  static TextStyle smallestLightText = TextStyle(
+    fontFamily: "LeagueSpartan",
+    fontSize: 11,
+    fontWeight: FontWeight.w300, // small light gray
+    color: AppColor.fontColorPrimary,
+    // height: 0,
+  );
 }

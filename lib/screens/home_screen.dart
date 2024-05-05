@@ -51,6 +51,9 @@ class HomeScreen<T extends MediaItem> extends StatefulWidget {
 class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
   int carouselCurrentIndex = 0;
 
+  bool spotifyDetailsFetched = false;
+
+
   List<String> carouselImageUrls = [
     "lib/assets/images/1.png",
     "lib/assets/images/2.png",
@@ -158,8 +161,13 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
           music.duration = video.duration;
         }
       });
+      setState(() {
+  spotifyDetailsFetched = true;
+});
+
     }
   }
+  
 
   Future<Color?> getImagePalette(ImageProvider imageProvider) async {
     final PaletteGenerator paletteGenerator =
@@ -204,14 +212,14 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
             TherapistDetailsScreen(
                 index: index, therapistList: provider2.therapistsList));
       },
-      child: Stack(
-        alignment: Alignment.bottomRight,
-        children: [
-          Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Row(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15),
+        child: Stack(
+          alignment: Alignment.bottomRight,
+          children: [
+            Column(
+              children: [
+                Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
@@ -220,103 +228,106 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(height: 10),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.width * 0.5,
-                decoration: BoxDecoration(
-                  borderRadius: AppStyles.borderRadiusAll,
-                  boxShadow: [AppShadow.innerShadow3],
-                ),
-                child: Stack(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
-                        "lib/assets/images/meshGrad1.png",
-                        fit: BoxFit.cover,
-                        width: double.infinity,
+                const SizedBox(height: 10),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.width * 0.5,
+                  decoration: BoxDecoration(
+                    borderRadius: AppStyles.borderRadiusAll,
+                    boxShadow: [AppShadow.innerShadow3],
+                  ),
+                  child: Stack(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20),
+                        child: Image.asset(
+                          "lib/assets/images/meshGrad1.png",
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                        ),
                       ),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.width * 0.5,
-                      padding: const EdgeInsets.symmetric(horizontal: 15),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            provider.userProviderData!.isTherapist == true
-                                ? provider2.therapistsList
-                                    .firstWhere((element) =>
-                                        element.id == usersTherapist)
-                                    .name
-                                : "Therapist",
-                            style: AppFonts.normalRegularTextHeight,
-                          ),
-                          Text(
-                            "Therapist",
-                            style: AppFonts.smallLightText,
-                          ),
-                          Text(
-                            provider.userProviderData!.isTherapist == true
-                                ? "@ ${provider2.therapistsList.firstWhere((element) => element.id == usersTherapist).workplace}"
-                                : "Workplace",
-                            style: AppFonts.extraSmallLightText,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Row(
-                            children: [
-                              ElevatedButton(
-                                  onPressed: () {
-                                    navigateNextPage(
-                                        context, const TherapistChatScreen());
-                                  },
-                                  style: const ButtonStyle(
-                                    elevation: MaterialStatePropertyAll(0),
-                                  ),
-                                  child: Image.asset(
-                                    "lib/assets/images/claudias-part_branch/msg.png",
-                                    width: 20,
-                                  )),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              ElevatedButton(
-                                  onPressed: () {
-                                    navigateNextPage(context, const CallPage());
-                                  },
-                                  style: const ButtonStyle(
-                                    elevation: MaterialStatePropertyAll(0),
-                                  ),
-                                  child: Image.asset(
-                                    "lib/assets/images/claudias-part_branch/call.png",
-                                    width: 20,
-                                  )),
-                            ],
-                          ),
-                        ],
+                      Container(
+                        height: MediaQuery.of(context).size.width * 0.5,
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              provider.userProviderData!.isTherapist == true
+                                  ? provider2.therapistsList
+                                      .firstWhere((element) =>
+                                          element.id == usersTherapist)
+                                      .name
+                                  : "Therapist",
+                              style: AppFonts.normalRegularTextHeight,
+                            ),
+                            Text(
+                              "Therapist",
+                              style: AppFonts.smallLightText,
+                            ),
+                            Text(
+                              provider.userProviderData!.isTherapist == true
+                                  ? "@ ${provider2.therapistsList.firstWhere((element) => element.id == usersTherapist).workplace}"
+                                  : "Workplace",
+                              style: AppFonts.extraSmallLightText,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: [
+                                ElevatedButton(
+                                    onPressed: () {
+                                      navigateNextPage(
+                                          context, const TherapistChatScreen());
+                                    },
+                                    style: const ButtonStyle(
+                                      elevation: MaterialStatePropertyAll(0),
+                                    ),
+                                    child: Image.asset(
+                                      "lib/assets/images/claudias-part_branch/msg.png",
+                                      width: 20,
+                                    )),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                ElevatedButton(
+                                    onPressed: () {
+                                      navigateNextPage(context, const CallPage());
+                                    },
+                                    style: const ButtonStyle(
+                                      elevation: MaterialStatePropertyAll(0),
+                                    ),
+                                    child: Image.asset(
+                                      "lib/assets/images/claudias-part_branch/call.png",
+                                      width: 20,
+                                    )),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+              ],
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.only(bottomRight: Radius.circular(20)),
+              child: Image.asset(
+                provider.userProviderData!.isTherapist == true
+                    ? provider2.therapistsList
+                        .firstWhere((element) => element.id == usersTherapist)
+                        .image
+                    : "lib/assets/images/therapist1.png",
+                width: MediaQuery.of(context).size.width * 0.45,
+                height: MediaQuery.of(context).size.width * 0.65,
+                fit: BoxFit.cover,
               ),
-            ],
-          ),
-          Image.asset(
-            provider.userProviderData!.isTherapist == true
-                ? provider2.therapistsList
-                    .firstWhere((element) => element.id == usersTherapist)
-                    .image
-                : "lib/assets/images/therapist1.png",
-            width: MediaQuery.of(context).size.width * 0.5,
-            height: MediaQuery.of(context).size.width * 0.7,
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
 
@@ -363,6 +374,16 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
       ),
     );
 
+    if (!spotifyDetailsFetched || provider.userProviderData == null || provider2.therapistsList.isEmpty || provider3.eventsList.isEmpty) {
+    // If Spotify details are not fetched or other data is still loading, show a progress indicator
+    return Scaffold(
+      backgroundColor: AppColor.backgroundColor,
+      body: const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+  }
+
     return Scaffold(
       backgroundColor: AppColor.backgroundColor,
       body: Stack(
@@ -404,158 +425,9 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
                   const SizedBox(height: 20),
                   const TodayMoodStat(),
                   const SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "Today's Mood Stats",
-                          style: AppFonts.largeMediumText,
-                        ),
-                        DefaultButton(
-                          text: "View Mood Report",
-                          press: () {},
-                          backgroundColor: AppColor.btnColorPrimary,
-                          height: 35,
-                          fontStyle: AppFonts.extraSmallLightTextWhite,
-                          width: 130,
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 8),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: (MediaQuery.of(context).size.width / 4 - 15),
-                          height: MediaQuery.of(context).size.width * 0.35,
-                          padding: const EdgeInsets.only(bottom: 5),
-                          decoration: BoxDecoration(
-                            color: const Color(0xffFCFFD6),
-                            borderRadius: AppStyles.borderRadiusAll,
-                            boxShadow: [AppShadow.innerShadow3],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                "lib/assets/images/claudias-part_branch/afternoon.png",
-                                width: MediaQuery.of(context).size.width * 0.13,
-                              ),
-                              const Spacer(),
-                              Image.asset(
-                                "lib/assets/images/claudias-part_branch/emoji1.png",
-                                width: MediaQuery.of(context).size.width * 0.1,
-                              ),
-                              const Spacer(),
-                              Text(
-                                "Happy",
-                                style: AppFonts.smallLightText,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: (MediaQuery.of(context).size.width / 4 - 15),
-                          height: MediaQuery.of(context).size.width * 0.35,
-                          padding: const EdgeInsets.only(bottom: 5),
-                          decoration: BoxDecoration(
-                            color: const Color(0xffDBFFD5),
-                            borderRadius: AppStyles.borderRadiusAll,
-                            boxShadow: [AppShadow.innerShadow3],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                "lib/assets/images/claudias-part_branch/morning.png",
-                                width: MediaQuery.of(context).size.width * 0.13,
-                              ),
-                              const Spacer(),
-                              Image.asset(
-                                "lib/assets/images/claudias-part_branch/emoji8.png",
-                                width: MediaQuery.of(context).size.width * 0.1,
-                              ),
-                              const Spacer(),
-                              Text(
-                                "Anxious",
-                                style: AppFonts.smallLightText,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: (MediaQuery.of(context).size.width / 4 - 15),
-                          height: MediaQuery.of(context).size.width * 0.35,
-                          padding: const EdgeInsets.only(bottom: 5),
-                          decoration: BoxDecoration(
-                            color: const Color(0xffFFEAD9),
-                            borderRadius: AppStyles.borderRadiusAll,
-                            boxShadow: [AppShadow.innerShadow3],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                "lib/assets/images/claudias-part_branch/afternoon.png",
-                                width: MediaQuery.of(context).size.width * 0.13,
-                              ),
-                              const Spacer(),
-                              Image.asset(
-                                "lib/assets/images/claudias-part_branch/emoji1.png",
-                                width: MediaQuery.of(context).size.width * 0.10,
-                              ),
-                              const Spacer(),
-                              Text(
-                                "Happy",
-                                style: AppFonts.smallLightText,
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          width: (MediaQuery.of(context).size.width / 4 - 15),
-                          height: MediaQuery.of(context).size.width * 0.35,
-                          padding: const EdgeInsets.only(bottom: 5),
-                          decoration: BoxDecoration(
-                            color: const Color(0xffD5EBFF),
-                            borderRadius: AppStyles.borderRadiusAll,
-                            boxShadow: [AppShadow.innerShadow3],
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Image.asset(
-                                "lib/assets/images/claudias-part_branch/night.png",
-                                width: MediaQuery.of(context).size.width * 0.13,
-                              ),
-                              const Spacer(),
-                              Image.asset(
-                                "lib/assets/images/claudias-part_branch/plus.png",
-                                width: MediaQuery.of(context).size.width * 0.08,
-                              ),
-                              const Spacer(),
-                              Text(
-                                "Add",
-                                style: AppFonts.smallLightText,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+                  
                   if (provider.userProviderData!.isTherapist == true)
                     hasDoctor
                   else
@@ -565,7 +437,6 @@ class _HomeScreenState<T extends MediaItem> extends State<HomeScreen<T>> {
                   const SizedBox(
                     height: 30,
                   ),
-                  const SizedBox(height: 20),
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 15),
                     child: Row(

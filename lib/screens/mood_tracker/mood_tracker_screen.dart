@@ -1,22 +1,12 @@
-import 'dart:async';
-import 'dart:io';
-import 'dart:ui';
-import 'package:camera/camera.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_tflite/flutter_tflite.dart';
-import 'package:moodee/main.dart';
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+
 import 'package:moodee/models/mood_types_model.dart';
 import 'package:moodee/presets/colors.dart';
 import 'package:moodee/presets/fonts.dart';
 import 'package:moodee/widgets/button.dart';
 import 'package:moodee/widgets/mood_tracker_widgets/camera_tracker.dart';
-import 'package:moodee/widgets/mood_tracker_widgets/circular_progress_indicator.dart';
 import 'package:moodee/widgets/mood_tracker_widgets/emoji_tracker.dart';
 import 'package:moodee/widgets/mood_tracker_widgets/pop_up_container.dart';
-import 'package:provider/provider.dart';
 
 class MoodTrackerScreen extends StatefulWidget {
   const MoodTrackerScreen({Key? key}) : super(key: key);
@@ -250,7 +240,7 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 20),
                         Column(
                           children: [
                             Text(
@@ -269,27 +259,25 @@ class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
                     absorbing: showPopup,
                     child: EmojiTracker(togglePopUp: togglePopUp,))
                   : const CameraTracker(),
-                Padding(
-                  padding: const EdgeInsets.only(right: 10.0, left: 10, top: 20, bottom: 10),
-                  child: Column(
-                    children: [
-                      Text(
-                        'OR',
-                        style: AppFonts.smallLightText,
-                      ),
-                      const SizedBox(height: 10,),
-                      DefaultButton(
-                        text: moodTrackerMode ? 'Scan my face' : 'Describe with emojis', 
-                        press: () {
-                          //toggleMode();
-                        }, 
-                        backgroundColor: Colors.transparent, 
-                        height: 40, 
-                        fontStyle: AppFonts.largeMediumText, 
-                        width: double.infinity, 
-                        padding: const EdgeInsets.only()),
-                    ],
-                  ),
+                Column(
+                  children: [
+                    const SizedBox(height: 10,),
+                    Text(
+                      'OR',
+                      style: AppFonts.smallLightText,
+                    ),
+                    const SizedBox(height: 10,),
+                    DefaultButton(
+                      text: moodTrackerMode ? 'Scan my face' : 'Describe with emojis', 
+                      press: () {
+                        toggleMode();
+                      }, 
+                      backgroundColor: AppColor.btnColorSecondary, 
+                      height: 40, 
+                      fontStyle: AppFonts.normalRegularText, 
+                      width: MediaQuery.of(context).size.width - 40, 
+                      padding: const EdgeInsets.only()),
+                  ],
                 )
               ],
             ),

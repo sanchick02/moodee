@@ -58,17 +58,21 @@ class _EmojiTrackerState extends State<EmojiTracker> {
                     shape: RoundedRectangleBorder( 
                       borderRadius: BorderRadius.circular(20.0),
                     ),
-                    backgroundColor: isSelected ? AppColor.btnColorPrimary : Colors.white
+                    backgroundColor: isSelected ? AppColor.btnColorPrimary : Colors.white,
+                    elevation: 0,
+                   
                   ),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Image.asset(moodList[index].image,),
-                        const Spacer(),
+                        
                         Text(
                           moodList[index].type,
-                          style: isSelected ? AppFonts.extraSmallLightTextWhite : AppFonts.extraSmallLightText,
+                          style: isSelected ? AppFonts.smallestLightTextWhite : AppFonts.smallestLightText,
                           ),
-                        const SizedBox(height: 15,)
+                        
                       ],
                     ),
                 );
@@ -122,8 +126,8 @@ class _EmojiTrackerState extends State<EmojiTracker> {
             }, 
             backgroundColor: AppColor.btnColorPrimary, 
             height: 40, 
-            fontStyle: AppFonts.largeMediumTextWhite, 
-            width: double.infinity, 
+            fontStyle: AppFonts.normalRegularTextWhite, 
+            width: MediaQuery.of(context).size.width - 40, 
             padding: const EdgeInsets.only()),
         ),
       ],

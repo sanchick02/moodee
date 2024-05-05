@@ -36,7 +36,6 @@ class _NavigationState extends State<Navigation> {
 
   @override
   void initState() {
-    Provider.of<TherapistProvider>(context, listen: false).fetchTherapistData();
     Provider.of<EventsProvider>(context, listen: false)
         .fetchEventsData()
         .then((_) {
@@ -63,6 +62,7 @@ class _NavigationState extends State<Navigation> {
     Provider.of<UserProvider>(context, listen: false).fetchUserData().then((_) {
       setState(() {
         _isLoading = false;
+        
 
         pages = [
           HomeScreen(
@@ -77,6 +77,23 @@ class _NavigationState extends State<Navigation> {
       });
     });
 
+    Provider.of<TherapistProvider>(context, listen: false)
+        .fetchTherapistData()
+        .then((_) {
+      setState(() {
+        _isLoading = false;
+        pages = [
+          HomeScreen(
+            mediaItem: meditationList[0],
+            mediaList: meditationList,
+          ),
+          const TherapistChatScreen(),
+          const ChatBotScreen(),
+          const CommunityScreen(),
+          const ProfileScreen(),
+        ];
+      });
+    });
     super.initState();
   }
 
