@@ -43,6 +43,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(
           value: EventsProvider(),
         ),
+        ChangeNotifierProvider.value(
+          value: MoodTrackerProvider(),
+        ),
       ],
       child: const MaterialApp(
         home: AuthWidgetTree(),
