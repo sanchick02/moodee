@@ -12,7 +12,9 @@ import 'package:moodee/widgets/mood_tracker_widgets/pop_up_mood_report.dart';
 import 'package:provider/provider.dart';
 
 class MoodReportScreen extends StatefulWidget {
-  const MoodReportScreen({super.key});
+  const MoodReportScreen({super.key, required this.name});
+
+  final String name;
 
   @override
   State<MoodReportScreen> createState() => _MoodReportScreenState();
@@ -95,7 +97,7 @@ class _MoodReportScreenState extends State<MoodReportScreen> {
                   ),
                 ),
                 Text(
-                  'Hey Sam,',
+                  'Hey, ' + widget.name!,
                   style: AppFonts.heading3,
                 ),
                 Text(
@@ -217,6 +219,12 @@ class _MoodReportScreenState extends State<MoodReportScreen> {
                   ],
                 ),
                 const Spacer(),
+                Text(
+                  textAlign: TextAlign.center,
+                  'The bigger the circle, the more mood you have tracked in that particular month. Click on the dots to see more.',
+                  style: AppFonts.smallLightText,
+                ),
+                const Spacer(),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: DefaultButton(
@@ -229,11 +237,14 @@ class _MoodReportScreenState extends State<MoodReportScreen> {
                     fontStyle: AppFonts.normalRegularTextWhite, 
                     width: double.infinity, 
                     padding: const EdgeInsets.only()),
-                )
+                ),
               ],
             )
           ),
-          PopUpMoodReport(showPopup: showPopup, monthData: monthlyMoodData[selectedMonth],)
+          PopUpMoodReport(showPopup: showPopup, 
+          monthData: monthlyMoodData[selectedMonth],
+          onClose: togglePopUp,
+          )
         ],
       ),
     );

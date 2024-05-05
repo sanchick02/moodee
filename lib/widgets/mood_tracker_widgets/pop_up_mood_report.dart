@@ -13,10 +13,10 @@ class PopUpMoodReport extends StatefulWidget {
     super.key,
     required this.showPopup,
     required this.monthData,
-    // required this.month,
-    // required this.year
+    required this.onClose
     });
 
+  final VoidCallback onClose;
   bool showPopup;
   List<MoodTracker> monthData;
 
@@ -105,9 +105,7 @@ class _PopUpMoodReportState extends State<PopUpMoodReport> {
                     child: IconButton(
                       icon: const Icon(Icons.close),
                       onPressed: () {
-                        setState(() {
-                          widget.showPopup = !widget.showPopup;
-                        });
+                        widget.onClose();
                       },
                     ))
                 ]

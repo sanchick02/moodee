@@ -13,12 +13,13 @@ import 'package:provider/provider.dart';
 
 class TodayMoodStat extends StatelessWidget {
 
-  const TodayMoodStat({super.key});
+  const TodayMoodStat({super.key, required this.name});
 
   bool isToday(DateTime date) {
   final now = DateTime.now();
   return now.year == date.year && now.month == date.month && now.day == date.day;
 }
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -37,19 +38,19 @@ class TodayMoodStat extends StatelessWidget {
           Row(
             children: [
               Text(
-                'Today''s Mood Stats',
-                style: AppFonts.normalRegularText,
+                'Today\'s Mood Stats',
+                style: AppFonts.largeMediumText,
               ),
               const Spacer(),
               DefaultButton(
                 text: 'View Mood Report', 
                 press: () {
-                  navigateNextPage(context, const MoodReportScreen());
+                  navigateNextPage(context, MoodReportScreen(name: name,));
                 }, 
                 backgroundColor: AppColor.btnColorPrimary, 
-                height: 30, 
-                fontStyle: AppFonts.smallRegularTextWhite, 
-                width: 150, 
+                height: 35, 
+                fontStyle: AppFonts.extraSmallLightTextWhite, 
+                width: 130, 
                 padding: const EdgeInsets.all(0)),
             ],
           ),
