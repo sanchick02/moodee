@@ -64,6 +64,8 @@ dependencies:
   audioplayers: ^5.2.1
   palette_generator: ^0.3.3+3
   scrollable_positioned_list: ^0.3.8
+  pie_chart: ^5.4.0
+  collection: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -114,6 +116,8 @@ flutter:
     - lib/assets/images/claudias-part_branch/
     - lib/assets/images/claudia_therapist_branch/
     - lib/assets/images/moodeetation-branch/
+    - lib/assets/images/mood_tracker/
+
 
   # assets:
   #   - images/a_dot_burr.jpeg
